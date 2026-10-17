@@ -2,7 +2,7 @@
 import time
 from typing import Any
 
-from ..models import Decision, Event, EventIn, Guardrail, Person
+from ..models import Answer, Decision, Event, EventIn, Guardrail, Person
 from ..store import get_store, now
 from . import jev, policy
 
@@ -42,8 +42,13 @@ async def process_event(ev_in: EventIn) -> Decision:
             if not guard.passed:
                 action = None
     elif route == "llm":
-        explanation, llm_cost = await jev.review_with_llm(state, answers)
-        cost += llm_cost
+        review = await jev.review_with_llm(state, answers, action)
+        explanation = review.explanation
+        cost += review.cost_usd
+        if review.segment:  # el LLM corrigió el segmento; `p` sigue siendo la de JEV
+            answers["segment"] = Answer(value=review.segment, p=answers["segment"].p)
+        if review.action_changed:
+            action = review.action
     else:
         action = None  # lo decide una persona en la cola de revisión
 

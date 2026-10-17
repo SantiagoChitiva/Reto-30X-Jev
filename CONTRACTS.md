@@ -70,7 +70,7 @@ Solo datos simulados. Nada de personas reales.
 - `route`: `auto` (p ≥ 0.85) | `llm` (0.60 ≤ p < 0.85) | `human` (p < 0.60 o segmento `otro`)
 - `guardrail`: solo se llena cuando `route = auto`. Si `passed = false`, `action = null`.
 - `action`: `send:<content>` | `notify_sales` | `null`
-- `explanation`: texto del LLM cuando `route = llm`.
+- `explanation`: texto del LLM cuando `route = llm`. En esa ruta el LLM puede **corregir** `segment.value` y `action`; si corrige el segmento, `segment.p` sigue siendo la de JEV y la explicación dice qué había propuesto JEV. Si el LLM falla, se conserva la propuesta de JEV.
 
 ## Review (cola humana)
 
