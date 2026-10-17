@@ -42,6 +42,16 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
+Tablero (en otra terminal, con el backend ya corriendo):
+
+```bash
+cd frontend
+npm install      # solo la primera vez
+npm run dev
+```
+
+- Tablero: http://localhost:3000 (usa `NEXT_PUBLIC_API_URL`, por defecto `http://localhost:8000`)
+
 `USE_MOCK_JEV=true` usa respuestas simuladas con la misma forma que las de JEV, para desarrollar sin API key.
 
 ## Estructura
