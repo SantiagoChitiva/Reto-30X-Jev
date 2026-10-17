@@ -12,9 +12,10 @@ from fastapi import FastAPI, HTTPException, Query  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 from pydantic import ValidationError  # noqa: E402
 
-from . import simulate, store  # noqa: E402
+from . import crm, simulate, store  # noqa: E402
 from .decision import jev, pipeline  # noqa: E402
 from .models import (  # noqa: E402
+    CrmRecord,
     Decision,
     EventIn,
     Metrics,
@@ -107,12 +108,31 @@ async def get_review_queue():
 
 @app.post("/review/{review_id}", response_model=Review)
 async def resolve_review(review_id: str, body: ReviewIn):
+    st = store.get_store()
     try:
-        return await store.get_store().resolve_review(review_id, body.segment, body.action)
+        review = await st.resolve_review(review_id, body.segment, body.action)
     except store.NotFound as e:
         raise HTTPException(404, str(e))
     except store.AlreadyResolved as e:
         raise HTTPException(409, str(e))
+    decision = await st.get_decision(review.decision_id)
+    if decision is not None:
+        await crm.write(crm.from_review(review, decision))
+    return review
+
+
+@app.get("/crm", response_model=list[CrmRecord])
+async def get_crm(limit: int = Query(50, ge=1, le=1000), sales_ready: Optional[bool] = None):
+    """Fichas del CRM, de la más reciente a la más antigua. `sales_ready=true` = la lista de ventas."""
+    return await store.get_store().list_crm(limit, sales_ready)
+
+
+@app.get("/crm/{person_id}", response_model=CrmRecord)
+async def get_crm_record(person_id: str):
+    record = await store.get_store().crm_record(person_id)
+    if record is None:
+        raise HTTPException(404, f"La persona {person_id} todavía no tiene ficha en el CRM")
+    return record
 
 
 @app.post("/simulate")

@@ -54,3 +54,19 @@ CREATE TABLE IF NOT EXISTS reviews (
     resolved_action   TEXT,
     created_at        TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- Ficha de cada persona en el CRM: lo último que se decidió. 30X pidió trabajarlo como una
+-- base de datos por ahora; con el CRM real son las mismas propiedades (ver app/crm.py).
+CREATE TABLE IF NOT EXISTS crm_profiles (
+    person_id          TEXT PRIMARY KEY REFERENCES people(person_id),
+    segment            TEXT NOT NULL,
+    maturity           TEXT NOT NULL,
+    sales_ready        BOOLEAN NOT NULL,
+    suggested_program  TEXT NOT NULL,
+    confidence         REAL NOT NULL,
+    decided_by         TEXT NOT NULL CHECK (decided_by IN ('jev','llm','humano')),
+    last_action        TEXT,
+    decision_id        TEXT NOT NULL REFERENCES decisions(decision_id),
+    updated_at         TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_crm_sales_ready ON crm_profiles(sales_ready, updated_at DESC);

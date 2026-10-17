@@ -1,7 +1,8 @@
-"""Une todo: evento → JEV → umbral → guardrail, LLM o persona → se guarda la decisión."""
+"""Une todo: evento → JEV → umbral → guardrail, LLM o persona → se guarda la decisión y la ficha del CRM."""
 import time
 from typing import Any
 
+from .. import crm
 from ..models import Answer, Decision, Event, EventIn, Guardrail, Person
 from ..store import get_store, now
 from . import jev, policy
@@ -98,6 +99,7 @@ async def process_event(ev_in: EventIn) -> Decision:
         created_at=now(),
     )
     await store.save_decision(decision)
+    await crm.write(crm.from_decision(decision))
     # Una sola revisión pendiente por persona: los eventos siguientes no la duplican
     if route == "human" and not await store.has_pending_review(person.person_id):
         await store.add_review(decision.decision_id)

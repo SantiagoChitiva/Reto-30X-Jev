@@ -1,4 +1,5 @@
 import type {
+  CrmRecord,
   Decision,
   Evaluation,
   Metrics,
@@ -62,6 +63,16 @@ export async function getEvaluation(signal?: AbortSignal) {
     if (err instanceof ApiError && err.status === 404) return null;
     throw err;
   }
+}
+
+/** Fichas del CRM, de la más reciente a la más antigua. */
+export function getCrm(
+  { limit = 50, salesReady }: { limit?: number; salesReady?: boolean },
+  signal?: AbortSignal,
+) {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (salesReady !== undefined) params.set("sales_ready", String(salesReady));
+  return request<CrmRecord[]>(`/crm?${params}`, { signal });
 }
 
 export function getTransitions(signal?: AbortSignal) {

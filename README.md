@@ -13,7 +13,15 @@ Señal → JEV decide (segmento, madurez, ¿lista para ventas?, oferta)
           ├─ p ≥ 0.85      → antispam → Guardrail JEV → acción (enviar oferta / avisar a ventas)
           ├─ 0.60 – 0.85   → LLM revisa y explica
           └─ < 0.60 / otro → cola de revisión humana
+                                   ↓
+                     Ficha de la persona en el CRM (segmento, programa sugerido, ¿lista para ventas?)
 ```
+
+## Cómo se integra con 30X
+
+- **Entrada:** un solo endpoint, `POST /events`, recibe las señales que 30X ya produce (inscripciones, asistencias, correos abiertos, cambios de etapa en el CRM).
+- **Salida:** cada decisión queda como propiedades en la ficha de la persona en el CRM. Por ahora es la tabla `crm_profiles` (30X pidió trabajarlo como una base de datos) y se consulta con `GET /crm?sales_ready=true`. Para conectar el CRM real solo cambia `backend/app/crm.py`.
+- **Despliegue:** es un contenedor Docker con Postgres, y corre en cualquier nube.
 
 Detalle de datos, preguntas tipadas, umbrales y API: [`CONTRACTS.md`](CONTRACTS.md).
 
@@ -24,7 +32,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Si ya lo habías levantado antes del cambio a los perfiles de 30X, borra la base vieja una vez: `docker compose down -v`.
+Si ya lo habías levantado antes (antes de los perfiles de 30X o de la tabla `crm_profiles`), borra la base vieja una vez: `docker compose down -v`.
 
 - API: http://localhost:8000
 - Docs interactivas: http://localhost:8000/docs
@@ -69,11 +77,11 @@ npm run dev
 
 | Carpeta | Qué hay | Dueño |
 |---|---|---|
-| `backend/app/main.py`, `store.py` | API, almacenamiento, orquestación | Tech lead |
+| `backend/app/main.py`, `store.py`, `crm.py` | API, almacenamiento, ficha en el CRM | Tech lead |
 | `backend/app/decision/` | Llamadas a JEV, umbrales, guardrail, LLM | JEV e IA |
 | `data/`, `backend/app/simulate.py`, `evaluate.py` | Perfiles de 30X, set etiquetado, evaluación | Datos |
 | `frontend/` | Tablero en Next.js | Frontend |
-| `docs/` | Playbook y pitch | Producto |
+| `docs/` | Guion del pitch y reparto del equipo | Producto |
 
 ## Stack
 

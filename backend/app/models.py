@@ -14,6 +14,7 @@ CONTENT = ["ai_sales", "inmersion_ejecutiva", "sales_machine", "hardcore_ai", "a
 InfoLevel = Literal["Baja", "Media", "Alta"]
 EventType = Literal["signup", "attendance", "email_open", "profile_update"]
 Route = Literal["auto", "llm", "human"]
+DecidedBy = Literal["jev", "llm", "humano"]
 
 # Campos de Person que puede cambiar un `profile_update`
 UPDATABLE_FIELDS = ("relation", "crm_status", "crm_stage", "program", "role", "country", "pain", "objective",
@@ -135,6 +136,25 @@ class ReviewIn(BaseModel):
         if not valid_action(v):
             raise ValueError("action debe ser `send:<content>`, `notify_sales` o null")
         return v
+
+
+# --- Ficha en el CRM (lo que el sistema escribe de vuelta) ---
+
+class CrmRecord(BaseModel):
+    """Lo último que se decidió sobre una persona, como campos de su ficha en el CRM de 30X.
+
+    Por ahora vive en la tabla `crm_profiles`; con el CRM real son las mismas propiedades.
+    """
+    person_id: str
+    segment: str
+    maturity: str
+    sales_ready: bool
+    suggested_program: str          # la oferta (`content`), igual que "Programa sugerido" del Excel
+    confidence: float               # la `p` más baja entre segmento y lista para ventas; 1.0 si decidió una persona
+    decided_by: DecidedBy
+    last_action: Optional[str] = None
+    decision_id: str
+    updated_at: datetime
 
 
 # --- Otros endpoints ---

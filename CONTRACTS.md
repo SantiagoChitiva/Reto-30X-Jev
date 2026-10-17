@@ -100,6 +100,31 @@ Solo datos anónimos o simulados. Nada de personas reales.
 
 ---
 
+## CrmRecord (ficha en el CRM)
+
+Lo que el sistema escribe de vuelta: la última decisión sobre cada persona, como propiedades de su ficha. 30X pidió trabajarlo por ahora como una base de datos, así que vive en la tabla `crm_profiles`. Con el CRM real son las mismas propiedades, y solo cambia `backend/app/crm.py`.
+
+```json
+{
+  "person_id": "p_0001",
+  "segment": "fundador_ventas",
+  "maturity": "media",
+  "sales_ready": true,
+  "suggested_program": "sales_machine",
+  "confidence": 0.91,
+  "decided_by": "jev",
+  "last_action": "notify_sales",
+  "decision_id": "d_000123",
+  "updated_at": "2026-10-17T15:04:05Z"
+}
+```
+
+- `suggested_program`: la oferta (`content`), igual que la columna «Programa sugerido» del Excel de 30X.
+- `confidence`: la `p` más baja entre `segment` y `sales_ready`; `1.0` si lo decidió una persona.
+- `decided_by`: `jev` (ruta `auto`) | `llm` | `humano` (al resolver la cola). La ruta `human` no escribe nada hasta que una persona resuelva el caso.
+
+---
+
 ## Preguntas tipadas a JEV (v1)
 
 Una sola llamada por evento. JEV recibe `{ person, signals, event, recent_events }`; `signals` trae los conteos ya calculados en código.
@@ -111,7 +136,7 @@ Una sola llamada por evento. JEV recibe `{ person, signals, event, recent_events
 | `sales_ready` | Noul | sí / no (¿lista para que la contacte el equipo comercial?) |
 | `content` | Choice | `ai_sales`, `inmersion_ejecutiva`, `sales_machine`, `hardcore_ai`, `achievers`, `nutricion`, `otro` |
 
-`content` es la **oferta**: solo programas que 30X vende (los del Excel) o `nutricion` (contenido gratuito). Los criterios de cada opción están en `backend/app/decision/jev.py`.
+`content` es la **oferta**: solo programas que 30X vende (los del Excel) o `nutricion` (contenido gratuito). Igual que la afinidad de 30X, mide si la persona encaja con el perfil de cada programa; los criterios de cada opción salen de 30x.com/programas y están en `backend/app/decision/jev.py`.
 
 Contar, sumar o comparar fechas se hace en código, nunca en JEV.
 
@@ -141,7 +166,9 @@ Base: `http://localhost:8000` · Docs interactivas: `/docs`
 | GET | `/people/{id}` | — | `{ person, history: [{ at, segment, maturity, sales_ready }] }` |
 | GET | `/transitions` | — | `[{ from, to, count }]` (para el Sankey) |
 | GET | `/review-queue` | — | `Review[]` pendientes |
-| POST | `/review/{review_id}` | `{ segment, action }` | `Review` resuelto |
+| POST | `/review/{review_id}` | `{ segment, action }` | `Review` resuelto (y actualiza la ficha del CRM) |
+| GET | `/crm` | `?limit=50&sales_ready=true` | `CrmRecord[]` (más reciente primero) |
+| GET | `/crm/{id}` | — | `CrmRecord` (404 si aún no tiene ficha) |
 | POST | `/simulate` | `{ n: 1000 }` | `{ accepted: n }` (corre en segundo plano) |
 | GET | `/evaluation` | — | último resultado de `python -m app.evaluate` (404 si no se ha corrido) |
 | GET | `/health` | — | `{ ok, mock_jev }` |

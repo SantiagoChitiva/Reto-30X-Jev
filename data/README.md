@@ -35,7 +35,7 @@ python data/build_profiles.py "ruta/a/perfiles-30x-anonimo.xlsx"
 La muestra de 200 se reparte por programa sugerido y banda de afinidad, en la misma proporción que el Excel.
 
 - `content_ref`: el **programa sugerido por 30X** (sin programa → `nutricion`). Es una etiqueta real.
-- `sales_ready_ref`: afinidad ≥ 7. Es una aproximación: la afinidad mide qué tan bien calza la persona con el programa, no si ya quiere hablar con ventas.
+- `sales_ready_ref`: afinidad ≥ 7. Es una aproximación: según 30X, la afinidad mide si la persona encaja con el perfil de cada programa (los perfiles están en 30x.com/programas), no si ya quiere hablar con ventas.
 - `segment_ref`: **borrador por reglas** (rol + objetivo + dolor + temas, función `reference_segment`). Falta revisarlo a mano. Al revisar un caso, corrige la etiqueta si hace falta y pon `"revisado": true`.
 
 Ojo: el JEV simulado usa reglas parecidas a `reference_segment`, así que su precisión en `segment` sale inflada. Esa cifra solo vale con JEV real y las etiquetas revisadas.

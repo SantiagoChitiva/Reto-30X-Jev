@@ -1,6 +1,6 @@
 import time
 
-from app.models import Decision, Review
+from app.models import CrmRecord, Decision, Review
 
 
 FUNDADOR = {"relation": "Deal en el CRM", "crm_status": "En proceso", "crm_stage": "Calificado",
@@ -153,3 +153,26 @@ def test_una_sola_revision_pendiente_por_persona(client):
     signup(client, profile=SIN_INFO)
     client.post("/events", json={"person_id": "p_0001", "type": "email_open", "data": {}})
     assert len(client.get("/review-queue").json()) == 1
+
+
+def test_ficha_crm_tras_decision(client):
+    d = signup(client).json()
+    assert d["route"] != "human"
+    ficha = CrmRecord.model_validate(client.get("/crm/p_0001").json())
+    assert ficha.segment == d["segment"]["value"] and ficha.suggested_program == d["content"]["value"]
+    assert ficha.sales_ready == d["sales_ready"]["value"] and ficha.decision_id == d["decision_id"]
+    assert ficha.decided_by == ("jev" if d["route"] == "auto" else "llm")
+    assert ficha.confidence == round(min(d["segment"]["p"], d["sales_ready"]["p"]), 4)
+    assert client.get("/crm/p_9999").status_code == 404
+
+
+def test_ficha_crm_la_escribe_la_persona_en_la_ruta_humana(client):
+    signup(client, profile=SIN_INFO)
+    assert client.get("/crm/p_0001").status_code == 404  # la ruta humana no escribe sola
+    review = client.get("/review-queue").json()[0]
+    client.post(f"/review/{review['review_id']}", json={"segment": "fundador_ventas", "action": "notify_sales"})
+    ficha = client.get("/crm/p_0001").json()
+    assert ficha["decided_by"] == "humano" and ficha["segment"] == "fundador_ventas"
+    assert ficha["sales_ready"] is True and ficha["confidence"] == 1.0
+    assert [f["person_id"] for f in client.get("/crm", params={"sales_ready": "true"}).json()] == ["p_0001"]
+    assert client.get("/crm", params={"sales_ready": "false"}).json() == []

@@ -1,5 +1,6 @@
 "use client";
 
+import { CrmPanel } from "@/components/dashboard/crm-panel";
 import { EvaluationPanel } from "@/components/dashboard/evaluation-panel";
 import { LiveFeed } from "@/components/dashboard/live-feed";
 import { MetricsPanel } from "@/components/dashboard/metrics-panel";
@@ -66,6 +67,8 @@ export function Dashboard() {
       <TransitionsSankey />
 
       <EvaluationPanel />
+
+      <CrmPanel />
 
       <ReviewQueue />
     </div>

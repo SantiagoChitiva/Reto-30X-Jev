@@ -73,16 +73,23 @@ QUESTIONS: dict[str, dict[str, Any]] = {
     },
     "content": {
         "type": "choice",
-        "instructions": "Qué oferta de 30X le conviene más a `person` en este momento. Solo existen estas.",
+        "instructions": "Qué programa de 30X encaja mejor con el perfil de `person` en este momento (su "
+                        "rol, su objetivo, su dolor y el tamaño de su reto). Solo existen estas opciones.",
+        # Perfiles tomados de 30x.com/programas y de las páginas de cada programa
         "criteria": {
-            "ai_sales": "AI Sales: vender más usando IA en prospección y seguimiento comercial.",
-            "inmersion_ejecutiva": "Inmersión Ejecutiva: dueños y ejecutivos que quieren escalar, delegar, "
-                                   "expandirse o transformar su negocio.",
-            "sales_machine": "Sales Machine: construir un proceso comercial estructurado y un equipo de ventas.",
-            "hardcore_ai": "Hardcore AI: perfiles técnicos que construyen soluciones con IA.",
-            "achievers": "Achievers: red de pares y crecimiento para dueños de empresa.",
-            "nutricion": "Contenido gratuito (newsletter, Free Sales Training, eventos) para quien aún no "
-                         "tiene contexto o afinidad suficiente con un programa.",
+            "ai_sales": "AI Sales (Ventas): vender con IA. Para dueños o líderes comerciales que ya venden y "
+                        "quieren usar IA en prospección, seguimiento y automatización comercial.",
+            "inmersion_ejecutiva": "Inmersión Ejecutiva (presencial, 3 días): limitada a fundadores y C-Level que "
+                                   "están escalando empresas: estrategia, contratación, cultura, capital, "
+                                   "expansión y red de pares.",
+            "sales_machine": "Sales Machine (Ventas): el playbook completo de ventas B2B. Para quien vende sin "
+                             "proceso, vive de referidos o necesita armar su equipo y su embudo comercial.",
+            "hardcore_ai": "Hardcore AI: perfiles técnicos (ingeniería, datos, producto) que construyen "
+                           "agentes y soluciones de IA con código.",
+            "achievers": "Achievers: acompañamiento y red de pares para dueños de empresa que buscan crecer "
+                         "con otros que enfrentan los mismos retos.",
+            "nutricion": "Contenido gratuito (clases gratis, Free Sales Training, newsletter) para quien aún no "
+                         "tiene contexto suficiente o no encaja todavía con un programa.",
             "otro": "Ninguna de las anteriores aplica.",
         },
     },

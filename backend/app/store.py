@@ -14,6 +14,7 @@ from typing import Any, Optional, Union
 from .decision.policy import SPAM_REASON
 from .models import (
     UPDATABLE_FIELDS,
+    CrmRecord,
     Decision,
     Event,
     EventIn,
@@ -75,6 +76,7 @@ class MemoryStore:
         self.decisions: list[Decision] = []
         self.decisions_by_person: defaultdict[str, list[Decision]] = defaultdict(list)
         self.reviews: dict[str, Review] = {}
+        self.crm: dict[str, CrmRecord] = {}
         self._seq: Counter[str] = Counter()
 
     async def open(self) -> None:
@@ -163,6 +165,19 @@ class MemoryStore:
                     counts[(prev.segment.value, cur.segment.value)] += 1
         return [Transition(from_=a, to=b, count=n) for (a, b), n in counts.most_common()]
 
+    async def get_decision(self, decision_id: str) -> Optional[Decision]:
+        return next((d for d in self.decisions if d.decision_id == decision_id), None)
+
+    async def upsert_crm(self, record: CrmRecord) -> None:
+        self.crm[record.person_id] = record
+
+    async def crm_record(self, person_id: str) -> Optional[CrmRecord]:
+        return self.crm.get(person_id)
+
+    async def list_crm(self, limit: int, sales_ready: Optional[bool] = None) -> list[CrmRecord]:
+        rows = [r for r in self.crm.values() if sales_ready is None or r.sales_ready == sales_ready]
+        return sorted(rows, key=lambda r: r.updated_at, reverse=True)[:limit]
+
     async def pending_reviews(self) -> list[Review]:
         return [r for r in self.reviews.values() if r.status == "pending"]
 
@@ -193,6 +208,15 @@ def _decision(row) -> Decision:
     d = dict(row)
     d["latency_ms"] = round(d["latency_ms"], 1)  # REAL → float32
     return Decision.model_validate(d)
+
+
+_CRM_COLUMNS = tuple(CrmRecord.model_fields)
+
+
+def _crm(row) -> CrmRecord:
+    d = dict(row)
+    d["confidence"] = round(d["confidence"], 4)  # REAL → float32
+    return CrmRecord.model_validate(d)
 
 
 _UPSERT_PERSON = (
@@ -349,6 +373,33 @@ class PgStore:
             """
         )
         return [Transition(**dict(r)) for r in rows]
+
+    async def get_decision(self, decision_id: str) -> Optional[Decision]:
+        row = await self.pool.fetchrow("SELECT * FROM decisions WHERE decision_id = $1", decision_id)
+        return _decision(row) if row else None
+
+    async def upsert_crm(self, r: CrmRecord) -> None:
+        await self.pool.execute(
+            f"INSERT INTO crm_profiles ({', '.join(_CRM_COLUMNS)}) "
+            f"VALUES ({', '.join(f'${i + 1}' for i in range(len(_CRM_COLUMNS)))}) "
+            "ON CONFLICT (person_id) DO UPDATE SET "
+            + ", ".join(f"{k} = EXCLUDED.{k}" for k in _CRM_COLUMNS[1:]),
+            *(getattr(r, k) for k in _CRM_COLUMNS),
+        )
+
+    async def crm_record(self, person_id: str) -> Optional[CrmRecord]:
+        row = await self.pool.fetchrow("SELECT * FROM crm_profiles WHERE person_id = $1", person_id)
+        return _crm(row) if row else None
+
+    async def list_crm(self, limit: int, sales_ready: Optional[bool] = None) -> list[CrmRecord]:
+        if sales_ready is None:
+            rows = await self.pool.fetch("SELECT * FROM crm_profiles ORDER BY updated_at DESC LIMIT $1", limit)
+        else:
+            rows = await self.pool.fetch(
+                "SELECT * FROM crm_profiles WHERE sales_ready = $2 ORDER BY updated_at DESC LIMIT $1",
+                limit, sales_ready,
+            )
+        return [_crm(r) for r in rows]
 
     async def pending_reviews(self) -> list[Review]:
         rows = await self.pool.fetch("SELECT * FROM reviews WHERE status = 'pending' ORDER BY created_at")

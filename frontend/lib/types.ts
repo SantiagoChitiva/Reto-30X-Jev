@@ -75,6 +75,20 @@ export interface ReviewResolution {
   action: string | null;
 }
 
+/** Ficha de la persona en el CRM (`GET /crm`): lo último que se decidió. */
+export interface CrmRecord {
+  person_id: string;
+  segment: Segment;
+  maturity: Maturity;
+  sales_ready: boolean;
+  suggested_program: Content;
+  confidence: number;
+  decided_by: "jev" | "llm" | "humano";
+  last_action: string | null;
+  decision_id: string;
+  updated_at: string;
+}
+
 export interface Metrics {
   total_decisions: number;
   auto_pct: number;
