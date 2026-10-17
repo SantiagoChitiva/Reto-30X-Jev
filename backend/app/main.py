@@ -1,0 +1,129 @@
+"""API de 30X Pulse. Los endpoints y sus formas están en CONTRACTS.md."""
+from dotenv import load_dotenv
+
+load_dotenv()  # antes de que los demás módulos lean variables de entorno
+
+import asyncio  # noqa: E402
+from contextlib import asynccontextmanager  # noqa: E402
+from typing import Optional  # noqa: E402
+
+from fastapi import FastAPI, HTTPException, Query  # noqa: E402
+from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
+from pydantic import ValidationError  # noqa: E402
+
+from . import simulate, store  # noqa: E402
+from .decision import jev, pipeline  # noqa: E402
+from .models import (  # noqa: E402
+    Decision,
+    EventIn,
+    Metrics,
+    PersonHistory,
+    Review,
+    ReviewIn,
+    Route,
+    SimulateIn,
+    Transition,
+)
+
+_background: set[asyncio.Task] = set()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await store.init_store()
+    yield
+    for task in _background:
+        task.cancel()
+    await jev.aclose()
+    await store.close_store()
+
+
+app = FastAPI(title="30X Pulse", description="Segmentación dinámica en tiempo real con JEV.", lifespan=lifespan)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],  # tablero Next.js
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.post("/events", response_model=Decision)
+async def post_event(ev: EventIn):
+    try:
+        return await pipeline.process_event(ev)
+    except store.NotFound as e:
+        raise HTTPException(404, str(e))
+    except ValidationError as e:  # profile_update con un valor inválido
+        raise HTTPException(422, e.errors(include_url=False, include_context=False))
+
+
+@app.get("/decisions", response_model=list[Decision])
+async def get_decisions(limit: int = Query(50, ge=1, le=1000), route: Optional[Route] = None):
+    return await store.get_store().list_decisions(limit, route)
+
+
+@app.get("/metrics", response_model=Metrics)
+async def get_metrics():
+    m = await store.get_store().metrics()
+    total = m["total"]
+    cost = float(m["cost"])
+
+    def pct(key: str) -> float:
+        return round(100 * m[key] / total, 1) if total else 0.0
+
+    return Metrics(
+        total_decisions=total,
+        auto_pct=pct("auto"),
+        llm_pct=pct("llm"),
+        human_pct=pct("human"),
+        guardrail_blocked=m["blocked"],
+        total_cost_usd=round(cost, 6),
+        cost_per_1k_usd=round(cost / total * 1000, 6) if total else 0.0,
+        latency_p50_ms=round(float(m["p50"]), 1),
+        latency_p95_ms=round(float(m["p95"]), 1),
+        running=simulate.running,
+    )
+
+
+@app.get("/people/{person_id}", response_model=PersonHistory)
+async def get_person(person_id: str):
+    history = await store.get_store().person_history(person_id)
+    if history is None:
+        raise HTTPException(404, f"La persona {person_id} no existe")
+    return history
+
+
+@app.get("/transitions", response_model=list[Transition])
+async def get_transitions():
+    return await store.get_store().transitions()
+
+
+@app.get("/review-queue", response_model=list[Review])
+async def get_review_queue():
+    return await store.get_store().pending_reviews()
+
+
+@app.post("/review/{review_id}", response_model=Review)
+async def resolve_review(review_id: str, body: ReviewIn):
+    try:
+        return await store.get_store().resolve_review(review_id, body.segment, body.action)
+    except store.NotFound as e:
+        raise HTTPException(404, str(e))
+    except store.AlreadyResolved as e:
+        raise HTTPException(409, str(e))
+
+
+@app.post("/simulate")
+async def post_simulate(body: SimulateIn):
+    if simulate.running:
+        raise HTTPException(409, "Ya hay una simulación corriendo")
+    simulate.running = True  # visible en /metrics desde ya
+    task = asyncio.create_task(simulate.run(body.n))
+    _background.add(task)
+    task.add_done_callback(_background.discard)
+    return {"accepted": body.n}
+
+
+@app.get("/health")
+async def health():
+    return {"ok": True, "mock_jev": jev.use_mock()}
