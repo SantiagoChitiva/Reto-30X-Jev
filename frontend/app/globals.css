@@ -6,6 +6,9 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-brand-lime: var(--brand-lime);
+  --color-brand-lime-soft: var(--brand-lime-soft);
+  --color-brand-blue: var(--brand-blue);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
@@ -49,87 +52,62 @@
 }
 
 :root {
-  /* Datos: rutas y segmentos (paleta categórica validada, orden fijo). */
-  --route-auto: #2a78d6;
-  --route-llm: #eb6834;
-  --route-human: #1baf7a;
-  --series-1: #2a78d6;
-  --series-2: #eb6834;
-  --series-3: #1baf7a;
-  --series-4: #eda100;
-  --series-5: #e87ba4;
-  --series-6: #7d5fd6;
-  --series-other: #898781;
+  /* Marca 30X (tomado de 30x.com): negro, lima y azul de apoyo. */
+  --brand-lime: #ebff6f;
+  --brand-lime-soft: rgb(39 41 23);
+  --brand-blue: #0099ff;
+
+  /* Datos: rutas y segmentos (orden fijo, legibles sobre negro). */
+  --route-auto: #ebff6f;
+  --route-llm: #0099ff;
+  --route-human: #ff8a3d;
+  --series-1: #ebff6f;
+  --series-2: #0099ff;
+  --series-3: #ff8a3d;
+  --series-4: #f27bb0;
+  --series-5: #a78bfa;
+  --series-6: #2dd4bf;
+  --series-other: #737373;
   /* Estado (reservados, siempre con icono o texto). */
-  --status-good: #0ca30c;
-  --status-critical: #d03b3b;
+  --status-good: #4ade80;
+  --status-critical: #f05252;
 
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
+  /* Movimiento: desaceleración exponencial para llegadas seguras. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Un solo tema: oscuro, como el hero de 30x.com. */
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #0a0a0a;
+  --card-foreground: #ffffff;
+  --popover: #111111;
+  --popover-foreground: #ffffff;
+  --primary: #ebff6f;
+  --primary-foreground: #0a0a0a;
+  --secondary: #ffffff;
+  --secondary-foreground: #0a0a0a;
+  --muted: rgb(250 250 250 / 5%);
+  --muted-foreground: rgb(255 255 255 / 60%);
+  --accent: rgb(250 250 250 / 8%);
+  --accent-foreground: #ffffff;
+  --destructive: #f05252;
+  --border: rgb(255 255 255 / 10%);
+  --input: rgb(255 255 255 / 14%);
+  --ring: #ebff6f;
+  --chart-1: #ebff6f;
+  --chart-2: #0099ff;
+  --chart-3: #ff8a3d;
+  --chart-4: #f27bb0;
+  --chart-5: #a78bfa;
+  --radius: 0.875rem;
+  --sidebar: #0a0a0a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ebff6f;
+  --sidebar-primary-foreground: #0a0a0a;
+  --sidebar-accent: rgb(250 250 250 / 8%);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 10%);
+  --sidebar-ring: #ebff6f;
 }
 
 @layer base {
@@ -138,8 +116,95 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Brillo lima tenue arriba, como el mapa del hero de 30x.com. */
+    background-image: radial-gradient(
+      ellipse 80% 420px at 50% -120px,
+      color-mix(in srgb, var(--brand-lime) 9%, transparent),
+      transparent
+    );
+    background-repeat: no-repeat;
   }
   html {
     @apply font-sans;
+    color-scheme: dark;
+  }
+  h1,
+  h2 {
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+  html {
+    scrollbar-color: rgb(255 255 255 / 18%) transparent;
+  }
+  ::selection {
+    background: var(--brand-lime);
+    color: #0a0a0a;
+  }
+  input,
+  textarea {
+    caret-color: var(--brand-lime);
+  }
+}
+
+/* Fila nueva del feed: entra con un destello lima que se apaga. */
+@keyframes row-arrive {
+  from {
+    background-color: color-mix(in srgb, var(--brand-lime) 16%, transparent);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+.row-arrive {
+  animation: row-arrive 1.6s var(--ease-out-expo);
+}
+
+/* Botón de simulación mientras corre: un brillo lo recorre. */
+@keyframes sweep {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -50% 0;
+  }
+}
+.sweep {
+  background-image: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgb(255 255 255 / 55%) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: sweep 1.8s linear infinite;
+}
+
+/* Caso resuelto en la cola: se pliega antes de salir de la lista. */
+.collapsible {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows 260ms var(--ease-out-expo),
+    opacity 180ms ease-out;
+}
+.collapsible[data-leaving] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep {
+    animation: none;
+    background-image: none;
+  }
+  .collapsible {
+    transition: opacity 180ms ease-out;
   }
 }

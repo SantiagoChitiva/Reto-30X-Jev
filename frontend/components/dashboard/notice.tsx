@@ -14,7 +14,7 @@ export function Notice({
     <div
       role="status"
       className={cn(
-        "flex items-start gap-2 rounded-lg border border-[var(--status-critical)]/30 bg-[var(--status-critical)]/5 px-3 py-2 text-sm text-foreground",
+        "flex items-start gap-2 rounded-lg border border-[var(--status-critical)]/30 bg-[var(--status-critical)]/10 px-3 py-2 text-sm text-foreground",
         className,
       )}
     >
@@ -29,7 +29,7 @@ export function Notice({
 
 export function EmptyState({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-24 items-center justify-center rounded-lg border border-dashed px-4 py-6 text-center text-sm text-muted-foreground">
+    <div className="flex min-h-24 items-center justify-center rounded-xl border border-dashed px-4 py-6 text-center text-sm text-muted-foreground">
       {children}
     </div>
   );

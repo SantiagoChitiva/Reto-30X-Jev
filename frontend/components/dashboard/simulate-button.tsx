@@ -5,25 +5,22 @@ import { useState } from "react";
 
 import { Notice } from "@/components/dashboard/notice";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { simulate } from "@/lib/api";
 import { formatInt } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 const N = 10_000;
 
 export function SimulateButton({
   running,
   onStarted,
+  children,
 }: {
   /** `metrics.running`: hay una simulación en curso. */
   running: boolean;
   onStarted: () => void;
+  /** Acciones secundarias que van al lado del botón. */
+  children?: React.ReactNode;
 }) {
   const [sending, setSending] = useState(false);
   const [accepted, setAccepted] = useState<number>();
@@ -47,18 +44,14 @@ export function SimulateButton({
   const busy = running || sending;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Simulación</CardTitle>
-        <CardDescription>
-          Envía {formatInt(N)} eventos simulados al pipeline. Corre en segundo
-          plano; mira cómo se mueven el feed, los indicadores y el Sankey.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-3">
+    <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-wrap justify-center gap-3">
         <Button
           size="lg"
-          className="h-11 text-base"
+          className={cn(
+            "h-12 rounded-full px-6 text-base",
+            running && "sweep disabled:opacity-100",
+          )}
           disabled={busy}
           onClick={handleClick}
         >
@@ -69,15 +62,16 @@ export function SimulateButton({
           )}
           {running ? "Simulando…" : sending ? "Enviando…" : "Simular 10.000"}
         </Button>
-        <p className="text-xs text-muted-foreground" aria-live="polite">
-          {running
-            ? "Hay una simulación en curso. El botón se activa cuando termine."
-            : accepted !== undefined
-              ? `Última simulación: ${formatInt(accepted)} eventos aceptados.`
-              : "Sin simulaciones en esta sesión."}
-        </p>
-        {error && <Notice>No se pudo iniciar la simulación: {error}</Notice>}
-      </CardContent>
-    </Card>
+        {children}
+      </div>
+      <p className="text-sm text-muted-foreground" aria-live="polite">
+        {running
+          ? "Simulación en curso: mira cómo se encienden los puntos."
+          : accepted !== undefined
+            ? `Última simulación: ${formatInt(accepted)} eventos aceptados.`
+            : `Envía ${formatInt(N)} eventos simulados al pipeline.`}
+      </p>
+      {error && <Notice>No se pudo iniciar la simulación: {error}</Notice>}
+    </div>
   );
 }

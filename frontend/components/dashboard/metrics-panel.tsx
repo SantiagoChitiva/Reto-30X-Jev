@@ -1,3 +1,4 @@
+import { AnimatedNumber } from "@/components/dashboard/animated-number";
 import { EmptyState, Notice } from "@/components/dashboard/notice";
 import { ROUTE_COLORS, RouteDot } from "@/components/dashboard/route-badge";
 import {
@@ -41,22 +42,41 @@ export function MetricsPanel({
           !error && <EmptyState>Cargando indicadores…</EmptyState>
         ) : (
           <>
-            <dl className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-7">
-              <Stat label="Decisiones" value={formatInt(metrics.total_decisions)} />
-              <Stat label="Costo total" value={formatUsd(metrics.total_cost_usd)} />
+            <dl className="grid grid-cols-2 overflow-hidden rounded-xl border md:grid-cols-4 xl:grid-cols-7">
+              <Stat
+                label="Decisiones"
+                value={metrics.total_decisions}
+                format={formatInt}
+              />
+              <Stat
+                label="Costo total"
+                value={metrics.total_cost_usd}
+                format={formatUsd}
+              />
               <Stat
                 label="Costo por 1.000"
-                value={formatUsd(metrics.cost_per_1k_usd)}
+                value={metrics.cost_per_1k_usd}
+                format={formatUsd}
               />
-              <Stat label="Latencia p50" value={formatMs(metrics.latency_p50_ms)} />
-              <Stat label="Latencia p95" value={formatMs(metrics.latency_p95_ms)} />
+              <Stat
+                label="Latencia p50"
+                value={metrics.latency_p50_ms}
+                format={formatMs}
+              />
+              <Stat
+                label="Latencia p95"
+                value={metrics.latency_p95_ms}
+                format={formatMs}
+              />
               <Stat
                 label="Bloqueadas por guardrail"
-                value={formatInt(metrics.guardrail_blocked)}
+                value={metrics.guardrail_blocked}
+                format={formatInt}
               />
               <Stat
                 label="Frenadas por antispam"
-                value={formatInt(metrics.spam_suppressed)}
+                value={metrics.spam_suppressed}
+                format={formatInt}
               />
             </dl>
             <RouteMix metrics={metrics} />
@@ -67,11 +87,22 @@ export function MetricsPanel({
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({
+  label,
+  value,
+  format,
+}: {
+  label: string;
+  value: number;
+  format: (n: number) => string;
+}) {
+  // Filete a la derecha y abajo: la franja se lee como una tabla, no como tarjetas.
   return (
-    <div className="rounded-lg border px-3 py-2.5">
+    <div className="px-4 py-3.5 [box-shadow:1px_0_0_var(--border),0_1px_0_var(--border)]">
       <dt className="text-xs text-muted-foreground">{label}</dt>
-      <dd className="mt-1 text-xl font-semibold tracking-tight">{value}</dd>
+      <dd className="mt-1 text-2xl font-bold tracking-tight whitespace-nowrap tabular-nums xl:text-xl">
+        <AnimatedNumber value={value} format={format} />
+      </dd>
     </div>
   );
 }
@@ -87,12 +118,12 @@ function RouteMix({ metrics }: { metrics: Metrics }) {
   const total = ROUTES.reduce((sum, r) => sum + metrics[ROUTE_PCT_KEY[r]], 0);
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg border px-3 py-2.5">
+    <div className="flex flex-col gap-2.5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <span className="text-xs text-muted-foreground">Reparto por ruta</span>
         <span className="text-sm">
-          <span className="text-xl font-semibold tracking-tight">
-            {formatPct(metrics.auto_pct)}
+          <span className="text-2xl font-bold tracking-tight text-brand-lime tabular-nums">
+            <AnimatedNumber value={metrics.auto_pct} format={formatPct} />
           </span>{" "}
           <span className="text-muted-foreground">automático</span>
         </span>
@@ -112,7 +143,7 @@ function RouteMix({ metrics }: { metrics: Metrics }) {
               <div
                 key={r}
                 title={`${ROUTE_LABELS[r]}: ${formatPct(pct)}`}
-                className="h-full transition-[flex-grow] duration-500"
+                className="h-full transition-[flex-grow] duration-700 ease-[var(--ease-out-expo)]"
                 style={{ flexGrow: pct, background: ROUTE_COLORS[r] }}
               />
             );

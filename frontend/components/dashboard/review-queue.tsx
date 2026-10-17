@@ -76,7 +76,7 @@ export function ReviewQueue() {
   }
 
   return (
-    <Card>
+    <Card id="cola-humana" className="scroll-mt-24">
       <CardHeader>
         <CardTitle>Cola humana</CardTitle>
         <CardDescription>
@@ -107,7 +107,7 @@ export function ReviewQueue() {
                 {formatInt(pending.length)}.
               </p>
             )}
-            <ul className="flex flex-col divide-y rounded-lg border">
+            <ul className="flex flex-col divide-y rounded-xl border">
               {pending.slice(0, MAX_VISIBLE).map((review) => (
                 <ReviewItem
                   key={review.review_id}
@@ -153,6 +153,7 @@ function ReviewItem({
   const action =
     actionChoice === undefined ? suggestedAction(decision) : actionChoice;
   const [sending, setSending] = useState(false);
+  const [leaving, setLeaving] = useState(false);
   const [error, setError] = useState<string>();
 
   async function handleResolve() {
@@ -164,7 +165,8 @@ function ReviewItem({
         segment,
         action: action === "ninguna" ? null : action,
       });
-      onResolved(review.review_id);
+      setLeaving(true);
+      setTimeout(() => onResolved(review.review_id), 260);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
       setSending(false);
@@ -172,105 +174,109 @@ function ReviewItem({
   }
 
   return (
-    <li className="flex flex-col gap-3 px-3 py-3 xl:flex-row xl:items-center xl:justify-between">
-      <div className="flex min-w-0 flex-col gap-1">
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
-          <span className="font-mono">{review.review_id}</span>
-          <span>·</span>
-          <span>{formatTime(review.created_at)}</span>
-          {decision && (
-            <>
+    <li className="collapsible" data-leaving={leaving || undefined}>
+      <div className="min-h-0 overflow-hidden">
+        <div className="flex flex-col gap-3 px-3 py-3 xl:flex-row xl:items-center xl:justify-between">
+          <div className="flex min-w-0 flex-col gap-1">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+              <span className="font-mono">{review.review_id}</span>
               <span>·</span>
-              <span className="font-mono text-foreground">
-                {decision.person_id}
-              </span>
-            </>
-          )}
-        </div>
-        {decision ? (
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-            <Fact
-              label="Segmento"
-              value={labelOf(SEGMENT_LABELS, decision.segment.value)}
-              p={decision.segment.p}
-            />
-            <Fact
-              label="Madurez"
-              value={labelOf(MATURITY_LABELS, decision.maturity.value)}
-              p={decision.maturity.p}
-            />
-            <Fact
-              label="Ventas"
-              value={decision.sales_ready.value ? "Sí" : "No"}
-              p={decision.sales_ready.p}
-            />
-            <Fact
-              label="Oferta"
-              value={labelOf(CONTENT_LABELS, decision.content.value)}
-              p={decision.content.p}
-            />
+              <span>{formatTime(review.created_at)}</span>
+              {decision && (
+                <>
+                  <span>·</span>
+                  <span className="font-mono text-foreground">
+                    {decision.person_id}
+                  </span>
+                </>
+              )}
+            </div>
+            {decision ? (
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+                <Fact
+                  label="Segmento"
+                  value={labelOf(SEGMENT_LABELS, decision.segment.value)}
+                  p={decision.segment.p}
+                />
+                <Fact
+                  label="Madurez"
+                  value={labelOf(MATURITY_LABELS, decision.maturity.value)}
+                  p={decision.maturity.p}
+                />
+                <Fact
+                  label="Ventas"
+                  value={decision.sales_ready.value ? "Sí" : "No"}
+                  p={decision.sales_ready.p}
+                />
+                <Fact
+                  label="Oferta"
+                  value={labelOf(CONTENT_LABELS, decision.content.value)}
+                  p={decision.content.p}
+                />
+              </div>
+            ) : (
+              <div className="text-sm">
+                Decisión <span className="font-mono">{review.decision_id}</span>
+              </div>
+            )}
+            {error && <Notice className="mt-1">No se pudo resolver: {error}</Notice>}
           </div>
-        ) : (
-          <div className="text-sm">
-            Decisión <span className="font-mono">{review.decision_id}</span>
-          </div>
-        )}
-        {error && <Notice className="mt-1">No se pudo resolver: {error}</Notice>}
-      </div>
 
-      <div className="flex shrink-0 flex-wrap items-center gap-2">
-        <Select
-          items={SEGMENT_ITEMS}
-          value={segment}
-          onValueChange={(v) => setSegment(v as Segment | null)}
-        >
-          <SelectTrigger
-            size="sm"
-            className="w-44"
-            aria-label={`Segmento para ${review.review_id}`}
-          >
-            <SelectValue placeholder="Segmento" />
-          </SelectTrigger>
-          <SelectContent>
-            {SEGMENTS.map((s) => (
-              <SelectItem key={s} value={s}>
-                {SEGMENT_LABELS[s]}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select
-          items={ACTION_ITEMS}
-          value={action}
-          onValueChange={(v) => setAction(v as ReviewAction | null)}
-        >
-          <SelectTrigger
-            size="sm"
-            className="w-52"
-            aria-label={`Acción para ${review.review_id}`}
-          >
-            <SelectValue placeholder="Acción" />
-          </SelectTrigger>
-          <SelectContent>
-            {REVIEW_ACTIONS.map((a) => (
-              <SelectItem key={a} value={a}>
-                {actionLabel(a)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Button
-          size="sm"
-          disabled={!segment || !action || sending}
-          onClick={handleResolve}
-        >
-          {sending ? (
-            <Loader2Icon aria-hidden className="animate-spin" />
-          ) : (
-            <CheckIcon aria-hidden />
-          )}
-          Resolver
-        </Button>
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
+            <Select
+              items={SEGMENT_ITEMS}
+              value={segment}
+              onValueChange={(v) => setSegment(v as Segment | null)}
+            >
+              <SelectTrigger
+                size="sm"
+                className="w-44"
+                aria-label={`Segmento para ${review.review_id}`}
+              >
+                <SelectValue placeholder="Segmento" />
+              </SelectTrigger>
+              <SelectContent>
+                {SEGMENTS.map((s) => (
+                  <SelectItem key={s} value={s}>
+                    {SEGMENT_LABELS[s]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select
+              items={ACTION_ITEMS}
+              value={action}
+              onValueChange={(v) => setAction(v as ReviewAction | null)}
+            >
+              <SelectTrigger
+                size="sm"
+                className="w-52"
+                aria-label={`Acción para ${review.review_id}`}
+              >
+                <SelectValue placeholder="Acción" />
+              </SelectTrigger>
+              <SelectContent>
+                {REVIEW_ACTIONS.map((a) => (
+                  <SelectItem key={a} value={a}>
+                    {actionLabel(a)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button
+              size="sm"
+              disabled={!segment || !action || sending}
+              onClick={handleResolve}
+            >
+              {sending ? (
+                <Loader2Icon aria-hidden className="animate-spin" />
+              ) : (
+                <CheckIcon aria-hidden />
+              )}
+              Resolver
+            </Button>
+          </div>
+        </div>
       </div>
     </li>
   );

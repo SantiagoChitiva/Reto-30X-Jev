@@ -81,13 +81,13 @@ function EvaluationBody({ evaluation: e }: { evaluation: Evaluation }) {
           <h3 className="text-xs text-muted-foreground">
             Precisión sobre {formatInt(e.n)} perfiles
           </h3>
-          <dl className="grid grid-cols-3 gap-3">
+          <dl className="grid grid-cols-3 overflow-hidden rounded-xl border">
             {QUESTIONS.map((q) => (
-              <div key={q} className="rounded-lg border px-3 py-2.5">
+              <div key={q} className="px-4 py-3.5 [box-shadow:1px_0_0_var(--border),0_1px_0_var(--border)]">
                 <dt className="text-xs text-muted-foreground">
                   {QUESTION_LABELS[q]}
                 </dt>
-                <dd className="mt-1 text-xl font-semibold tracking-tight">
+                <dd className="mt-1 text-2xl font-bold tracking-tight">
                   {formatPct(e.accuracy[q])}
                 </dd>
               </div>
@@ -134,7 +134,7 @@ function EvaluationBody({ evaluation: e }: { evaluation: Evaluation }) {
             JEV frente a {e.llm.model}
             {e.llm.estimated && " (estimado)"}
           </h3>
-          <dl className="grid grid-cols-2 gap-3">
+          <dl className="grid overflow-hidden rounded-xl border sm:grid-cols-2">
             <Compare
               label="Costo por 1.000 decisiones"
               jev={formatUsd(e.jev.cost_per_1k_usd)}
@@ -174,9 +174,9 @@ function Compare({
   unit: string;
 }) {
   return (
-    <div className="flex flex-col gap-1 rounded-lg border px-3 py-2.5">
+    <div className="flex flex-col gap-1 px-4 py-3.5 [box-shadow:1px_0_0_var(--border),0_1px_0_var(--border)]">
       <dt className="text-xs text-muted-foreground">{label}</dt>
-      <dd className="text-xl font-semibold tracking-tight">
+      <dd className="text-2xl font-bold tracking-tight text-brand-lime">
         {ratio >= 1 ? `${ratio.toFixed(ratio < 10 ? 1 : 0)}× ${unit}` : "—"}
       </dd>
       <dd className="text-xs tabular-nums text-muted-foreground">
