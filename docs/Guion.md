@@ -20,7 +20,7 @@ Deck: el playbook en Artifacts (8 slides). Las notas de cada slide traen este mi
 
 ## 1. Portada (0:15)
 
-> Hola, somos [nombre del equipo]. Les vamos a contar la historia de una persona que llega a 30X, por qué hoy se enfría sin que nadie lo note y cómo 30X Pulse lo resuelve con lo que 30X ya tiene.
+> Hola, somos 10x. Les vamos a contar la historia de una persona que llega a 30X, por qué hoy se enfría sin que nadie lo note y cómo 30X Pulse lo resuelve con lo que 30X ya tiene.
 
 ## 2. La historia (0:50)
 
@@ -106,4 +106,4 @@ Deck: el playbook en Artifacts (8 slides). Las notas de cada slide traen este mi
 | ¿Cómo se compara con la afinidad que ya calculan? | Mide lo mismo, si la persona encaja con el perfil de cada programa, pero se recalcula con cada señal. Comparamos contra su «Programa sugerido» para medir el acierto. |
 | ¿Cuánto cuesta operarlo? | Unos 4 centavos de dólar por cada 1.000 decisiones con JEV. Corre en un contenedor, en cualquier nube. |
 
-Antes del pitch, completar: [nombre del equipo], [URL del repo], [URL del despliegue] y quién dice cada parte.
+Antes del pitch, completar quién dice cada parte. Repositorio: https://github.com/SantiagoChitiva/Reto-30X-Jev. Cuando esté desplegado, agregar la URL del tablero a la última slide.

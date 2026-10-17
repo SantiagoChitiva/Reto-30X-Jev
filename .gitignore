@@ -1,6 +1,7 @@
-# Secretos
+# Secretos: cualquier .env, menos la plantilla
 .env
-.env.local
+.env.*
+!.env.example
 
 # Python
 __pycache__/
