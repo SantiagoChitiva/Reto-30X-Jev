@@ -22,11 +22,12 @@ import { SEGMENT_LABELS, formatInt, labelOf } from "@/lib/format";
 import { SEGMENTS, type Transition } from "@/lib/types";
 
 const SEGMENT_COLORS: Record<string, string> = {
-  explorador: "var(--series-1)",
-  lider_negocio: "var(--series-2)",
-  lider_tecnico: "var(--series-3)",
-  equipo_adopcion: "var(--series-4)",
-  lider_adopcion: "var(--series-5)",
+  fundador_ventas: "var(--series-1)",
+  fundador_escala: "var(--series-2)",
+  lider_comercial: "var(--series-3)",
+  ejecutivo_ia: "var(--series-4)",
+  perfil_tecnico: "var(--series-5)",
+  explorador: "var(--series-6)",
   otro: "var(--series-other)",
 };
 

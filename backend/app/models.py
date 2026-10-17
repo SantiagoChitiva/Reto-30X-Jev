@@ -4,17 +4,20 @@ from typing import Any, Literal, Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-# Opciones de las preguntas tipadas a JEV (CONTRACTS.md, v0)
-SEGMENTS = ["explorador", "lider_negocio", "lider_tecnico", "equipo_adopcion", "lider_adopcion", "otro"]
+# Opciones de las preguntas tipadas a JEV (CONTRACTS.md)
+SEGMENTS = ["fundador_ventas", "fundador_escala", "lider_comercial", "ejecutivo_ia", "perfil_tecnico",
+            "explorador", "otro"]
 MATURITY = ["baja", "media", "alta"]
-CONTENT = ["intro_ia", "caso_de_exito", "taller_practico", "programa_ejecutivo", "otro"]
+# Ofertas reales de 30X (programas del Excel de perfiles) + contenido gratuito de nutrición
+CONTENT = ["ai_sales", "inmersion_ejecutiva", "sales_machine", "hardcore_ai", "achievers", "nutricion", "otro"]
 
-CompanySize = Literal["1-10", "11-50", "51-200", "201-1000", "1000+"]
+InfoLevel = Literal["Baja", "Media", "Alta"]
 EventType = Literal["signup", "attendance", "email_open", "profile_update"]
 Route = Literal["auto", "llm", "human"]
 
 # Campos de Person que puede cambiar un `profile_update`
-UPDATABLE_FIELDS = ("name", "role", "company", "industry", "company_size")
+UPDATABLE_FIELDS = ("relation", "crm_status", "crm_stage", "program", "role", "country", "pain", "objective",
+                    "interests", "info_level", "info_available")
 
 
 def valid_action(action: Optional[str]) -> bool:
@@ -27,13 +30,24 @@ def valid_action(action: Optional[str]) -> bool:
 # --- Person / Event ---
 
 class Person(BaseModel):
+    """Perfil anónimo con las mismas categorías del Excel de 30X. Sin nombres ni empresas.
+
+    `None` = sin dato. `events_attended` y `emails_opened` se cuentan en código.
+    """
     person_id: str
-    name: str
-    role: str
-    company: str
-    industry: str
-    company_size: CompanySize
+    relation: Optional[str] = None        # Lead (sin deal) | Deal en el CRM
+    crm_status: Optional[str] = None
+    crm_stage: Optional[str] = None
+    program: Optional[str] = None         # programa en el que está o con el que llegó
+    role: Optional[str] = None
+    country: Optional[str] = None
+    pain: Optional[str] = None
+    objective: Optional[str] = None
+    interests: list[str] = Field(default_factory=list)
+    info_level: InfoLevel = "Baja"
+    info_available: Optional[str] = None
     events_attended: int = Field(0, ge=0)
+    emails_opened: int = Field(0, ge=0)
 
 
 class EventIn(BaseModel):
@@ -135,6 +149,7 @@ class Metrics(BaseModel):
     llm_pct: float
     human_pct: float
     guardrail_blocked: int
+    spam_suppressed: int
     total_cost_usd: float
     cost_per_1k_usd: float
     latency_p50_ms: float

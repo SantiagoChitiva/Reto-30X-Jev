@@ -1,4 +1,4 @@
-"""Umbrales y regla de acción (CONTRACTS.md, v0)."""
+"""Umbrales, regla de acción y antispam (CONTRACTS.md)."""
 from typing import Optional
 
 from ..models import Answer, Route
@@ -27,3 +27,12 @@ def choose_action(sales_ready: Answer, content: Answer) -> Optional[str]:
     if content.value != "otro":
         return f"send:{content.value}"
     return None
+
+
+SPAM_WINDOW = 3  # decisiones anteriores de la persona que revisa el antispam
+SPAM_REASON = "Frenada por frecuencia"  # prefijo con el que se cuentan en /metrics
+
+
+def repeated_action(action: Optional[str], recent_actions: list[Optional[str]]) -> bool:
+    """Antispam en código: la misma acción ya salió en las últimas `SPAM_WINDOW` decisiones."""
+    return action is not None and action in recent_actions[-SPAM_WINDOW:]

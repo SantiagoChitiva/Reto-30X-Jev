@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()  # antes de que los demás módulos lean variables de entorno
 
 import asyncio  # noqa: E402
+import json  # noqa: E402
 from contextlib import asynccontextmanager  # noqa: E402
 from typing import Optional  # noqa: E402
 
@@ -77,6 +78,7 @@ async def get_metrics():
         llm_pct=pct("llm"),
         human_pct=pct("human"),
         guardrail_blocked=m["blocked"],
+        spam_suppressed=m["spam"],
         total_cost_usd=round(cost, 6),
         cost_per_1k_usd=round(cost / total * 1000, 6) if total else 0.0,
         latency_p50_ms=round(float(m["p50"]), 1),
@@ -122,6 +124,15 @@ async def post_simulate(body: SimulateIn):
     _background.add(task)
     task.add_done_callback(_background.discard)
     return {"accepted": body.n}
+
+
+@app.get("/evaluation")
+async def get_evaluation():
+    """Último resultado de `python -m app.evaluate` (precisión vs set etiquetado y JEV vs LLM)."""
+    path = simulate.data_dir() / "eval_results.json"
+    if not path.exists():
+        raise HTTPException(404, "Aún no hay evaluación. Córrela con: python -m app.evaluate")
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 @app.get("/health")

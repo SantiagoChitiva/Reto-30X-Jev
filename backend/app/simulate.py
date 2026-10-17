@@ -1,11 +1,18 @@
-"""Genera personas y eventos falsos para probar y para la demo.
+"""Genera personas y eventos para probar y para la demo.
 
-Todos los datos son simulados: nada de personas reales.
+Cada persona parte de un perfil del Excel anónimo de 30X (`data/perfiles_30x.json`)
+y recorre el embudo: se inscribe a un evento, asiste, abre correos y su perfil
+cambia (de lead a deal, aparece su rol, declara un dolor, avanza en el CRM).
+Nada de datos personales: solo categorías.
 """
 import asyncio
+import json
 import logging
 import os
 import random
+from functools import lru_cache
+from pathlib import Path
+from typing import Any
 
 from .decision import pipeline
 from .models import EventIn, Person
@@ -15,89 +22,86 @@ log = logging.getLogger(__name__)
 
 running = False  # lo lee GET /metrics
 
-FIRST_NAMES = ["María", "Juan", "Camila", "Andrés", "Valentina", "Santiago", "Laura", "Carlos", "Daniela",
-               "Felipe", "Natalia", "Diego", "Paula", "Sebastián", "Juliana", "Mateo", "Catalina", "Alejandro"]
-LAST_NAMES = ["Gómez", "Rodríguez", "Martínez", "López", "García", "Pérez", "Sánchez", "Ramírez", "Torres",
-              "Díaz", "Vargas", "Rojas", "Moreno", "Castro", "Herrera", "Ortiz"]
-COMPANIES = [  # (empresa, industria)
-    ("Banco Andino", "banca"), ("Seguros del Pacífico", "seguros"), ("Fintech Nova", "fintech"),
-    ("TelcoNet", "telecomunicaciones"), ("Startup Labs", "tecnologia"), ("Retail Sur", "retail"),
-    ("Clínica Central", "salud"), ("Logística Express", "logistica"), ("EduTech Latam", "educacion"),
-    ("Energía Verde", "energia"), ("AgroCampo", "agro"), ("Manufacturas Unidas", "manufactura"),
-]
-SIZES = ["1-10", "11-50", "51-200", "201-1000", "1000+"]
-SIZE_WEIGHTS = [10, 20, 25, 25, 20]
 
-# Cargos de prueba agrupados por el segmento al que deberían caer
-ROLES = {
-    "explorador": ["Coordinador de proyectos", "Asistente administrativo", "Especialista de mercadeo",
-                   "Ejecutivo de cuenta", "Profesional de calidad"],
-    "equipo_adopcion": ["Analista de datos", "Ingeniero de software", "Científico de datos",
-                        "Ingeniero de machine learning", "Desarrollador backend"],
-    "lider_negocio": ["Gerente comercial", "Directora de marketing", "Gerente de operaciones", "CFO",
-                      "Gerente general"],
-    "lider_tecnico": ["CTO", "Director de tecnología", "Arquitecto de soluciones", "Gerente de TI",
-                      "Líder técnico"],
-    "lider_adopcion": ["Head of AI", "Chief Data Officer", "Director de Transformación Digital", "Líder de IA",
-                       "Gerente de Innovación"],
-    "otro": ["Estudiante", "Proveedor", "Consultor independiente"],
-}
-ROLE_WEIGHTS = {"explorador": 25, "equipo_adopcion": 25, "lider_negocio": 18, "lider_tecnico": 12,
-                "lider_adopcion": 10, "otro": 10}
+def data_dir() -> Path:
+    """`DATA_DIR` o, por defecto, la carpeta `data/` de la raíz del repo (`/data` en Docker)."""
+    return Path(os.getenv("DATA_DIR") or Path(__file__).resolve().parents[2] / "data")
 
-# Ascensos que produce un `profile_update`: así aparecen cambios de segmento (Sankey)
-PROMOTIONS = {
-    "Analista de datos": "Líder técnico",
-    "Líder técnico": "Head of AI",
-    "Ingeniero de software": "Arquitecto de soluciones",
-    "Arquitecto de soluciones": "CTO",
-    "Científico de datos": "Líder de IA",
-    "Ingeniero de machine learning": "Líder de IA",
-    "Desarrollador backend": "Líder técnico",
-    "Coordinador de proyectos": "Gerente de operaciones",
-    "Gerente de operaciones": "Director de Transformación Digital",
-    "Especialista de mercadeo": "Directora de marketing",
-    "Ejecutivo de cuenta": "Gerente comercial",
-    "Gerente comercial": "Gerente general",
-    "Gerente de TI": "Chief Data Officer",
-    "Estudiante": "Analista de datos",
-    "Consultor independiente": "Gerente de Innovación",
+
+@lru_cache
+def base_profiles() -> list[dict[str, Any]]:
+    path = data_dir() / "perfiles_30x.json"
+    if not path.exists():
+        raise FileNotFoundError(f"No está {path}. Genéralo con: python data/build_profiles.py <excel>")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+# Eventos de 30X en Luma (genéricos, con los nombres de los programas del Excel)
+EVENT_NAMES = ["Free Sales Training", "Masterclass AI Sales", "Webinar: IA para dueños de empresa",
+               "Sesión informativa de Inmersión Ejecutiva", "Taller Sales Machine", "Demo day Hardcore AI"]
+# Tema del correo según el interés de la persona
+EMAIL_TOPICS = {
+    "ai": "IA aplicada a tu negocio", "sales": "Cómo vender más con un proceso comercial",
+    "ops": "Automatiza tus operaciones", "gtm": "Estrategia de salida al mercado",
+    "leadership": "Delegar para crecer", "marketing": "Marketing que trae clientes",
+    "fundraising": "Cómo levantar capital", "finance": "Finanzas para dueños", "product": "Construir con IA",
 }
 
-EVENT_NAMES = ["30X AI Summit", "Webinar: IA generativa en la empresa", "Taller de prompts",
-               "Meetup de datos", "Sesión informativa del programa ejecutivo"]
-EMAIL_TOPICS = ["casos de éxito en banca", "guía de adopción de IA", "nuevo taller práctico",
-                "programa ejecutivo", "novedades de IA generativa"]
+# Etapas del CRM en orden; el último paso termina en ganado o perdido
+STAGES = ["Registrado", "Contactado", "Potencial", "Calificado", "En gestión"]
+ROLES = ["Fundador, socio o CEO", "Líder comercial o de ventas", "Gerente o jefe de área",
+         "Director, VP o C-level (no dueño)", "Perfil técnico (ingeniería, datos, producto)"]
+ROLE_WEIGHTS = [107, 30, 23, 15, 13]  # proporción de roles entre los deals del Excel
+PAINS = ["Procesos manuales y rezago tecnológico", "Falta de claridad estratégica para escalar",
+         "No tiene proceso comercial estructurado", "Vive de referidos y prospecta a mano",
+         "El dueño es el cuello de botella y no delega", "Ventas estancadas o cayendo"]
+PAIN_WEIGHTS = [26, 19, 17, 11, 9, 7]
+INFO_UP = {"Baja": "Media", "Media": "Alta", "Alta": "Alta"}
+
+
+def _new_person(person_id: str, rng: random.Random) -> Person:
+    base = rng.choice(base_profiles())
+    fields = {k: v for k, v in base.items() if k in Person.model_fields}
+    return Person(**fields, person_id=person_id)
+
+
+def _profile_change(p: dict[str, Any], rng: random.Random) -> dict[str, Any]:
+    """Siguiente cambio de perfil: la persona avanza en el embudo o completa su información."""
+    if p["relation"] != "Deal en el CRM":
+        change = {"relation": "Deal en el CRM", "crm_status": "En proceso", "crm_stage": STAGES[0],
+                  "info_level": INFO_UP[p["info_level"]]}
+        if not p["role"]:  # el rol solo se conoce cuando hay deal
+            change["role"] = rng.choices(ROLES, weights=ROLE_WEIGHTS)[0]
+        return change
+    if not p["pain"] and rng.random() < 0.5:
+        return {"pain": rng.choices(PAINS, weights=PAIN_WEIGHTS)[0],
+                "info_available": "Perfil con contexto (dolor u objetivo)", "info_level": INFO_UP[p["info_level"]]}
+    if p["crm_stage"] in STAGES:
+        i = STAGES.index(p["crm_stage"])
+        if i + 1 < len(STAGES):
+            return {"crm_stage": STAGES[i + 1]}
+        if rng.random() < 0.3:
+            return {"crm_stage": "Ganado Pagado Completo", "crm_status": "Cliente (pagó)"}
+        return {"crm_stage": "Cierre perdido", "crm_status": "Oportunidad perdida"}
+    return {"info_level": INFO_UP[p["info_level"]]}
 
 
 def _person_chain(person_id: str, size: int, rng: random.Random) -> list[EventIn]:
     """Los eventos de una persona, en orden: signup y luego asistencias, correos y cambios de perfil."""
-    archetype = rng.choices(list(ROLE_WEIGHTS), weights=list(ROLE_WEIGHTS.values()))[0]
-    company, industry = rng.choice(COMPANIES)
-    person = Person(
-        person_id=person_id,
-        name=f"{rng.choice(FIRST_NAMES)} {rng.choice(LAST_NAMES)}",
-        role=rng.choice(ROLES[archetype]),
-        company=company,
-        industry=industry,
-        company_size=rng.choices(SIZES, weights=SIZE_WEIGHTS)[0],
-        events_attended=rng.choice([0, 0, 1]),
-    )
+    person = _new_person(person_id, rng)
     chain = [EventIn(person_id=person_id, type="signup", data={"event_name": rng.choice(EVENT_NAMES)},
                      person=person)]
-    role = person.role
+    profile = person.model_dump()
     for _ in range(size - 1):
-        kind = rng.choices(["attendance", "email_open", "profile_update"], weights=[45, 40, 15])[0]
+        kind = rng.choices(["attendance", "email_open", "profile_update"], weights=[35, 40, 25])[0]
         if kind == "attendance":
             data = {"event_name": rng.choice(EVENT_NAMES)}
         elif kind == "email_open":
-            data = {"email_topic": rng.choice(EMAIL_TOPICS)}
-        elif role in PROMOTIONS:
-            role = PROMOTIONS[role]
-            data = {"role": role}
+            topic = rng.choice(profile["interests"] or ["ai"])
+            data = {"email_topic": EMAIL_TOPICS.get(topic, EMAIL_TOPICS["ai"])}
         else:
-            company, industry = rng.choice(COMPANIES)
-            data = {"company": company, "industry": industry}
+            data = _profile_change(profile, rng)
+            profile.update(data)
         chain.append(EventIn(person_id=person_id, type=kind, data=data))
     return chain
 

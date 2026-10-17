@@ -1,0 +1,4679 @@
+[
+ {
+  "person": {
+   "source_id": "P-002",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-007",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Líder comercial o de ventas",
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-009",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-010",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "Sales Machine",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-013",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "Sales Machine",
+   "role": "Líder comercial o de ventas",
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-014",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Gerente o jefe de área",
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-015",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "Sales Machine",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-018",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI for Executives",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-019",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Registrado",
+   "program": "Negociacion",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-021",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "Sales Machine",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-030",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI for Executives",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-031",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Registrado",
+   "program": "Sales Machine",
+   "role": "Líder comercial o de ventas",
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-037",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI for Executives",
+   "role": "Gerente o jefe de área",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-039",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "AI for Executives",
+   "role": "Gerente o jefe de área",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-041",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Contactado",
+   "program": "AI for devs",
+   "role": "Perfil técnico (ingeniería, datos, producto)",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "perfil_tecnico",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-042",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Líder comercial o de ventas",
+   "country": null,
+   "pain": null,
+   "objective": "Desarrollar liderazgo y equipo",
+   "interests": [
+    "sales",
+    "leadership",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-046",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-047",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "30X Executive Program",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Expandirse a otros países",
+   "interests": [
+    "ai",
+    "ops",
+    "gtm"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-049",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-053",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "AI Second Brain",
+   "role": "Gerente o jefe de área",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-056",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-066",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-067",
+   "relation": "Deal en el CRM",
+   "crm_status": "Cliente (pagó)",
+   "crm_stage": "Ganado Pagado Completo",
+   "program": "AI for devs",
+   "role": "Perfil técnico (ingeniería, datos, producto)",
+   "country": "Colombia",
+   "pain": null,
+   "objective": "Expandirse a otros países",
+   "interests": [
+    "ai",
+    "gtm",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "perfil_tecnico",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-068",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI for Executives",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-069",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "AI Second Brain",
+   "role": null,
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-072",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-077",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "Sales Machine",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-085",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "AI Second Brain",
+   "role": "Gerente o jefe de área",
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-093",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "AI Second Brain",
+   "role": "Gerente o jefe de área",
+   "country": null,
+   "pain": null,
+   "objective": "Expandirse a otros países",
+   "interests": [
+    "ai",
+    "ops",
+    "gtm",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-094",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-099",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI for Executives",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-105",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "AI for Executives",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "marketing",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-106",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-111",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "AI Second Brain",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-113",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Expandirse a otros países",
+   "interests": [
+    "gtm",
+    "sales",
+    "ai",
+    "fundraising",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-117",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-125",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-128",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI for Executives",
+   "role": "Líder comercial o de ventas",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-133",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Potencial",
+   "program": "Free Sales Training",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-134",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Líder comercial o de ventas",
+   "country": null,
+   "pain": null,
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-143",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Líder comercial o de ventas",
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-144",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-146",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "Instagram & Tiktok for Business",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "marketing",
+    "ai",
+    "gtm"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "achievers",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-147",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "Ventas con LinkedIn",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-159",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Líder comercial o de ventas",
+   "country": null,
+   "pain": null,
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-161",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI for devs",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "perfil_tecnico",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-164",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-173",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "AI Second Brain",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-184",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-190",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "AI Second Brain",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": "No tiene proceso comercial estructurado",
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai",
+    "leadership",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "achievers",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-196",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "Sales Machine",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-197",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "30X Executive Program",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-201",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-216",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Contactado",
+   "program": "AI for devs",
+   "role": "Perfil técnico (ingeniería, datos, producto)",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "perfil_tecnico",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-223",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": "No tiene proceso comercial estructurado",
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-227",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-228",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-229",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "leadership",
+    "gtm",
+    "sales",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-231",
+   "relation": "Deal en el CRM",
+   "crm_status": "Cliente (pagó)",
+   "crm_stage": "Ganado Pagado Completo",
+   "program": "AI for Executives",
+   "role": "Director, VP o C-level (no dueño)",
+   "country": "Estados Unidos",
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-248",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-253",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Contactado",
+   "program": "AI for devs",
+   "role": "Perfil técnico (ingeniería, datos, producto)",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "perfil_tecnico",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-255",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "Sales Machine",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "ops",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-261",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "AI Sales",
+   "role": "Líder comercial o de ventas",
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "lider_comercial",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-264",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": "Vive de referidos y prospecta a mano",
+   "objective": "Entrar a una red de pares",
+   "interests": [
+    "sales",
+    "gtm",
+    "leadership",
+    "ai",
+    "marketing"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-271",
+   "relation": "Deal en el CRM",
+   "crm_status": "Cliente (pagó)",
+   "crm_stage": "Ganado Pagado Completo",
+   "program": "Ventas con LinkedIn",
+   "role": "Fundador, socio o CEO",
+   "country": "Colombia",
+   "pain": null,
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales",
+    "ops",
+    "gtm",
+    "marketing",
+    "retention"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-272",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "ops",
+    "gtm"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-273",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "AI Sales",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-276",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Perdido",
+   "program": "B2B",
+   "role": null,
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "ops"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-278",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": "El dueño es el cuello de botella y no delega",
+   "objective": "Delegar y pasar a un rol estratégico",
+   "interests": [
+    "leadership",
+    "hiring",
+    "ops",
+    "fundraising",
+    "gtm",
+    "sales"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-282",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": "Venezuela",
+   "pain": null,
+   "objective": "Levantar capital",
+   "interests": [
+    "gtm",
+    "sales",
+    "fundraising",
+    "pricing",
+    "retention",
+    "leadership"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-285",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "30X Executive Program",
+   "role": "Fundador, socio o CEO",
+   "country": null,
+   "pain": "Capital y flujo de caja para crecer",
+   "objective": "Levantar capital",
+   "interests": [
+    "gtm",
+    "fundraising",
+    "ops",
+    "hiring",
+    "leadership",
+    "finance",
+    "sales"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-288",
+   "relation": "Deal en el CRM",
+   "crm_status": "Oportunidad perdida",
+   "crm_stage": "Cierre perdido",
+   "program": "AI Sales",
+   "role": "Fundador, socio o CEO",
+   "country": "Colombia",
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "marketing",
+    "sales",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-289",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "En gestión",
+   "program": "AI for Executives",
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ops",
+    "ai",
+    "gtm"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-292",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Calificado",
+   "program": "Sales Machine",
+   "role": null,
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ops"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-294",
+   "relation": "Deal en el CRM",
+   "crm_status": "Cliente (pagó)",
+   "crm_stage": "Ganado Pagado Completo",
+   "program": "AI Sales",
+   "role": "Fundador, socio o CEO",
+   "country": "Colombia",
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm",
+    "pricing"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-296",
+   "relation": "Deal en el CRM",
+   "crm_status": "En proceso",
+   "crm_stage": "Potencial",
+   "program": "Multipliers",
+   "role": null,
+   "country": null,
+   "pain": "El dueño es el cuello de botella y no delega",
+   "objective": "Delegar y pasar a un rol estratégico",
+   "interests": [
+    "leadership",
+    "ops",
+    "fundraising",
+    "finance",
+    "hiring",
+    "gtm"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-302",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-315",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-317",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-319",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-321",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "fundraising",
+    "gtm"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-324",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "El dueño es el cuello de botella y no delega",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "ops",
+    "sales",
+    "gtm"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-327",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-334",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ops",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-337",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "marketing",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-338",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-346",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-348",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-349",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Falta de claridad estratégica para escalar",
+   "objective": "Vender más",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-358",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-359",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "marketing",
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-367",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Vender más",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-368",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-375",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-381",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ops",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-388",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-389",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "leadership",
+    "ai",
+    "sales",
+    "gtm"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-390",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-392",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "nutricion",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-394",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Falta de claridad estratégica para escalar",
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "gtm"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-398",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-400",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "ai",
+    "sales",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-401",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-402",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-404",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-405",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-411",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-415",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-420",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "marketing"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-424",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "leadership",
+    "gtm"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-426",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops",
+    "fundraising"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-427",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-430",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-438",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-439",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-440",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-442",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-445",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-447",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-452",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Transformar el modelo de negocio",
+   "interests": [
+    "sales",
+    "marketing",
+    "gtm"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-455",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-457",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-460",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Expandirse a otros países",
+   "interests": [
+    "ai",
+    "sales",
+    "ops",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-464",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-465",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "gtm",
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-471",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Falta de claridad estratégica para escalar",
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales",
+    "gtm"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-472",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "gtm",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-473",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-474",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-476",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "ops",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-480",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership",
+    "sales"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-481",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "achievers",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-483",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": false,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-485",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-486",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "leadership",
+    "sales"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-491",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ops",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-493",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "gtm",
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-498",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "leadership"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-505",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-512",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-514",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-518",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-519",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-523",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-524",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Vive de referidos y prospecta a mano",
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "gtm",
+    "ai"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-526",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales",
+    "ops"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-529",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-532",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-533",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-534",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "leadership",
+    "gtm",
+    "ops",
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "achievers",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-536",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-543",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-544",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "ops",
+    "leadership"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-546",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Capital y flujo de caja para crecer",
+   "objective": "Levantar capital",
+   "interests": [
+    "fundraising",
+    "ai",
+    "leadership",
+    "gtm",
+    "sales"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "achievers",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-553",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "ai",
+    "sales",
+    "leadership",
+    "gtm"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-554",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-555",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-565",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-568",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-574",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-576",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "achievers",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-577",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Expandirse a otros países",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-578",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Falta de claridad estratégica para escalar",
+   "objective": "Entrar a una red de pares",
+   "interests": [
+    "gtm",
+    "fundraising",
+    "leadership",
+    "ai",
+    "product",
+    "ops",
+    "finance"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-579",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-580",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales",
+    "ops",
+    "marketing"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-583",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales",
+    "pricing",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-585",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Baja",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-587",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Falta de claridad estratégica para escalar",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ops",
+    "ai",
+    "gtm",
+    "sales"
+   ],
+   "info_level": "Baja",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-588",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Vive de referidos y prospecta a mano",
+   "objective": "Delegar y pasar a un rol estratégico",
+   "interests": [
+    "leadership",
+    "gtm",
+    "marketing",
+    "ops",
+    "ai",
+    "sales",
+    "product"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-597",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "ai",
+    "leadership",
+    "ops",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-600",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "leadership",
+    "ops",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-601",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "gtm",
+    "leadership"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-603",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Capital y flujo de caja para crecer",
+   "objective": "Levantar capital",
+   "interests": [
+    "fundraising",
+    "gtm",
+    "sales",
+    "leadership"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-614",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "sales"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-625",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Procesos manuales y rezago tecnológico",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ops",
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-627",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Expandirse a otros países",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm",
+    "leadership"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-632",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Ventas estancadas o cayendo",
+   "objective": "Delegar y pasar a un rol estratégico",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm",
+    "ops",
+    "leadership"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-633",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership",
+    "ops",
+    "gtm"
+   ],
+   "info_level": "Alta",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-636",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-637",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Vive de referidos y prospecta a mano",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-638",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "No tiene proceso comercial estructurado",
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-639",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-645",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "No tiene proceso comercial estructurado",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ops",
+    "gtm",
+    "ai"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-649",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "sales",
+    "ops",
+    "hiring"
+   ],
+   "info_level": "Media",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-656",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "leadership",
+    "sales"
+   ],
+   "info_level": "Alta",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-657",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-659",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Levantar capital",
+   "interests": [
+    "fundraising",
+    "gtm",
+    "leadership",
+    "sales",
+    "hiring"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-664",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "El dueño es el cuello de botella y no delega",
+   "objective": "Levantar capital",
+   "interests": [
+    "sales",
+    "leadership",
+    "hiring",
+    "fundraising",
+    "ops",
+    "finance",
+    "gtm"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-666",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "El dueño es el cuello de botella y no delega",
+   "objective": "Automatizar con IA",
+   "interests": [
+    "ai",
+    "ops",
+    "leadership"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "hardcore_ai",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-667",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "leadership",
+    "marketing"
+   ],
+   "info_level": "Alta",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-671",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Entrar a una red de pares",
+   "interests": [
+    "leadership",
+    "gtm",
+    "sales",
+    "ai",
+    "pricing",
+    "ops"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-675",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "ops",
+    "gtm",
+    "marketing"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "ejecutivo_ia",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-678",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Construir una máquina de ventas",
+   "interests": [
+    "sales",
+    "ops",
+    "ai"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-679",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Vender más",
+   "interests": [
+    "leadership",
+    "ops",
+    "finance"
+   ],
+   "info_level": "Alta",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-680",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [
+    "sales",
+    "ops",
+    "pricing",
+    "negotiation"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "sales_machine",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-682",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Automatizar con IA",
+   "interests": [
+    "sales",
+    "ai",
+    "ops"
+   ],
+   "info_level": "Media",
+   "info_available": "Solo interés declarado"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-683",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "No tiene proceso comercial estructurado",
+   "objective": "Expandirse a otros países",
+   "interests": [
+    "sales",
+    "ai",
+    "gtm",
+    "ops",
+    "pricing"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_ventas",
+  "content_ref": "ai_sales",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-684",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Formarse (sobre todo en IA)",
+   "interests": [],
+   "info_level": "Media",
+   "info_available": "Sin información"
+  },
+  "segment_ref": "explorador",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-687",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": null,
+   "objective": "Transformar el modelo de negocio",
+   "interests": [
+    "leadership",
+    "gtm",
+    "ops"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ },
+ {
+  "person": {
+   "source_id": "P-694",
+   "relation": "Lead (sin deal)",
+   "crm_status": "Lead sin oportunidad abierta",
+   "crm_stage": null,
+   "program": null,
+   "role": null,
+   "country": null,
+   "pain": "Equipo: contratar, retener y vencer la resistencia al cambio",
+   "objective": "Expandirse a otros países",
+   "interests": [
+    "leadership",
+    "ops",
+    "ai",
+    "gtm",
+    "sales",
+    "hiring"
+   ],
+   "info_level": "Alta",
+   "info_available": "Perfil con contexto (dolor u objetivo)"
+  },
+  "segment_ref": "fundador_escala",
+  "content_ref": "inmersion_ejecutiva",
+  "sales_ready_ref": true,
+  "revisado": false
+ }
+]

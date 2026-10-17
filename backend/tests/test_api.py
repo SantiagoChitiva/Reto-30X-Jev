@@ -3,14 +3,21 @@ import time
 from app.models import Decision, Review
 
 
-def person(pid="p_0001", role="Head of AI", size="1000+"):
-    return {"person_id": pid, "name": "María Gómez", "role": role, "company": "Banco Andino",
-            "industry": "banca", "company_size": size, "events_attended": 1}
+FUNDADOR = {"relation": "Deal en el CRM", "crm_status": "En proceso", "crm_stage": "Calificado",
+            "role": "Fundador, socio o CEO", "objective": "Vender más", "interests": ["sales", "ai"],
+            "info_level": "Alta", "info_available": "Perfil con contexto (dolor u objetivo)"}
+LEAD = {"relation": "Lead (sin deal)", "crm_status": "Lead sin oportunidad abierta", "objective": "Vender más",
+        "interests": ["sales"], "info_level": "Baja", "info_available": "Solo interés declarado"}
+SIN_INFO = {"relation": "Lead (sin deal)", "info_level": "Baja", "info_available": "Sin información"}
+
+
+def person(pid="p_0001", profile=None):
+    return {"person_id": pid, **(FUNDADOR if profile is None else profile)}
 
 
 def signup(client, pid="p_0001", **kw):
     return client.post("/events", json={"person_id": pid, "type": "signup",
-                                        "data": {"event_name": "30X AI Summit"}, "person": person(pid, **kw)})
+                                        "data": {"event_name": "Free Sales Training"}, "person": person(pid, **kw)})
 
 
 def test_health(client):
@@ -22,7 +29,7 @@ def test_signup_devuelve_decision(client):
     assert r.status_code == 200
     d = Decision.model_validate(r.json())
     assert d.person_id == "p_0001" and d.decision_id.startswith("d_") and d.event_id.startswith("e_")
-    assert d.segment.value == "lider_adopcion"
+    assert d.segment.value == "fundador_ventas"
     if d.route == "auto":
         assert d.guardrail is not None
         assert d.action is None if not d.guardrail.passed else d.action is not None
@@ -48,27 +55,34 @@ def test_attendance_suma_en_codigo(client):
     signup(client)
     client.post("/events", json={"person_id": "p_0001", "type": "attendance", "data": {"event_name": "x"}})
     body = client.get("/people/p_0001").json()
-    assert body["person"]["events_attended"] == 2
+    assert body["person"]["events_attended"] == 1  # el perfil del signup trae 0
     assert len(body["history"]) == 2
     assert set(body["history"][0]) == {"at", "segment", "maturity", "sales_ready"}
     assert client.get("/people/p_9999").status_code == 404
 
 
-def test_transicion_por_cambio_de_cargo(client):
-    signup(client, role="Analista de datos")
-    client.post("/events", json={"person_id": "p_0001", "type": "profile_update", "data": {"role": "Head of AI"}})
-    assert client.get("/transitions").json() == [{"from": "equipo_adopcion", "to": "lider_adopcion", "count": 1}]
+def test_email_open_suma_en_codigo(client):
+    signup(client)
+    client.post("/events", json={"person_id": "p_0001", "type": "email_open", "data": {"email_topic": "x"}})
+    assert client.get("/people/p_0001").json()["person"]["emails_opened"] == 1
+
+
+def test_transicion_cuando_aparece_el_rol(client):
+    signup(client, profile=LEAD)
+    client.post("/events", json={"person_id": "p_0001", "type": "profile_update",
+                                 "data": {"relation": "Deal en el CRM", "role": "Líder comercial o de ventas"}})
+    assert client.get("/transitions").json() == [{"from": "explorador", "to": "lider_comercial", "count": 1}]
 
 
 def test_profile_update_invalido(client):
     signup(client)
     r = client.post("/events", json={"person_id": "p_0001", "type": "profile_update",
-                                     "data": {"company_size": "enorme"}})
+                                     "data": {"info_level": "Altísima"}})
     assert r.status_code == 422
 
 
 def test_cola_humana(client):
-    d = signup(client, role="Estudiante").json()  # segmento `otro` → siempre humano
+    d = signup(client, profile=SIN_INFO).json()  # sin información: segmento `otro` → siempre humano
     assert d["route"] == "human" and d["action"] is None
 
     queue = client.get("/review-queue").json()
@@ -76,9 +90,9 @@ def test_cola_humana(client):
     review = Review.model_validate(queue[0])
     assert review.decision_id == d["decision_id"] and review.status == "pending"
 
-    r = client.post(f"/review/{review.review_id}", json={"segment": "explorador", "action": "send:intro_ia"})
+    r = client.post(f"/review/{review.review_id}", json={"segment": "explorador", "action": "send:nutricion"})
     assert r.status_code == 200
-    assert r.json()["status"] == "resolved" and r.json()["resolved_action"] == "send:intro_ia"
+    assert r.json()["status"] == "resolved" and r.json()["resolved_action"] == "send:nutricion"
     assert client.get("/review-queue").json() == []
 
     assert client.post(f"/review/{review.review_id}", json={"segment": "explorador"}).status_code == 409
@@ -87,7 +101,7 @@ def test_cola_humana(client):
 
 
 def test_filtro_de_decisiones(client):
-    signup(client, "p_0001", role="Estudiante")
+    signup(client, "p_0001", profile=SIN_INFO)
     signup(client, "p_0002")
     humans = client.get("/decisions?route=human").json()
     assert humans and all(d["route"] == "human" for d in humans)
@@ -108,5 +122,34 @@ def test_simulate_y_metrics(client):
     assert abs(m["auto_pct"] + m["llm_pct"] + m["human_pct"] - 100) < 0.5
     assert m["total_cost_usd"] > 0 and m["cost_per_1k_usd"] > 0
     assert m["latency_p95_ms"] >= m["latency_p50_ms"]
-    assert set(m) == {"total_decisions", "auto_pct", "llm_pct", "human_pct", "guardrail_blocked",
+    assert set(m) == {"total_decisions", "auto_pct", "llm_pct", "human_pct", "guardrail_blocked", "spam_suppressed",
                       "total_cost_usd", "cost_per_1k_usd", "latency_p50_ms", "latency_p95_ms", "running"}
+
+
+def test_antispam_frena_la_misma_accion(client, monkeypatch):
+    from app.decision import jev, policy
+
+    monkeypatch.setattr(policy, "route", lambda segment, sales_ready: "auto")
+    monkeypatch.setattr(jev, "_mock_guardrail_answer", lambda state: {"type": "boolean", "probability": 0.95})
+    first = signup(client).json()
+    assert first["action"] is not None
+    second = client.post("/events", json={"person_id": "p_0001", "type": "attendance", "data": {}}).json()
+    assert second["action"] is None
+    assert second["guardrail"]["passed"] is False and "frecuencia" in second["guardrail"]["reason"]
+    m = client.get("/metrics").json()
+    assert m["spam_suppressed"] == 1 and m["guardrail_blocked"] == 0
+
+
+def test_evaluation_404_y_luego_resultado(client, tmp_path, monkeypatch):
+    import json
+
+    monkeypatch.setenv("DATA_DIR", str(tmp_path))
+    assert client.get("/evaluation").status_code == 404
+    (tmp_path / "eval_results.json").write_text(json.dumps({"n": 1}))
+    assert client.get("/evaluation").json() == {"n": 1}
+
+
+def test_una_sola_revision_pendiente_por_persona(client):
+    signup(client, profile=SIN_INFO)
+    client.post("/events", json={"person_id": "p_0001", "type": "email_open", "data": {}})
+    assert len(client.get("/review-queue").json()) == 1

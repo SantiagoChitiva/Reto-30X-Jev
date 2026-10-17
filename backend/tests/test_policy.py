@@ -4,7 +4,7 @@ from app.decision import policy
 from app.models import Answer
 
 
-def seg(value="lider_adopcion", p=0.9):
+def seg(value="fundador_ventas", p=0.9):
     return Answer(value=value, p=p)
 
 
@@ -34,6 +34,12 @@ def test_segmento_otro_siempre_va_a_humano():
 
 
 def test_accion():
-    assert policy.choose_action(sales(True), Answer(value="caso_de_exito", p=0.9)) == "notify_sales"
-    assert policy.choose_action(sales(False), Answer(value="caso_de_exito", p=0.9)) == "send:caso_de_exito"
+    assert policy.choose_action(sales(True), Answer(value="ai_sales", p=0.9)) == "notify_sales"
+    assert policy.choose_action(sales(False), Answer(value="ai_sales", p=0.9)) == "send:ai_sales"
     assert policy.choose_action(sales(False), Answer(value="otro", p=0.9)) is None
+
+
+def test_antispam():
+    assert policy.repeated_action("send:ai_sales", ["notify_sales", "send:ai_sales"])
+    assert not policy.repeated_action("send:ai_sales", ["send:ai_sales", None, None, "notify_sales"])
+    assert not policy.repeated_action(None, [None])

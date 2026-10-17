@@ -7,11 +7,12 @@ export const ROUTE_LABELS: Record<Route, string> = {
 };
 
 export const SEGMENT_LABELS: Record<Segment, string> = {
+  fundador_ventas: "Fundador · ventas",
+  fundador_escala: "Fundador · escalar",
+  lider_comercial: "Líder comercial",
+  ejecutivo_ia: "Ejecutivo · IA",
+  perfil_tecnico: "Perfil técnico",
   explorador: "Explorador",
-  lider_negocio: "Líder de negocio",
-  lider_tecnico: "Líder técnico",
-  equipo_adopcion: "Equipo de adopción",
-  lider_adopcion: "Líder de adopción",
   otro: "Otro",
 };
 
@@ -22,19 +23,23 @@ export const MATURITY_LABELS: Record<Maturity, string> = {
 };
 
 export const CONTENT_LABELS: Record<Content, string> = {
-  intro_ia: "Intro a IA",
-  caso_de_exito: "Caso de éxito",
-  taller_practico: "Taller práctico",
-  programa_ejecutivo: "Programa ejecutivo",
+  ai_sales: "AI Sales",
+  inmersion_ejecutiva: "Inmersión Ejecutiva",
+  sales_machine: "Sales Machine",
+  hardcore_ai: "Hardcore AI",
+  achievers: "Achievers",
+  nutricion: "Contenido gratuito",
   otro: "Otro",
 };
 
 /** Acciones que puede elegir quien revisa un caso. `ninguna` se envía como `null`. */
 export const REVIEW_ACTIONS = [
-  "send:intro_ia",
-  "send:caso_de_exito",
-  "send:taller_practico",
-  "send:programa_ejecutivo",
+  "send:ai_sales",
+  "send:inmersion_ejecutiva",
+  "send:sales_machine",
+  "send:hardcore_ai",
+  "send:achievers",
+  "send:nutricion",
   "notify_sales",
   "ninguna",
 ] as const;

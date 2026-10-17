@@ -205,7 +205,7 @@ function ReviewItem({
               p={decision.sales_ready.p}
             />
             <Fact
-              label="Contenido"
+              label="Oferta"
               value={labelOf(CONTENT_LABELS, decision.content.value)}
               p={decision.content.p}
             />

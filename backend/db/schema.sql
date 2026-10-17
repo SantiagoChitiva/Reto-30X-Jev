@@ -3,12 +3,19 @@
 
 CREATE TABLE IF NOT EXISTS people (
     person_id        TEXT PRIMARY KEY,
-    name             TEXT NOT NULL,
-    role             TEXT NOT NULL,
-    company          TEXT NOT NULL,
-    industry         TEXT NOT NULL,
-    company_size     TEXT NOT NULL,
+    relation         TEXT,             -- mismas categorías del Excel de perfiles de 30X; NULL = sin dato
+    crm_status       TEXT,
+    crm_stage        TEXT,
+    program          TEXT,
+    role             TEXT,
+    country          TEXT,
+    pain             TEXT,
+    objective        TEXT,
+    interests        JSONB NOT NULL DEFAULT '[]',
+    info_level       TEXT NOT NULL DEFAULT 'Baja',
+    info_available   TEXT,
     events_attended  INT  NOT NULL DEFAULT 0,
+    emails_opened    INT  NOT NULL DEFAULT 0,
     updated_at       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 

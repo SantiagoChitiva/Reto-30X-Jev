@@ -9,8 +9,6 @@ import json
 import math
 import os
 import random
-import re
-import unicodedata
 from dataclasses import dataclass
 from typing import Any, Optional
 
@@ -29,54 +27,63 @@ def use_mock() -> bool:
 
 
 # --- Preguntas tipadas (CONTRACTS.md) ---
-# `state` llega como {person, event, recent_events}; las instrucciones citan
-# esos campos entre backticks, como recomienda la documentación de JEV.
+# `state` llega como {person, signals, event, recent_events}; las instrucciones citan
+# esos campos entre backticks, como recomienda la documentación de JEV. `person` usa las
+# categorías del Excel de perfiles de 30X (null = sin dato) y `signals` se calcula en código.
 
 QUESTIONS: dict[str, dict[str, Any]] = {
     "segment": {
         "type": "choice",
-        "instructions": "Clasifica a `person` en el segmento que mejor la describe según su cargo, "
-                        "su empresa y lo que ha hecho (`event`, `recent_events`).",
+        "instructions": "Clasifica a `person` en el segmento de la audiencia de 30X que mejor la describe, "
+                        "según su rol, su objetivo, su dolor y sus temas de interés. Si `role` es null, "
+                        "decide con lo que sí hay; `signals` y `recent_events` muestran lo que ha hecho.",
         "criteria": {
-            "explorador": "Curiosa por la IA, sin equipo a cargo ni poder de decisión; está dando sus primeros pasos.",
-            "lider_negocio": "Dirige un área de negocio (comercial, marketing, operaciones, finanzas, personas) "
-                             "y evalúa la IA por su impacto en el negocio.",
-            "lider_tecnico": "Dirige tecnología, ingeniería o arquitectura (CTO, gerente de TI, head of engineering) "
-                             "y decide sobre herramientas.",
-            "equipo_adopcion": "Trabaja en el equipo que implementa IA (analista, ingeniero, científico de datos) "
-                               "sin poder de compra.",
-            "lider_adopcion": "Es responsable de la estrategia o la adopción de IA en su organización "
-                              "(Head of AI, Chief Data Officer, transformación digital, innovación).",
-            "otro": "No encaja en ningún segmento (estudiante, proveedor o perfil sin información suficiente).",
+            "fundador_ventas": "Dueño, socio o CEO (o, sin rol, alguien con contexto) cuyo foco es vender más: "
+                               "objetivo de vender o de construir una máquina de ventas, o un dolor comercial "
+                               "(sin proceso, vive de referidos, ventas estancadas).",
+            "fundador_escala": "Dueño, socio o CEO cuyo foco es escalar la empresa: delegar, liderazgo, "
+                               "expandirse a otros países, levantar capital, red de pares o claridad estratégica.",
+            "lider_comercial": "Líder comercial o de ventas, o directivo no dueño responsable de vender más.",
+            "ejecutivo_ia": "Dueño, directivo o gerente cuyo foco es automatizar o adoptar IA en su empresa, "
+                            "sin ser un perfil técnico.",
+            "perfil_tecnico": "Perfil técnico (ingeniería, datos, producto) que quiere construir con IA.",
+            "explorador": "Lead que solo declaró interés o quiere formarse; todavía no hay contexto de su empresa.",
+            "otro": "No hay información suficiente para ubicarla, o no es parte de la audiencia de 30X.",
         },
     },
     "maturity": {
         "type": "score",
-        "instructions": "Qué tan madura es la organización de `person` en el uso de IA.",
+        "instructions": "Qué tan madura está la empresa de `person` en la adopción de IA, según su objetivo, "
+                        "su dolor, sus temas de interés y el programa en el que está.",
         "criteria": [
-            "baja: no usa IA o solo hay pruebas individuales",
-            "media: tiene pilotos o casos de uso en algunas áreas",
-            "alta: la IA está en producción, con estrategia y equipo dedicados",
+            "baja: no usa IA; el interés es aprender o tiene procesos manuales",
+            "media: ya quiere automatizar procesos concretos o vender con IA",
+            "alta: ya construye con IA o la usa en varias áreas del negocio",
         ],
     },
     "sales_ready": {
         "type": "boolean",
-        "instructions": "¿`person` está lista para que el equipo de ventas la contacte con una oferta?",
+        "instructions": "¿`person` está lista para que el equipo comercial de 30X la contacte con un programa?",
         "criteria": {
-            "true": "Decide o influye en compras, su empresa tiene más de 50 personas y muestra interés "
-                    "repetido (varios eventos, o llegó a un cargo de liderazgo en IA).",
-            "false": "No decide compras, su empresa es muy pequeña o su interés todavía es inicial.",
+            "true": "Tiene contexto claro (rol, dolor u objetivo), encaja con algún programa de 30X y muestra "
+                    "interés activo (`signals`: asistió a eventos, abre correos o ya tiene un deal en proceso).",
+            "false": "Solo declaró interés, no hay contexto suficiente, ya perdió la oportunidad o ya es cliente "
+                     "del programa que le correspondería.",
         },
     },
     "content": {
         "type": "choice",
-        "instructions": "Qué contenido le sirve más a `person` en este momento.",
+        "instructions": "Qué oferta de 30X le conviene más a `person` en este momento. Solo existen estas.",
         "criteria": {
-            "intro_ia": "Introducción a la IA para quien está empezando.",
-            "caso_de_exito": "Casos de éxito de empresas parecidas, para líderes que evalúan invertir.",
-            "taller_practico": "Taller práctico para equipos que implementan.",
-            "programa_ejecutivo": "Programa ejecutivo para líderes de organizaciones maduras.",
-            "otro": "Ninguno de los anteriores aplica.",
+            "ai_sales": "AI Sales: vender más usando IA en prospección y seguimiento comercial.",
+            "inmersion_ejecutiva": "Inmersión Ejecutiva: dueños y ejecutivos que quieren escalar, delegar, "
+                                   "expandirse o transformar su negocio.",
+            "sales_machine": "Sales Machine: construir un proceso comercial estructurado y un equipo de ventas.",
+            "hardcore_ai": "Hardcore AI: perfiles técnicos que construyen soluciones con IA.",
+            "achievers": "Achievers: red de pares y crecimiento para dueños de empresa.",
+            "nutricion": "Contenido gratuito (newsletter, Free Sales Training, eventos) para quien aún no "
+                         "tiene contexto o afinidad suficiente con un programa.",
+            "otro": "Ninguna de las anteriores aplica.",
         },
     },
 }
@@ -84,11 +91,13 @@ QUESTIONS: dict[str, dict[str, Any]] = {
 GUARDRAIL_QUESTIONS: dict[str, dict[str, Any]] = {
     "apropiada": {
         "type": "boolean",
-        "instructions": "¿Es apropiado ejecutar `action` con `person` en este momento? Revisa que sea "
-                        "coherente con `decision`, con su cargo y con su empresa, y que no resulte invasiva.",
+        "instructions": "Un agente de 30X va a ejecutar `action` con `person`. ¿Es seguro y apropiado hacerlo? "
+                        "Revisa que sea coherente con `decision` y con el perfil, que respete la línea "
+                        "editorial de 30X (útil, no invasiva) y que no prometa algo que 30X no ofrece.",
         "criteria": {
-            "true": "La acción es coherente con el perfil y el momento de la persona.",
-            "false": "La acción no corresponde al perfil, es prematura o podría molestar a la persona.",
+            "true": "La oferta corresponde al perfil y al momento de la persona, y el tono sería bienvenido.",
+            "false": "La oferta no corresponde al perfil, es prematura (por ejemplo, avisar a ventas sin "
+                     "contexto) o podría sentirse como spam.",
         },
     },
 }
@@ -201,11 +210,13 @@ async def guardrail(state: dict[str, Any], answers: dict[str, Answer], action: s
 
 OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 LLM_SYSTEM_PROMPT = (
-    "Eres el revisor de 30X Pulse. Un modelo de clasificación (JEV) propuso un segmento y una acción "
-    "para una persona, pero con confianza media. Revisa el caso con el perfil y los eventos recientes. "
-    "Confirma la propuesta o corrígela solo si el perfil lo contradice con claridad.\n"
+    "Eres el revisor de 30X Pulse. 30X es una escuela de negocios para dueños y líderes de empresa en "
+    "Latinoamérica. Un modelo de clasificación (JEV) propuso un segmento y una acción para una persona, "
+    "pero con confianza media. Revisa el caso con el perfil (categorías anónimas, null = sin dato), las "
+    "señales y los eventos recientes. Confirma la propuesta o corrígela solo si el perfil lo contradice "
+    "con claridad. Nunca ofrezcas algo fuera de la lista.\n"
     f"Segmentos válidos: {', '.join(SEGMENTS)}.\n"
-    f"Acciones válidas: notify_sales, send:<contenido> con contenido en [{', '.join(CONTENT)}], o null.\n"
+    f"Acciones válidas: notify_sales, send:<oferta> con oferta en [{', '.join(CONTENT)}], o null.\n"
     'Responde solo con JSON: {"segment": "...", "action": "..." | null, '
     '"explanation": "2 o 3 frases en español que justifican la decisión"}.'
 )
@@ -315,79 +326,103 @@ async def review_with_llm(state: dict[str, Any], answers: dict[str, Answer], act
 
 
 # --- JEV simulado ---
-# Heurística sencilla sobre cargo, empresa e historial. No intenta acertar como
-# JEV: sirve para desarrollar y hacer la demo con respuestas de la misma forma.
+# Heurística sencilla sobre las categorías del perfil. No intenta acertar como JEV
+# (a propósito se equivoca a veces, más cuando duda): sirve para desarrollar y hacer
+# la demo con respuestas de la misma forma.
 
 _rng = random.Random()
-_SIZES = ["1-10", "11-50", "51-200", "201-1000", "1000+"]
-_MATURE_INDUSTRIES = {"banca", "fintech", "tecnologia", "telecomunicaciones", "seguros"}
 
-# El primer patrón que coincide gana, así que el orden importa.
-_SEGMENT_PATTERNS = [
-    ("otro", r"\b(estudiante|proveedor|freelance)\b"),
-    ("lider_adopcion", r"\b(head of ai|chief (ai|data)|transformacion digital|lider de ia|director de ia|innovacion)\b"),
-    ("lider_tecnico", r"\b(cto|cio|tecnologia|arquitect\w*|gerente de ti|head of engineering|lider tecnico)\b"),
-    ("lider_negocio", r"\b(gerente|director|directora|cfo|ceo|coo|vp|jefe|jefa)\b"),
-    ("equipo_adopcion", r"\b(analista|ingenier\w*|cientific\w*|desarroll\w*|data|machine learning)\b"),
-    ("explorador", r"\b(coordinador\w*|asistente|especialista|profesional|ejecutiv\w*|practicante)\b"),
-]
+_SALES = {"Vender más", "Construir una máquina de ventas"}
+_SALES_PAINS = {"No tiene proceso comercial estructurado", "Vive de referidos y prospecta a mano",
+                "Ventas estancadas o cayendo"}
+_SCALE = {"Delegar y pasar a un rol estratégico", "Desarrollar liderazgo y equipo", "Expandirse a otros países",
+          "Levantar capital", "Entrar a una red de pares", "Transformar el modelo de negocio"}
+_ACTIVE_STAGES = {"Registrado", "Contactado", "Potencial", "Calificado", "En gestión"}
 
 
-def _norm(text: str) -> str:
-    return unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode().lower()
-
-
-def _guess_segment(role: str) -> tuple[str, bool]:
-    """(segmento, ¿el cargo es claro?). Un cargo sin patrón se vuelve un explorador dudoso."""
-    r = _norm(role)
-    for segment, pattern in _SEGMENT_PATTERNS:
-        if re.search(pattern, r):
-            return segment, True
-    return "explorador", False
+def _guess_segment(person: dict[str, Any]) -> tuple[str, float]:
+    """(segmento, qué tan clara es la señal, de 0 a 1)."""
+    role, objective, pain = person.get("role") or "", person.get("objective"), person.get("pain")
+    interests = set(person.get("interests") or [])
+    sales = objective in _SALES or pain in _SALES_PAINS
+    if not role and not objective and not interests:
+        return "otro", 0.93
+    if "técnico" in role or person.get("program") == "AI for devs":
+        return "perfil_tecnico", 0.95
+    if "comercial" in role:
+        return "lider_comercial", 0.96
+    if "Fundador" in role:
+        if sales:
+            return "fundador_ventas", 0.95
+        if objective in _SCALE or pain:
+            return "fundador_escala", 0.93
+        return "ejecutivo_ia", 0.9
+    if role:  # director, VP o gerente
+        return ("lider_comercial", 0.78) if sales else ("ejecutivo_ia", 0.9)
+    if person.get("info_available") != "Perfil con contexto (dolor u objetivo)":
+        return "explorador", 0.94 if interests else 0.5
+    # Sin rol pero con contexto: se adivina por el objetivo, con menos seguridad
+    clarity = {"Alta": 0.88, "Media": 0.82}.get(person.get("info_level"), 0.74)
+    if sales:
+        return "fundador_ventas", clarity
+    if objective in _SCALE:
+        return "fundador_escala", clarity
+    if objective == "Automatizar con IA":
+        return "ejecutivo_ia", clarity
+    return "explorador", clarity
 
 
 def _guess_maturity(person: dict[str, Any], segment: str) -> int:
-    score = _SIZES.index(person["company_size"]) * 0.45
-    if _norm(person["industry"]) in _MATURE_INDUSTRIES:
-        score += 0.6
-    if segment == "lider_adopcion":
-        score += 0.6
-    score += min(person.get("events_attended", 0), 4) * 0.15
-    return 0 if score < 1.0 else 1 if score < 2.0 else 2
+    interests = set(person.get("interests") or [])
+    if segment == "perfil_tecnico" or person.get("program") in ("AI for devs", "AI Second Brain"):
+        return 2
+    if person.get("pain") == "Procesos manuales y rezago tecnológico":
+        return 0
+    if person.get("objective") == "Automatizar con IA":
+        return 1
+    return 1 if "ai" in interests else 0
 
 
-def _guess_sales_ready(person: dict[str, Any], segment: str, maturity: int) -> bool:
-    leader = segment in ("lider_negocio", "lider_tecnico", "lider_adopcion")
-    big = _SIZES.index(person["company_size"]) >= 2
-    interested = person.get("events_attended", 0) >= 2 or maturity == 2
-    return leader and big and interested
+def _guess_sales_ready(person: dict[str, Any], signals: dict[str, Any], segment: str) -> bool:
+    if segment in ("explorador", "otro") or person.get("crm_status") in ("Oportunidad perdida", "Cliente (pagó)"):
+        return False
+    active_deal = person.get("crm_stage") in _ACTIVE_STAGES
+    engaged = signals.get("events_attended", 0) + signals.get("emails_opened", 0) >= 2
+    return active_deal or (person.get("info_level") != "Baja" and engaged)
 
 
-def _guess_content(segment: str, maturity: int) -> str:
+def _guess_content(person: dict[str, Any], segment: str) -> str:
+    interests = set(person.get("interests") or [])
+    if person.get("info_level") == "Baja" and segment in ("explorador", "ejecutivo_ia") and len(interests) < 2:
+        return "nutricion"
+    if person.get("objective") == "Entrar a una red de pares":
+        return "achievers"
     return {
-        "explorador": "intro_ia",
-        "equipo_adopcion": "taller_practico",
-        "lider_negocio": "caso_de_exito",
-        "lider_tecnico": "caso_de_exito" if maturity == 2 else "taller_practico",
-        "lider_adopcion": "programa_ejecutivo" if maturity == 2 else "caso_de_exito",
+        "fundador_ventas": "ai_sales" if "ai" in interests else "sales_machine",
+        "lider_comercial": "ai_sales" if "ai" in interests else "sales_machine",
+        "fundador_escala": "inmersion_ejecutiva",
+        "ejecutivo_ia": "ai_sales" if "sales" in interests else "inmersion_ejecutiva",
+        "perfil_tecnico": "hardcore_ai",
+        "explorador": "nutricion",
     }.get(segment, "otro")
 
 
-def _clarity(clear_role: bool) -> float:
-    """Seguridad simulada. Con cargos claros da ~74% auto, ~18% llm y ~8% humano."""
-    r = _rng.random()
-    auto_share, llm_share = (0.74, 0.92) if clear_role else (0.25, 0.70)
-    if r < auto_share:
-        return _rng.uniform(0.86, 0.99)
-    if r < llm_share:
-        return _rng.uniform(0.61, 0.84)
-    return _rng.uniform(0.35, 0.59)
+def _clarity(base: float, rng: random.Random) -> float:
+    """Seguridad simulada alrededor de `base`, para que haya casos en las tres rutas."""
+    return max(0.35, min(0.99, rng.gauss(base, 0.06)))
 
 
-def _spread(options: list[str], chosen: str, p: float) -> dict[str, float]:
+def _maybe_wrong(options: list[str], chosen: str, p: float, rng: random.Random) -> str:
+    """Cuando duda, a veces se equivoca (como puede pasarle a un modelo real)."""
+    if rng.random() < (1 - p) * 0.8:
+        return rng.choice([o for o in options if o != chosen])
+    return chosen
+
+
+def _spread(options: list[str], chosen: str, p: float, rng: random.Random = _rng) -> dict[str, float]:
     """Probabilidades por opción: `chosen` recibe p y el resto se reparte sin superarla."""
     others = [o for o in options if o != chosen]
-    weights = [1 + _rng.random() * 0.5 for _ in others]
+    weights = [1 + rng.random() * 0.5 for _ in others]
     total = sum(weights)
     probs = {o: round((1 - p) * w / total, 2) for o, w in zip(others, weights)}
     probs[chosen] = round(p, 2)
@@ -395,17 +430,23 @@ def _spread(options: list[str], chosen: str, p: float) -> dict[str, float]:
 
 
 def _mock_main_answers(state: dict[str, Any]) -> dict[str, Any]:
-    person = state["person"]
-    segment, clear_role = _guess_segment(person["role"])
+    person, signals = state["person"], state.get("signals", {})
+    # Mismo perfil → misma respuesta, como un modelo real: solo cambia cuando cambia el perfil
+    profile = {k: v for k, v in person.items() if k != "person_id"}
+    rng = random.Random(json.dumps(profile, sort_keys=True, ensure_ascii=False))
+    segment, base = _guess_segment(person)
+    clarity = _clarity(base, rng)
+    segment = _maybe_wrong(SEGMENTS, segment, clarity, rng)
     maturity = _guess_maturity(person, segment)
-    sales = _guess_sales_ready(person, segment, maturity)
-    content = _guess_content(segment, maturity)
+    sales = _guess_sales_ready(person, signals, segment)
+    content_p = _clarity(base, rng)
+    content = _maybe_wrong(CONTENT, _guess_content(person, segment), content_p, rng)
 
-    clarity = _clarity(clear_role)
-    sales_p = max(0.51, min(0.99, clarity + _rng.uniform(0.0, 0.05)))
-    maturity_probs = _spread([str(i) for i in range(len(MATURITY))], str(maturity), _rng.uniform(0.55, 0.97))
+    sales_p = max(0.51, min(0.99, clarity + rng.uniform(-0.02, 0.04)))
+    maturity_probs = _spread([str(i) for i in range(len(MATURITY))], str(maturity), rng.uniform(0.55, 0.97), rng)
     return {
-        "segment": {"type": "choice", "choice": segment, "probabilities": _spread(SEGMENTS, segment, clarity)},
+        "segment": {"type": "choice", "choice": segment,
+                    "probabilities": _spread(SEGMENTS, segment, clarity, rng)},
         "maturity": {
             "type": "score",
             "score": round(sum(int(k) * v for k, v in maturity_probs.items()), 2),
@@ -413,14 +454,15 @@ def _mock_main_answers(state: dict[str, Any]) -> dict[str, Any]:
         },
         "sales_ready": {"type": "boolean", "probability": round(sales_p if sales else 1 - sales_p, 2)},
         "content": {"type": "choice", "choice": content,
-                    "probabilities": _spread(CONTENT, content, _rng.uniform(0.6, 0.97))},
+                    "probabilities": _spread(CONTENT, content, content_p, rng)},
     }
 
 
 def _mock_guardrail_answer(state: dict[str, Any]) -> dict[str, Any]:
     p = _rng.uniform(0.88, 0.99)
-    if state.get("action") == "notify_sales" and state["person"]["company_size"] in ("1-10", "11-50"):
-        p = _rng.uniform(0.3, 0.7)
+    person = state["person"]
+    if state.get("action") == "notify_sales" and person.get("info_level") == "Baja" and not person.get("role"):
+        p = _rng.uniform(0.3, 0.7)  # avisar a ventas sin contexto es prematuro
     elif _rng.random() < 0.004:
         p = _rng.uniform(0.5, 0.84)
     return {"type": "boolean", "probability": round(p, 2)}

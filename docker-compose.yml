@@ -20,6 +20,7 @@ services:
     env_file: .env
     environment:
       DATABASE_URL: postgresql://pulse:pulse@db:5432/pulse
+      DATA_DIR: /data
     ports:
       - "8000:8000"
     depends_on:
@@ -27,6 +28,8 @@ services:
         condition: service_healthy
     volumes:
       - ./backend/app:/app/app   # recarga de código en desarrollo
+      - ./backend/tests:/app/tests
+      - ./data:/data             # perfiles, set etiquetado y resultados de la evaluación
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 volumes:

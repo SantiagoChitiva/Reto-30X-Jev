@@ -4,23 +4,29 @@ export const ROUTES = ["auto", "llm", "human"] as const;
 export type Route = (typeof ROUTES)[number];
 
 export const SEGMENTS = [
+  "fundador_ventas",
+  "fundador_escala",
+  "lider_comercial",
+  "ejecutivo_ia",
+  "perfil_tecnico",
   "explorador",
-  "lider_negocio",
-  "lider_tecnico",
-  "equipo_adopcion",
-  "lider_adopcion",
   "otro",
 ] as const;
 export type Segment = (typeof SEGMENTS)[number];
 
 export type Maturity = "baja" | "media" | "alta";
 
-export type Content =
-  | "intro_ia"
-  | "caso_de_exito"
-  | "taller_practico"
-  | "programa_ejecutivo"
-  | "otro";
+/** Ofertas reales de 30X (programas) + contenido gratuito de nutrición. */
+export const CONTENTS = [
+  "ai_sales",
+  "inmersion_ejecutiva",
+  "sales_machine",
+  "hardcore_ai",
+  "achievers",
+  "nutricion",
+  "otro",
+] as const;
+export type Content = (typeof CONTENTS)[number];
 
 /** Respuesta de JEV: un valor con su probabilidad calibrada `p` (0 a 1). */
 export interface Scored<T> {
@@ -75,6 +81,8 @@ export interface Metrics {
   llm_pct: number;
   human_pct: number;
   guardrail_blocked: number;
+  /** Acciones repetidas que frenó el antispam (en código, sin llamar a JEV). */
+  spam_suppressed: number;
   total_cost_usd: number;
   cost_per_1k_usd: number;
   latency_p50_ms: number;
@@ -86,6 +94,34 @@ export interface Transition {
   from: Segment;
   to: Segment;
   count: number;
+}
+
+export type Question = "segment" | "content" | "sales_ready";
+type Accuracy = Record<Question, number>;
+
+/** `GET /evaluation`: JEV contra el set etiquetado y frente a un LLM. */
+export interface Evaluation {
+  created_at: string;
+  mock_jev: boolean;
+  n: number;
+  labels: string;
+  reviewed_labels: number;
+  accuracy: Accuracy;
+  by_route: Record<Route, Accuracy & { n: number; pct: number }>;
+  jev: {
+    cost_usd: number;
+    cost_per_1k_usd: number;
+    latency_p50_ms: number;
+    latency_p95_ms: number;
+    wall_ms: number;
+  };
+  llm: {
+    model: string;
+    cost_usd: number;
+    cost_per_1k_usd: number;
+    latency_ms_typical: number;
+    estimated: boolean;
+  };
 }
 
 export interface SimulateResponse {

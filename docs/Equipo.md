@@ -82,6 +82,8 @@ No cambies el formato de las respuestas. Si lo respetas, el resto del sistema no
 
 ### Persona 3: Datos y evaluación
 
+> **Estado:** los puntos 1, 2, 4 y 5 ya están hechos (`data/build_profiles.py`, `simulate.py`, `python -m app.evaluate`). Falta el punto 3: revisar a mano `segment_ref` en `data/labeled_set.json` y marcar `"revisado": true`.
+
 **Archivos:** la carpeta `data/` y `backend/app/simulate.py`.
 
 1. Crear perfiles falsos pero realistas, basados en los ejemplos de perfiles que compartió 30X.

@@ -8,9 +8,10 @@ ANSWERS = {
     "segment": Answer(value="explorador", p=0.71),
     "maturity": Answer(value="media", p=0.7),
     "sales_ready": Answer(value=False, p=0.75),
-    "content": Answer(value="intro_ia", p=0.8),
+    "content": Answer(value="nutricion", p=0.8),
 }
-STATE = {"person": {"role": "Consultor independiente"}, "event": {}, "recent_events": []}
+STATE = {"person": {"relation": "Lead (sin deal)", "objective": "Formarse (sobre todo en IA)"},
+         "signals": {}, "event": {}, "recent_events": []}
 
 
 def fake_llm(monkeypatch, content, usage=None):
@@ -22,21 +23,21 @@ def fake_llm(monkeypatch, content, usage=None):
     monkeypatch.setenv("USE_MOCK_LLM", "false")
 
 
-def review(action="send:intro_ia"):
+def review(action="send:nutricion"):
     return asyncio.run(jev.review_with_llm(STATE, ANSWERS, action))
 
 
 def test_el_llm_corrige_segmento_y_accion(monkeypatch):
-    fake_llm(monkeypatch, {"segment": "lider_tecnico", "action": "send:taller_practico", "explanation": "Dirige TI."})
+    fake_llm(monkeypatch, {"segment": "lider_comercial", "action": "send:ai_sales", "explanation": "Lidera ventas."})
     r = review()
-    assert r.segment == "lider_tecnico"
-    assert r.action_changed and r.action == "send:taller_practico"
-    assert r.explanation.startswith("JEV propuso explorador (p=0.71); el LLM lo corrige a lider_tecnico.")
+    assert r.segment == "lider_comercial"
+    assert r.action_changed and r.action == "send:ai_sales"
+    assert r.explanation.startswith("JEV propuso explorador (p=0.71); el LLM lo corrige a lider_comercial.")
     assert abs(r.cost_usd - 0.75) < 1e-9  # 1M tokens de entrada (0.15) + 1M de salida (0.60)
 
 
 def test_el_llm_confirma(monkeypatch):
-    fake_llm(monkeypatch, {"segment": "explorador", "action": "send:intro_ia", "explanation": "Coherente."})
+    fake_llm(monkeypatch, {"segment": "explorador", "action": "send:nutricion", "explanation": "Coherente."})
     r = review()
     assert r.segment is None and not r.action_changed and r.explanation == "Coherente."
 
@@ -91,12 +92,12 @@ def test_pipeline_aplica_la_correccion_del_llm(client, monkeypatch):
     from app.decision import policy
 
     monkeypatch.setattr(policy, "route", lambda segment, sales_ready: "llm")
-    fake_llm(monkeypatch, {"segment": "lider_tecnico", "action": "notify_sales", "explanation": "Dirige TI."})
+    fake_llm(monkeypatch, {"segment": "lider_comercial", "action": "notify_sales", "explanation": "Lidera ventas."})
     body = {"person_id": "p_0001", "type": "signup", "data": {},
-            "person": {"person_id": "p_0001", "name": "Ana", "role": "Analista de datos", "company": "Acme",
-                       "industry": "banca", "company_size": "1000+", "events_attended": 1}}
+            "person": {"person_id": "p_0001", "relation": "Lead (sin deal)", "objective": "Vender más",
+                       "interests": ["sales"], "info_available": "Solo interés declarado"}}
     d = client.post("/events", json=body).json()
     assert d["route"] == "llm"
-    assert d["segment"]["value"] == "lider_tecnico" and d["action"] == "notify_sales"
-    assert "el LLM lo corrige a lider_tecnico" in d["explanation"]
-    assert client.get("/people/p_0001").json()["history"][0]["segment"] == "lider_tecnico"
+    assert d["segment"]["value"] == "lider_comercial" and d["action"] == "notify_sales"
+    assert "el LLM lo corrige a lider_comercial" in d["explanation"]
+    assert client.get("/people/p_0001").json()["history"][0]["segment"] == "lider_comercial"

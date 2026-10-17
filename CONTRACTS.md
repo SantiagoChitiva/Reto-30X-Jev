@@ -9,21 +9,32 @@ El código que los implementa está en `backend/app/models.py`.
 
 ## Person
 
+Perfil anónimo con las **mismas categorías del Excel de perfiles de 30X** (`data/perfiles_30x.json`). Sin nombres ni empresas. `null` = sin dato.
+
 ```json
 {
   "person_id": "p_0001",
-  "name": "María Gómez",
-  "role": "Analista de datos",
-  "company": "Banco Andino",
-  "industry": "banca",
-  "company_size": "1000+",
-  "events_attended": 1
+  "relation": "Deal en el CRM",
+  "crm_status": "En proceso",
+  "crm_stage": "Calificado",
+  "program": "AI Sales",
+  "role": "Fundador, socio o CEO",
+  "country": null,
+  "pain": "Vive de referidos y prospecta a mano",
+  "objective": "Vender más",
+  "interests": ["sales", "ai", "gtm"],
+  "info_level": "Alta",
+  "info_available": "Perfil con contexto (dolor u objetivo)",
+  "events_attended": 2,
+  "emails_opened": 1
 }
 ```
 
-`company_size`: `1-10` | `11-50` | `51-200` | `201-1000` | `1000+`
+- `info_level`: `Baja` | `Media` | `Alta`
+- `events_attended` y `emails_opened` los cuenta el código (`attendance` y `email_open`), nunca JEV.
+- Los leads no tienen `role`: en el Excel ese campo solo existe cuando hay deal.
 
-Solo datos simulados. Nada de personas reales.
+Solo datos anónimos o simulados. Nada de personas reales.
 
 ## Event
 
@@ -33,7 +44,7 @@ Solo datos simulados. Nada de personas reales.
   "person_id": "p_0001",
   "type": "profile_update",
   "timestamp": "2026-10-17T15:04:05Z",
-  "data": { "role": "Head of AI" }
+  "data": { "crm_stage": "Calificado" }
 }
 ```
 
@@ -44,7 +55,7 @@ Solo datos simulados. Nada de personas reales.
 | `signup` | `{ "event_name": "..." }` (la persona viene completa en el body, ver POST /events) |
 | `attendance` | `{ "event_name": "..." }` |
 | `email_open` | `{ "email_topic": "..." }` |
-| `profile_update` | los campos de Person que cambiaron, ej. `{ "role": "Head of AI" }` |
+| `profile_update` | los campos de Person que cambiaron, ej. `{ "relation": "Deal en el CRM", "role": "Líder comercial o de ventas" }` |
 
 ## Decision
 
@@ -53,10 +64,10 @@ Solo datos simulados. Nada de personas reales.
   "decision_id": "d_000123",
   "person_id": "p_0001",
   "event_id": "e_000123",
-  "segment":     { "value": "lider_adopcion", "p": 0.91 },
-  "maturity":    { "value": "alta",           "p": 0.82 },
-  "sales_ready": { "value": true,             "p": 0.88 },
-  "content":     { "value": "caso_de_exito",  "p": 0.79 },
+  "segment":     { "value": "fundador_ventas", "p": 0.91 },
+  "maturity":    { "value": "media",           "p": 0.82 },
+  "sales_ready": { "value": true,              "p": 0.88 },
+  "content":     { "value": "ai_sales",        "p": 0.79 },
   "route": "auto",
   "guardrail": { "passed": true, "p": 0.95, "reason": null },
   "action": "notify_sales",
@@ -68,7 +79,7 @@ Solo datos simulados. Nada de personas reales.
 ```
 
 - `route`: `auto` (p ≥ 0.85) | `llm` (0.60 ≤ p < 0.85) | `human` (p < 0.60 o segmento `otro`)
-- `guardrail`: solo se llena cuando `route = auto`. Si `passed = false`, `action = null`.
+- `guardrail`: solo se llena cuando `route = auto`. Si `passed = false`, `action = null`. Si lo frenó el antispam, `reason` empieza por `Frenada por frecuencia`.
 - `action`: `send:<content>` | `notify_sales` | `null`
 - `explanation`: texto del LLM cuando `route = llm`. En esa ruta el LLM puede **corregir** `segment.value` y `action`; si corrige el segmento, `segment.p` sigue siendo la de JEV y la explicación dice qué había propuesto JEV. Si el LLM falla, se conserva la propuesta de JEV.
 
@@ -89,24 +100,32 @@ Solo datos simulados. Nada de personas reales.
 
 ---
 
-## Preguntas tipadas a JEV (v0, se cierran en el kickoff)
+## Preguntas tipadas a JEV (v1)
+
+Una sola llamada por evento. JEV recibe `{ person, signals, event, recent_events }`; `signals` trae los conteos ya calculados en código.
 
 | Clave | Tipo JEV | Opciones |
 |---|---|---|
-| `segment` | Choice | `explorador`, `lider_negocio`, `lider_tecnico`, `equipo_adopcion`, `lider_adopcion`, `otro` |
-| `maturity` | Score | `baja`, `media`, `alta` |
-| `sales_ready` | Noul | sí / no |
-| `content` | Choice | `intro_ia`, `caso_de_exito`, `taller_practico`, `programa_ejecutivo`, `otro` |
+| `segment` | Choice | `fundador_ventas`, `fundador_escala`, `lider_comercial`, `ejecutivo_ia`, `perfil_tecnico`, `explorador`, `otro` |
+| `maturity` | Score | `baja`, `media`, `alta` (madurez de su empresa en IA) |
+| `sales_ready` | Noul | sí / no (¿lista para que la contacte el equipo comercial?) |
+| `content` | Choice | `ai_sales`, `inmersion_ejecutiva`, `sales_machine`, `hardcore_ai`, `achievers`, `nutricion`, `otro` |
 
-Contar, sumar o comparar fechas (ej. `events_attended`) se hace en código, nunca en JEV.
+`content` es la **oferta**: solo programas que 30X vende (los del Excel) o `nutricion` (contenido gratuito). Los criterios de cada opción están en `backend/app/decision/jev.py`.
 
-## Umbrales (v0)
+Contar, sumar o comparar fechas se hace en código, nunca en JEV.
+
+Guardrail (segunda llamada, solo en `auto` y con acción): Noul `apropiada`. ¿La acción respeta el perfil y la línea editorial de 30X?
+
+## Umbrales (v1)
 
 | Probabilidad mínima de `segment` y `sales_ready` | Ruta |
 |---|---|
-| ≥ 0.85 | `auto` → pasa por guardrail → acción |
+| ≥ 0.85 | `auto` → antispam → guardrail JEV (≥ 0.85) → acción |
 | 0.60 – 0.85 | `llm` → el LLM revisa y explica |
-| < 0.60, o segmento `otro` | `human` → cola de revisión |
+| < 0.60, o segmento `otro` | `human` → cola de revisión (una sola pendiente por persona) |
+
+**Antispam (en código, antes de JEV):** si la misma acción salió en las últimas 3 decisiones de la persona, no se repite.
 
 ---
 
@@ -124,6 +143,7 @@ Base: `http://localhost:8000` · Docs interactivas: `/docs`
 | GET | `/review-queue` | — | `Review[]` pendientes |
 | POST | `/review/{review_id}` | `{ segment, action }` | `Review` resuelto |
 | POST | `/simulate` | `{ n: 1000 }` | `{ accepted: n }` (corre en segundo plano) |
+| GET | `/evaluation` | — | último resultado de `python -m app.evaluate` (404 si no se ha corrido) |
 | GET | `/health` | — | `{ ok, mock_jev }` |
 
 `/metrics`:
@@ -133,6 +153,7 @@ Base: `http://localhost:8000` · Docs interactivas: `/docs`
   "total_decisions": 10000,
   "auto_pct": 71.2, "llm_pct": 19.5, "human_pct": 9.3,
   "guardrail_blocked": 42,
+  "spam_suppressed": 310,
   "total_cost_usd": 0.21,
   "cost_per_1k_usd": 0.021,
   "latency_p50_ms": 140.0, "latency_p95_ms": 410.0,

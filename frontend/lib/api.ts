@@ -1,5 +1,6 @@
 import type {
   Decision,
+  Evaluation,
   Metrics,
   Review,
   ReviewResolution,
@@ -51,6 +52,16 @@ export function getDecisions(
 
 export function getMetrics(signal?: AbortSignal) {
   return request<Metrics>("/metrics", { signal });
+}
+
+/** `null` si todavía no se ha corrido `python -m app.evaluate` (404). */
+export async function getEvaluation(signal?: AbortSignal) {
+  try {
+    return await request<Evaluation>("/evaluation", { signal });
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) return null;
+    throw err;
+  }
 }
 
 export function getTransitions(signal?: AbortSignal) {

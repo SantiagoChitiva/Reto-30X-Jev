@@ -1,0 +1,49 @@
+{
+  "created_at": "2026-10-17T20:03:54.211515+00:00",
+  "mock_jev": true,
+  "n": 200,
+  "labels": "content_ref = programa sugerido por 30X; sales_ready_ref = afinidad >= 7; segment_ref = borrador por reglas pendiente de revisión manual",
+  "reviewed_labels": 0,
+  "accuracy": {
+    "segment": 90.5,
+    "content": 37.5,
+    "sales_ready": 43.0
+  },
+  "by_route": {
+    "auto": {
+      "n": 122,
+      "pct": 61.0,
+      "segment": 95.1,
+      "content": 43.4,
+      "sales_ready": 41.8
+    },
+    "llm": {
+      "n": 58,
+      "pct": 29.0,
+      "segment": 86.2,
+      "content": 27.6,
+      "sales_ready": 41.4
+    },
+    "human": {
+      "n": 20,
+      "pct": 10.0,
+      "segment": 75.0,
+      "content": 30.0,
+      "sales_ready": 55.0
+    }
+  },
+  "jev": {
+    "cost_usd": 0.00758,
+    "cost_per_1k_usd": 0.0379,
+    "latency_p50_ms": 93.5,
+    "latency_p95_ms": 181.7,
+    "wall_ms": 596.1
+  },
+  "llm": {
+    "model": "gpt-4o-mini",
+    "cost_usd": 0.051311,
+    "cost_per_1k_usd": 0.256557,
+    "latency_ms_typical": 1500.0,
+    "estimated": true
+  }
+}

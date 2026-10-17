@@ -11,6 +11,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from typing import Any, Optional, Union
 
+from .decision.policy import SPAM_REASON
 from .models import (
     UPDATABLE_FIELDS,
     Decision,
@@ -52,7 +53,9 @@ def apply_to_person(current: Optional[Person], ev: EventIn) -> Person:
     if ev.type == "profile_update":
         changes = {k: v for k, v in ev.data.items() if k in UPDATABLE_FIELDS}
         return Person.model_validate({**current.model_dump(), **changes})
-    return current  # email_open no cambia el perfil
+    if ev.type == "email_open":
+        return current.model_copy(update={"emails_opened": current.emails_opened + 1})
+    return current
 
 
 def _percentile(sorted_values: list[float], q: float) -> float:
@@ -107,6 +110,14 @@ class MemoryStore:
         self.reviews[review.review_id] = review
         return review
 
+    async def has_pending_review(self, person_id: str) -> bool:
+        mine = {d.decision_id for d in self.decisions_by_person[person_id]}
+        return any(r.status == "pending" and r.decision_id in mine for r in self.reviews.values())
+
+    async def recent_actions(self, person_id: str, n: int) -> list[Optional[str]]:
+        """Acciones de las últimas n decisiones de la persona (para el antispam)."""
+        return [d.action for d in self.decisions_by_person[person_id][-n:]]
+
     async def list_decisions(self, limit: int, route: Optional[Route] = None) -> list[Decision]:
         out = []
         for d in reversed(self.decisions):
@@ -123,7 +134,10 @@ class MemoryStore:
         return {
             "total": len(ds),
             "auto": routes["auto"], "llm": routes["llm"], "human": routes["human"],
-            "blocked": sum(1 for d in ds if d.guardrail is not None and not d.guardrail.passed),
+            "blocked": sum(1 for d in ds if d.guardrail is not None and not d.guardrail.passed
+                           and not (d.guardrail.reason or "").startswith(SPAM_REASON)),
+            "spam": sum(1 for d in ds if SPAM_REASON in ((d.guardrail and d.guardrail.reason) or "")
+                        or SPAM_REASON in (d.explanation or "")),
             "cost": sum(d.cost_usd for d in ds),
             "p50": _percentile(latencies, 0.5),
             "p95": _percentile(latencies, 0.95),
@@ -168,14 +182,26 @@ async def _init_connection(conn) -> None:
     await conn.set_type_codec("jsonb", encoder=json.dumps, decoder=json.loads, schema="pg_catalog")
 
 
+_PERSON_COLUMNS = tuple(Person.model_fields)
+
+
 def _person(row) -> Person:
-    return Person(**{k: row[k] for k in Person.model_fields})
+    return Person(**{k: row[k] for k in _PERSON_COLUMNS})
 
 
 def _decision(row) -> Decision:
     d = dict(row)
     d["latency_ms"] = round(d["latency_ms"], 1)  # REAL → float32
     return Decision.model_validate(d)
+
+
+_UPSERT_PERSON = (
+    f"INSERT INTO people ({', '.join(_PERSON_COLUMNS)}, updated_at) "
+    f"VALUES ({', '.join(f'${i + 1}' for i in range(len(_PERSON_COLUMNS)))}, now()) "
+    "ON CONFLICT (person_id) DO UPDATE SET "
+    + ", ".join(f"{k} = EXCLUDED.{k}" for k in _PERSON_COLUMNS[1:])
+    + ", updated_at = now()"
+)
 
 
 class PgStore:
@@ -212,18 +238,7 @@ class PgStore:
         async with self.pool.acquire() as c, c.transaction():
             row = await c.fetchrow("SELECT * FROM people WHERE person_id = $1 FOR UPDATE", ev.person_id)
             person = apply_to_person(_person(row) if row else None, ev)
-            await c.execute(
-                """
-                INSERT INTO people (person_id, name, role, company, industry, company_size, events_attended, updated_at)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, now())
-                ON CONFLICT (person_id) DO UPDATE SET
-                    name = EXCLUDED.name, role = EXCLUDED.role, company = EXCLUDED.company,
-                    industry = EXCLUDED.industry, company_size = EXCLUDED.company_size,
-                    events_attended = EXCLUDED.events_attended, updated_at = now()
-                """,
-                person.person_id, person.name, person.role, person.company, person.industry,
-                person.company_size, person.events_attended,
-            )
+            await c.execute(_UPSERT_PERSON, *(getattr(person, k) for k in _PERSON_COLUMNS))
             rows = await c.fetch(
                 "SELECT event_id, person_id, type, timestamp, data FROM events "
                 "WHERE person_id = $1 ORDER BY timestamp DESC, event_id DESC LIMIT $2",
@@ -259,6 +274,20 @@ class PgStore:
         )
         return review
 
+    async def has_pending_review(self, person_id: str) -> bool:
+        return bool(await self.pool.fetchval(
+            "SELECT 1 FROM reviews r JOIN decisions d USING (decision_id) "
+            "WHERE d.person_id = $1 AND r.status = 'pending' LIMIT 1",
+            person_id,
+        ))
+
+    async def recent_actions(self, person_id: str, n: int) -> list[Optional[str]]:
+        rows = await self.pool.fetch(
+            "SELECT action FROM decisions WHERE person_id = $1 ORDER BY created_at DESC, decision_id DESC LIMIT $2",
+            person_id, n,
+        )
+        return [r["action"] for r in reversed(rows)]
+
     async def list_decisions(self, limit: int, route: Optional[Route] = None) -> list[Decision]:
         if route:
             rows = await self.pool.fetch(
@@ -273,12 +302,15 @@ class PgStore:
 
     async def metrics(self) -> dict[str, Any]:
         row = await self.pool.fetchrow(
-            """
+            f"""
             SELECT count(*) AS total,
                    count(*) FILTER (WHERE route = 'auto') AS auto,
                    count(*) FILTER (WHERE route = 'llm') AS llm,
                    count(*) FILTER (WHERE route = 'human') AS human,
-                   count(*) FILTER (WHERE (guardrail->>'passed')::boolean IS FALSE) AS blocked,
+                   count(*) FILTER (WHERE (guardrail->>'passed')::boolean IS FALSE
+                                    AND COALESCE(guardrail->>'reason', '') NOT LIKE '{SPAM_REASON}%') AS blocked,
+                   count(*) FILTER (WHERE COALESCE(guardrail->>'reason', '') LIKE '{SPAM_REASON}%'
+                                    OR COALESCE(explanation, '') LIKE '%{SPAM_REASON}%') AS spam,
                    COALESCE(sum(cost_usd), 0) AS cost,
                    COALESCE(percentile_cont(0.5) WITHIN GROUP (ORDER BY latency_ms), 0) AS p50,
                    COALESCE(percentile_cont(0.95) WITHIN GROUP (ORDER BY latency_ms), 0) AS p95

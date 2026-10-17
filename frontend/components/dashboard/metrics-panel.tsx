@@ -41,7 +41,7 @@ export function MetricsPanel({
           !error && <EmptyState>Cargando indicadores…</EmptyState>
         ) : (
           <>
-            <dl className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
+            <dl className="grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-7">
               <Stat label="Decisiones" value={formatInt(metrics.total_decisions)} />
               <Stat label="Costo total" value={formatUsd(metrics.total_cost_usd)} />
               <Stat
@@ -53,6 +53,10 @@ export function MetricsPanel({
               <Stat
                 label="Bloqueadas por guardrail"
                 value={formatInt(metrics.guardrail_blocked)}
+              />
+              <Stat
+                label="Frenadas por antispam"
+                value={formatInt(metrics.spam_suppressed)}
               />
             </dl>
             <RouteMix metrics={metrics} />

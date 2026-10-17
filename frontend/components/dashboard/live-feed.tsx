@@ -105,7 +105,7 @@ export function LiveFeed() {
                   <TableHead>Segmento</TableHead>
                   <TableHead>Madurez</TableHead>
                   <TableHead>Lista para ventas</TableHead>
-                  <TableHead>Contenido</TableHead>
+                  <TableHead>Oferta</TableHead>
                   <TableHead>Ruta</TableHead>
                   <TableHead>Acción</TableHead>
                   <TableHead className="text-right">Latencia</TableHead>

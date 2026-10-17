@@ -21,6 +21,7 @@ dist/
 # Datos generados (el replay sí se versiona)
 data/*.csv
 data/raw/
+data/*.xlsx
 !data/golden_set.csv
 
 # Sistema / editores

@@ -1,5 +1,6 @@
 "use client";
 
+import { EvaluationPanel } from "@/components/dashboard/evaluation-panel";
 import { LiveFeed } from "@/components/dashboard/live-feed";
 import { MetricsPanel } from "@/components/dashboard/metrics-panel";
 import { Notice } from "@/components/dashboard/notice";
@@ -21,7 +22,8 @@ export function Dashboard() {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">30X Pulse</h1>
           <p className="text-sm text-muted-foreground">
-            Segmentación en tiempo real con JEV: cada evento se decide en la
+            Segmentación en tiempo real de la audiencia de 30X con JEV: cada
+            señal reubica a la persona y decide qué programa ofrecerle, por la
             ruta automática, la del LLM o la cola humana.
           </p>
         </div>
@@ -62,6 +64,8 @@ export function Dashboard() {
       </div>
 
       <TransitionsSankey />
+
+      <EvaluationPanel />
 
       <ReviewQueue />
     </div>

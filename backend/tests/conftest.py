@@ -18,6 +18,12 @@ def sin_latencia(monkeypatch):
     monkeypatch.setattr(jev, "_mock_latency_s", lambda: 0)
 
 
+@pytest.fixture(autouse=True)
+def mock_sin_errores(monkeypatch):
+    """El JEV simulado se equivoca a propósito cuando duda; en los tests responde siempre su heurística."""
+    monkeypatch.setattr(jev, "_maybe_wrong", lambda options, chosen, p, rng: chosen)
+
+
 @pytest.fixture
 def client():
     with TestClient(app) as c:  # cada test arranca con un store en memoria nuevo
