@@ -84,7 +84,7 @@ npm run dev
 | `backend/app/decision/` | Llamadas a JEV, umbrales, guardrail, antispam | JEV e IA |
 | `data/`, `backend/app/simulate.py`, `evaluate.py` | Perfiles de 30X, set etiquetado, evaluación | Datos |
 | `frontend/` | Tablero en Next.js | Frontend |
-| `docs/` | Guion del pitch y reparto del equipo | Producto |
+| `docs/` | Playbook en PDF ([`docs/Playbook.pdf`](docs/Playbook.pdf)), guion del pitch, HubSpot y despliegue | Producto |
 
 ## Stack
 
