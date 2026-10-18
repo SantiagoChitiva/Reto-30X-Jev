@@ -1,0 +1,7 @@
+.env
+.env.*
+.git
+frontend
+**/__pycache__
+**/.pytest_cache
+data/*.xlsx

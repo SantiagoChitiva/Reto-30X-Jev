@@ -25,7 +25,7 @@ Señal → JEV decide (segmento, madurez, ¿lista para ventas?, oferta)
 - **Salida:** cada decisión se escribe en propiedades `pulse_*` del contacto (segmento, programa sugerido, ¿lista para ventas?). Los workflows de HubSpot que 30X ya usa deciden qué enviar y a quién avisar. Además, todo queda en la tabla `crm_profiles` (`GET /crm?sales_ready=true`).
 - **ID único:** el ID del contacto en HubSpot (`hs_<id>`). Nunca se le envía a JEV, que solo recibe categorías anónimas.
 - **Modo sombra:** con `HUBSPOT_SYNC=false`, Pulse decide sin escribir en HubSpot, para comparar antes de encenderlo.
-- **Despliegue:** es un contenedor Docker con Postgres, y corre en cualquier nube.
+- **Despliegue:** es un contenedor Docker con Postgres. Tablero en Vercel y API en Railway: [`docs/Despliegue.md`](docs/Despliegue.md).
 
 ## Correr en local
 

@@ -5,6 +5,7 @@ load_dotenv()  # antes de que los demás módulos lean variables de entorno
 
 import asyncio  # noqa: E402
 import json  # noqa: E402
+import os  # noqa: E402
 from contextlib import asynccontextmanager  # noqa: E402
 from typing import Optional  # noqa: E402
 
@@ -44,7 +45,9 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="30X Pulse", description="Segmentación dinámica en tiempo real con JEV.", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],  # tablero Next.js
+    # Tablero Next.js. En producción: ALLOWED_ORIGINS=https://<tu-app>.vercel.app (separadas por coma)
+    allow_origins=[o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+    or ["http://localhost:3000", "http://127.0.0.1:3000"],
     allow_methods=["*"],
     allow_headers=["*"],
 )

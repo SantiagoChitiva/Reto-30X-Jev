@@ -9,6 +9,7 @@ import json
 import os
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Optional, Union
 
 from .decision.policy import SPAM_REASON
@@ -29,6 +30,7 @@ from .models import (
 # Ancho de los IDs, como en CONTRACTS.md: p_0001, e_000123, d_000123, r_0007
 _ID_WIDTH = {"p": 4, "e": 6, "d": 6, "r": 4}
 RECENT_EVENTS = 5  # eventos anteriores que se le pasan a JEV como contexto
+SCHEMA = Path(__file__).resolve().parents[1] / "db" / "schema.sql"
 
 
 class NotFound(LookupError):
@@ -242,6 +244,8 @@ class PgStore:
 
         size = max(2, int(os.getenv("MAX_CONCURRENCY", "50")))  # una conexión por evento en vuelo
         self.pool = await asyncpg.create_pool(self.dsn, min_size=2, max_size=size, init=_init_connection)
+        # Crea las tablas si no existen (en la nube no hay docker-entrypoint-initdb.d)
+        await self.pool.execute(SCHEMA.read_text(encoding="utf-8"))
         # Los contadores siguen desde el último ID guardado, para no chocar al reiniciar.
         tables = (("p", "people", "person_id"), ("e", "events", "event_id"),
                   ("d", "decisions", "decision_id"), ("r", "reviews", "review_id"))
