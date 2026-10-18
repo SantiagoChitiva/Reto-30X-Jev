@@ -2,7 +2,7 @@ import type { Content, Maturity, Route, Segment } from "@/lib/types";
 
 export const ROUTE_LABELS: Record<Route, string> = {
   auto: "Automática",
-  llm: "LLM",
+  safe: "Prudente",
   human: "Humana",
 };
 

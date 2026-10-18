@@ -12,18 +12,21 @@ from .store import get_store, now
 
 
 def from_decision(d: Decision) -> Optional[CrmRecord]:
-    """La ficha que deja una decisión automática o revisada por el LLM. La ruta humana no
-    escribe nada: la ficha queda como estaba hasta que una persona resuelva el caso."""
+    """La ficha que deja una decisión automática o prudente. La ruta humana no escribe nada:
+    la ficha queda como estaba hasta que una persona resuelva el caso.
+
+    En la ruta prudente (`safe`) el programa sugerido es la propuesta de JEV, pero la ficha nunca
+    queda «lista para ventas»: así ningún workflow avisa a ventas con un caso dudoso."""
     if d.route == "human":
         return None
     return CrmRecord(
         person_id=d.person_id,
         segment=d.segment.value,
         maturity=d.maturity.value,
-        sales_ready=d.sales_ready.value,
+        sales_ready=d.sales_ready.value if d.route == "auto" else False,
         suggested_program=d.content.value,
         confidence=round(min(d.segment.p, d.sales_ready.p), 4),
-        decided_by="jev" if d.route == "auto" else "llm",
+        decided_by="jev" if d.route == "auto" else "jev_por_confirmar",
         last_action=d.action,
         decision_id=d.decision_id,
         updated_at=d.created_at,

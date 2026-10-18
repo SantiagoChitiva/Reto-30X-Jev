@@ -1,5 +1,8 @@
 """Mide a JEV contra el set etiquetado (`data/labeled_set.json`) y lo compara con un LLM.
 
+La comparación con el LLM es una estimación: Pulse no llama a ningún LLM. Calcula cuánto costaría
+que un LLM de referencia (gpt-4o-mini) tomara las mismas decisiones con el prompt de abajo.
+
 Uso (desde backend/, o `docker compose exec backend python -m app.evaluate`):
     python -m app.evaluate
 
@@ -18,12 +21,29 @@ from collections import Counter, defaultdict  # noqa: E402
 from typing import Any  # noqa: E402
 
 from .decision import jev, pipeline, policy  # noqa: E402
-from .models import Event, Person  # noqa: E402
+from .models import CONTENT, SEGMENTS, Event, Person  # noqa: E402
 from .simulate import data_dir  # noqa: E402
 from .store import _percentile, now  # noqa: E402
 
 QUESTIONS = ("segment", "content", "sales_ready")
 LLM_OUTPUT_TOKENS = 150  # una respuesta JSON corta por caso
+LLM_REFERENCE_MODEL = "gpt-4o-mini"
+LLM_USD_PER_M_INPUT = 0.15
+LLM_USD_PER_M_OUTPUT = 0.60
+LLM_TYPICAL_LATENCY_MS = 1500.0
+
+# Lo que tendría que leer un LLM para decidir lo mismo que JEV
+REFERENCE_LLM_PROMPT = (
+    "Eres el revisor de 30X Pulse. 30X es una escuela de negocios para dueños y líderes de empresa en "
+    "Latinoamérica. Un modelo de clasificación (JEV) propuso un segmento y una acción para una persona, "
+    "pero con confianza media. Revisa el caso con el perfil (categorías anónimas, null = sin dato), las "
+    "señales y los eventos recientes. Confirma la propuesta o corrígela solo si el perfil lo contradice "
+    "con claridad. Nunca ofrezcas algo fuera de la lista.\n"
+    f"Segmentos válidos: {', '.join(SEGMENTS)}.\n"
+    f"Acciones válidas: notify_sales, send:<oferta> con oferta en [{', '.join(CONTENT)}], o null.\n"
+    'Responde solo con JSON: {"segment": "...", "action": "..." | null, '
+    '"explanation": "2 o 3 frases en español que justifican la decisión"}.'
+)
 
 
 def load_labeled() -> list[dict[str, Any]]:
@@ -59,17 +79,16 @@ def _pct(hits: int, total: int) -> float:
 
 
 def _llm_estimate(states: list[dict[str, Any]]) -> dict[str, Any]:
-    """Lo mismo con un LLM normal: tokens del caso × precio de OPENAI_USD_PER_M_*."""
-    price_in = float(os.getenv("OPENAI_USD_PER_M_INPUT", "0.15"))
-    price_out = float(os.getenv("OPENAI_USD_PER_M_OUTPUT", "0.60"))
-    prompt = len(jev.LLM_SYSTEM_PROMPT) + len(json.dumps(jev.QUESTIONS, ensure_ascii=False))
+    """Lo mismo con un LLM de referencia: tokens del caso × su precio. No se llama a ningún LLM."""
+    price_in, price_out = LLM_USD_PER_M_INPUT, LLM_USD_PER_M_OUTPUT
+    prompt = len(REFERENCE_LLM_PROMPT) + len(json.dumps(jev.QUESTIONS, ensure_ascii=False))
     tokens_in = sum((prompt + len(json.dumps(s, ensure_ascii=False))) // 4 for s in states)
     cost = (tokens_in * price_in + len(states) * LLM_OUTPUT_TOKENS * price_out) / 1_000_000
     return {
-        "model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        "model": LLM_REFERENCE_MODEL,
         "cost_usd": round(cost, 6),
         "cost_per_1k_usd": round(cost / len(states) * 1000, 6),
-        "latency_ms_typical": float(os.getenv("LLM_TYPICAL_LATENCY_MS", "1500")),
+        "latency_ms_typical": LLM_TYPICAL_LATENCY_MS,
         "estimated": True,
     }
 
@@ -90,7 +109,7 @@ def score(items: list[dict[str, Any]], answers: list[dict[str, Any]]) -> dict[st
         "accuracy": {q: _pct(hits["all"][q], n) for q in QUESTIONS},
         "by_route": {
             r: {"n": totals[r], "pct": _pct(totals[r], n), **{q: _pct(hits[r][q], totals[r]) for q in QUESTIONS}}
-            for r in ("auto", "llm", "human")
+            for r in ("auto", "safe", "human")
         },
     }
 

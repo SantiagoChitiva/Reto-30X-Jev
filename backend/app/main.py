@@ -121,7 +121,7 @@ async def get_metrics():
     return Metrics(
         total_decisions=total,
         auto_pct=pct("auto"),
-        llm_pct=pct("llm"),
+        safe_pct=pct("safe"),
         human_pct=pct("human"),
         guardrail_blocked=m["blocked"],
         spam_suppressed=m["spam"],
@@ -193,7 +193,7 @@ async def post_simulate(body: SimulateIn):
 
 @app.get("/evaluation")
 async def get_evaluation():
-    """Último resultado de `python -m app.evaluate` (precisión vs set etiquetado y JEV vs LLM)."""
+    """Último resultado de `python -m app.evaluate` (precisión vs set etiquetado y JEV vs un LLM)."""
     path = simulate.data_dir() / "eval_results.json"
     if not path.exists():
         raise HTTPException(404, "Aún no hay evaluación. Córrela con: python -m app.evaluate")

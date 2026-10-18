@@ -55,7 +55,7 @@ Las etapas del pipeline de deals se traducen con `HUBSPOT_DEAL_STAGES`, por ejem
 
 ## 3. Salida: propiedades del contacto
 
-Cada decisión automática, revisada o resuelta por una persona se escribe en el contacto (grupo **30X Pulse**):
+Cada decisión automática, prudente o resuelta por una persona se escribe en el contacto (grupo **30X Pulse**). Las prudentes nunca marcan `pulse_lista_para_ventas`, así que ningún workflow avisa a ventas con un caso dudoso:
 
 | Propiedad | Valor |
 |---|---|
@@ -64,7 +64,7 @@ Cada decisión automática, revisada o resuelta por una persona se escribe en el
 | `pulse_lista_para_ventas` | sí / no |
 | `pulse_madurez_ia` | `baja`, `media`, `alta` |
 | `pulse_confianza` | de 0 a 1 |
-| `pulse_decidido_por` | `jev`, `llm`, `humano` |
+| `pulse_decidido_por` | `jev`, `jev_por_confirmar`, `humano` |
 | `pulse_ultima_accion` | `notify_sales`, `send:<programa>` o vacío |
 | `pulse_actualizado` | fecha y hora |
 

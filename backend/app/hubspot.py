@@ -63,7 +63,7 @@ PULSE_PROPERTIES: list[dict[str, Any]] = [
      "options": MATURITY},
     {"name": "pulse_confianza", "label": "Pulse: confianza", "type": "number", "fieldType": "number"},
     {"name": "pulse_decidido_por", "label": "Pulse: decidido por", "type": "enumeration", "fieldType": "select",
-     "options": ["jev", "llm", "humano"]},
+     "options": ["jev", "jev_por_confirmar", "humano"]},
     {"name": "pulse_ultima_accion", "label": "Pulse: última acción", "type": "string", "fieldType": "text"},
     {"name": "pulse_actualizado", "label": "Pulse: actualizado", "type": "datetime", "fieldType": "date"},
 ]

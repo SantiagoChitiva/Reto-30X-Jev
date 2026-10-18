@@ -29,7 +29,7 @@ import type { CrmRecord } from "@/lib/types";
 
 const DECIDED_BY: Record<CrmRecord["decided_by"], string> = {
   jev: "JEV",
-  llm: "JEV + LLM",
+  jev_por_confirmar: "JEV, por confirmar",
   humano: "Persona",
 };
 

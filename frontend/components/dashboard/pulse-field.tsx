@@ -17,10 +17,10 @@ const MAX_FLASHES = 160;
 
 const ROUTE_VARS: Record<Route, string> = {
   auto: "--route-auto",
-  llm: "--route-llm",
+  safe: "--route-safe",
   human: "--route-human",
 };
-const PCT_KEY = { auto: "auto_pct", llm: "llm_pct", human: "human_pct" } as const;
+const PCT_KEY = { auto: "auto_pct", safe: "safe_pct", human: "human_pct" } as const;
 
 interface Field {
   cols: number;

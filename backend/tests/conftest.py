@@ -4,7 +4,6 @@ import pytest
 
 # Siempre con JEV simulado y almacenamiento en memoria
 os.environ["USE_MOCK_JEV"] = "true"
-os.environ["USE_MOCK_LLM"] = "true"
 os.environ.pop("DATABASE_URL", None)
 
 from fastapi.testclient import TestClient  # noqa: E402

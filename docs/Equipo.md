@@ -10,7 +10,7 @@ El recorrido de cada evento:
 2. Se le pregunta a **JEV** (por ahora el simulado) qué tipo de persona es, qué tan madura está en IA, si está lista para ventas y qué contenido le sirve. Cada respuesta trae un porcentaje de seguridad.
 3. Según ese porcentaje, el sistema decide el camino:
    - **Seguro (85% o más):** actúa solo, pero antes pasa por el **guardrail**, una segunda revisión de JEV.
-   - **Más o menos seguro (60% a 85%):** el **LLM** revisa el caso y lo explica.
+   - **Más o menos seguro (60% a 85%):** acción **prudente**: contenido gratuito, sin avisar a ventas, y queda «por confirmar».
    - **Inseguro (menos de 60%):** va a la **cola de revisión** de una persona.
 4. Se guarda la decisión y queda disponible para el tablero.
 
@@ -36,9 +36,9 @@ Probado: 10.000 eventos se procesan en unos 16 segundos.
 | `models.py` | Los formatos de `CONTRACTS.md` escritos en código. |
 | `store.py` | Dónde se guardan los datos. Por ahora en memoria, así que se borran al reiniciar. Pasa a Postgres en el primer bloque de trabajo. |
 | `simulate.py` | Genera personas y eventos falsos para probar y para la demo. |
-| `decision/jev.py` | Donde se habla con JEV, hoy en modo simulado. También tiene el guardrail y la llamada al LLM. |
+| `decision/jev.py` | Donde se habla con JEV, hoy en modo simulado. También tiene el guardrail. |
 | `decision/policy.py` | Los umbrales (85% y 60%) y la regla de qué acción tomar. |
-| `decision/pipeline.py` | Une todo: evento → JEV → umbral → guardrail, LLM o persona → se guarda la decisión. |
+| `decision/pipeline.py` | Une todo: evento → JEV → umbral → guardrail, acción prudente o persona → se guarda la decisión. |
 
 ### Otros
 
@@ -74,7 +74,7 @@ Abran http://localhost:8000/docs. Ahí se prueban todos los endpoints desde el n
 1. Conseguir el acceso a JEV (por Vercel AI Gateway) y hacer una llamada de prueba **lo antes posible**.
 2. Reemplazar el JEV simulado por el real en la función `_call_jev_real`.
 3. Hacer real el **guardrail**, la segunda revisión antes de actuar.
-4. Hacer real el **LLM** de los casos dudosos (Claude u otro modelo).
+4. ~~Hacer real el LLM de los casos dudosos~~: descartado, 30X pidió evitar modelos externos. Esos casos llevan una acción prudente.
 5. Guardar las respuestas reales de JEV en `data/replay.jsonl`, para el modo replay de la demo.
 6. Cuando funcione, poner `USE_MOCK_JEV=false` en el `.env`.
 

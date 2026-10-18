@@ -4,8 +4,9 @@ from typing import Optional
 from ..models import Answer, Route
 
 AUTO_MIN = 0.85       # p ≥ 0.85 → auto (pasa por guardrail)
-LLM_MIN = 0.60        # 0.60 ≤ p < 0.85 → llm
+SAFE_MIN = 0.60       # 0.60 ≤ p < 0.85 → safe: acción prudente, por confirmar
 GUARDRAIL_MIN = 0.85  # el guardrail aprueba si JEV confirma con p ≥ 0.85
+SAFE_ACTION = "send:nutricion"  # con confianza media solo se envía contenido gratuito; nunca se avisa a ventas
 
 
 def route(segment: Answer, sales_ready: Answer) -> Route:
@@ -15,8 +16,8 @@ def route(segment: Answer, sales_ready: Answer) -> Route:
     p = min(segment.p, sales_ready.p)
     if p >= AUTO_MIN:
         return "auto"
-    if p >= LLM_MIN:
-        return "llm"
+    if p >= SAFE_MIN:
+        return "safe"
     return "human"
 
 

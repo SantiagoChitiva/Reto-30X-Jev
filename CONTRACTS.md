@@ -78,10 +78,10 @@ Solo datos anónimos o simulados. Nada de personas reales.
 }
 ```
 
-- `route`: `auto` (p ≥ 0.85) | `llm` (0.60 ≤ p < 0.85) | `human` (p < 0.60 o segmento `otro`)
+- `route`: `auto` (p ≥ 0.85) | `safe` (0.60 ≤ p < 0.85) | `human` (p < 0.60 o segmento `otro`)
 - `guardrail`: solo se llena cuando `route = auto`. Si `passed = false`, `action = null`. Si lo frenó el antispam, `reason` empieza por `Frenada por frecuencia`.
 - `action`: `send:<content>` | `notify_sales` | `null`
-- `explanation`: texto del LLM cuando `route = llm`. En esa ruta el LLM puede **corregir** `segment.value` y `action`; si corrige el segmento, `segment.p` sigue siendo la de JEV y la explicación dice qué había propuesto JEV. Si el LLM falla, se conserva la propuesta de JEV.
+- `explanation`: cuando `route = safe`, por qué se tomó la acción prudente y qué había propuesto JEV.
 
 ## Review (cola humana)
 
@@ -121,7 +121,7 @@ Lo que el sistema escribe de vuelta: la última decisión sobre cada persona, co
 
 - `suggested_program`: la oferta (`content`), igual que la columna «Programa sugerido» del Excel de 30X.
 - `confidence`: la `p` más baja entre `segment` y `sales_ready`; `1.0` si lo decidió una persona.
-- `decided_by`: `jev` (ruta `auto`) | `llm` | `humano` (al resolver la cola). La ruta `human` no escribe nada hasta que una persona resuelva el caso.
+- `decided_by`: `jev` (ruta `auto`) | `jev_por_confirmar` (ruta `safe`: nunca queda `sales_ready`) | `humano` (al resolver la cola). La ruta `human` no escribe nada hasta que una persona resuelva el caso.
 
 ---
 
@@ -147,8 +147,10 @@ Guardrail (segunda llamada, solo en `auto` y con acción): Noul `apropiada`. ¿L
 | Probabilidad mínima de `segment` y `sales_ready` | Ruta |
 |---|---|
 | ≥ 0.85 | `auto` → antispam → guardrail JEV (≥ 0.85) → acción |
-| 0.60 – 0.85 | `llm` → el LLM revisa y explica |
+| 0.60 – 0.85 | `safe` → acción prudente: `send:nutricion` (contenido gratuito), nunca `notify_sales`; queda «por confirmar» |
 | < 0.60, o segmento `otro` | `human` → cola de revisión (una sola pendiente por persona) |
+
+**Sin LLM externo:** 30X pidió evitar modelos externos. La única llamada externa es JEV, con categorías anónimas; la ruta `safe` se resuelve en código. Un LLM que revise esos casos queda como mejora futura, si 30X lo aprueba.
 
 **Antispam (en código, antes de JEV):** si la misma acción salió en las últimas 3 decisiones de la persona, no se repite.
 
@@ -179,7 +181,7 @@ Base: `http://localhost:8000` · Docs interactivas: `/docs`
 ```json
 {
   "total_decisions": 10000,
-  "auto_pct": 71.2, "llm_pct": 19.5, "human_pct": 9.3,
+  "auto_pct": 71.2, "safe_pct": 19.5, "human_pct": 9.3,
   "guardrail_blocked": 42,
   "spam_suppressed": 310,
   "total_cost_usd": 0.21,

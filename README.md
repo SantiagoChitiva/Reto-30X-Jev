@@ -1,6 +1,6 @@
 # 30X Pulse
 
-**Segmentación dinámica en tiempo real con JEV.** Cada señal de una persona que llega a 30X (inscripción en Luma, asistencia, correo abierto, avance en el CRM) la reclasifica en milisegundos y decide qué programa de 30X ofrecerle o si avisar a ventas. Los casos dudosos escalan a un LLM o a una persona.
+**Segmentación dinámica en tiempo real con JEV.** Cada señal de una persona que llega a 30X (inscripción en Luma, asistencia, correo abierto, avance en el CRM) la reclasifica en milisegundos y decide qué programa de 30X ofrecerle o si avisar a ventas. Si duda, actúa con prudencia (contenido gratuito, sin avisar a ventas) o le pasa el caso a una persona.
 
 > Los LLM piensan, JEV decide.
 
@@ -11,7 +11,7 @@ Proyecto para el reto **JEV** del Hackathon 30X.
 ```
 Señal → JEV decide (segmento, madurez, ¿lista para ventas?, oferta)
           ├─ p ≥ 0.85      → antispam → Guardrail JEV → acción (enviar oferta / avisar a ventas)
-          ├─ 0.60 – 0.85   → LLM revisa y explica
+          ├─ 0.60 – 0.85   → acción prudente: contenido gratuito, sin avisar a ventas, por confirmar
           └─ < 0.60 / otro → cola de revisión humana
                                    ↓
                      Ficha de la persona en el CRM (segmento, programa sugerido, ¿lista para ventas?)
@@ -80,14 +80,14 @@ npm run dev
 | Carpeta | Qué hay | Dueño |
 |---|---|---|
 | `backend/app/main.py`, `store.py`, `crm.py`, `hubspot.py` | API, almacenamiento, ficha en el CRM, HubSpot | Tech lead |
-| `backend/app/decision/` | Llamadas a JEV, umbrales, guardrail, LLM | JEV e IA |
+| `backend/app/decision/` | Llamadas a JEV, umbrales, guardrail, antispam | JEV e IA |
 | `data/`, `backend/app/simulate.py`, `evaluate.py` | Perfiles de 30X, set etiquetado, evaluación | Datos |
 | `frontend/` | Tablero en Next.js | Frontend |
 | `docs/` | Guion del pitch y reparto del equipo | Producto |
 
 ## Stack
 
-FastAPI · Postgres · Next.js · JEV (TypeSafe, vía Vercel AI Gateway) · LLM para el camino lento · Docker Compose
+FastAPI · Postgres · Next.js · JEV (TypeSafe, vía Vercel AI Gateway) · HubSpot · Docker Compose. Sin LLM externo: 30X pidió evitar modelos externos, y la única llamada externa es JEV, con datos anónimos.
 
 ## Datos
 

@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS decisions (
     maturity       JSONB NOT NULL,
     sales_ready    JSONB NOT NULL,
     content        JSONB NOT NULL,
-    route          TEXT NOT NULL CHECK (route IN ('auto','llm','human')),
+    route          TEXT NOT NULL CHECK (route IN ('auto','safe','human')),
     guardrail      JSONB,            -- {passed, p, reason}
     action         TEXT,
     explanation    TEXT,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS crm_profiles (
     sales_ready        BOOLEAN NOT NULL,
     suggested_program  TEXT NOT NULL,
     confidence         REAL NOT NULL,
-    decided_by         TEXT NOT NULL CHECK (decided_by IN ('jev','llm','humano')),
+    decided_by         TEXT NOT NULL CHECK (decided_by IN ('jev','jev_por_confirmar','humano')),
     last_action        TEXT,
     decision_id        TEXT NOT NULL REFERENCES decisions(decision_id),
     updated_at         TIMESTAMPTZ NOT NULL DEFAULT now()

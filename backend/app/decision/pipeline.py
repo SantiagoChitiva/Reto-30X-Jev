@@ -1,9 +1,9 @@
-"""Une todo: evento → JEV → umbral → guardrail, LLM o persona → se guarda la decisión y la ficha del CRM."""
+"""Une todo: evento → JEV → umbral → guardrail, acción prudente o persona → se guarda la decisión y la ficha del CRM."""
 import time
 from typing import Any
 
 from .. import crm
-from ..models import Answer, Decision, Event, EventIn, Guardrail, Person
+from ..models import Decision, Event, EventIn, Guardrail, Person
 from ..store import get_store, now
 from . import jev, policy
 
@@ -53,6 +53,14 @@ async def process_event(ev_in: EventIn) -> Decision:
     guard = None
     explanation = None
 
+    if route == "safe":
+        # Confianza media: acción prudente decidida en código, sin modelos externos adicionales.
+        # Nunca avisa a ventas; la propuesta de JEV queda en la ficha como «por confirmar».
+        p = min(answers["segment"].p, answers["sales_ready"].p)
+        explanation = (f"Confianza media (p={p:.2f}): se envía contenido gratuito y no se avisa a ventas. "
+                       f"JEV proponía `{action or 'no actuar'}`; queda por confirmar.")
+        action = policy.SAFE_ACTION
+
     if route != "human" and policy.repeated_action(
             action, await store.recent_actions(person.person_id, policy.SPAM_WINDOW)
     ):
@@ -71,16 +79,7 @@ async def process_event(ev_in: EventIn) -> Decision:
             cost += guard_cost
             if not guard.passed:
                 action = None
-    elif route == "llm":
-        review = await jev.review_with_llm(state, answers, action)
-        explanation = review.explanation
-        cost += review.cost_usd
-        if review.segment:  # el LLM corrigió el segmento; `p` sigue siendo la de JEV
-            answers["segment"] = Answer(value=review.segment, p=answers["segment"].p)
-        if review.action_changed and not policy.repeated_action(
-                review.action, await store.recent_actions(person.person_id, policy.SPAM_WINDOW)
-        ):
-            action = review.action
+    elif route == "safe":
         if spam:
             explanation = f"{explanation} {spam}"
     else:

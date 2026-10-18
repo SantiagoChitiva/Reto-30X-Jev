@@ -39,7 +39,7 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 
 ## 5. Cómo decide (0:25)
 
-> En cada señal hace cuatro preguntas: quién es, qué tan avanzada está en IA, si está lista para ventas y qué programa le sirve, solo entre los que 30X vende. Si está segura, actúa sola. Si duda, la revisa un LLM. Si no sabe, decide una persona. El motor es JEV: responde en milisegundos. Los LLM piensan, JEV decide.
+> En cada señal hace cuatro preguntas: quién es, qué tan avanzada está en IA, si está lista para ventas y qué programa le sirve, solo entre los que 30X vende. Si está segura, actúa sola. Si duda, es prudente: manda contenido gratis y no molesta a ventas. Si no sabe, decide una persona. El motor es JEV: responde en milisegundos. Los LLM piensan, JEV decide.
 
 ## 6. Integración (0:30)
 
@@ -47,7 +47,7 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 
 ## 7. Resultados (0:20)
 
-> Con 10.000 señales sobre perfiles de 30X, el 68 % de las decisiones sale solo y acierta el 95 %. Es casi 7 veces más barato y 16 veces más rápido que un LLM. Una persona solo ve cerca del 5 % de los casos.
+> Con 10.000 señales sobre perfiles de 30X, el 68 % de las decisiones sale solo y acierta el 95 %. Es más de 6 veces más barato y 16 veces más rápido que un LLM. Una persona solo ve cerca del 5 % de los casos.
 
 ## 8. Por qué nosotros (0:20)
 
@@ -76,9 +76,10 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 | ¿Cómo se conecta con HubSpot? | Entrada por webhooks de HubSpot (contacto creado, propiedad cambiada, deal con etapa nueva). Salida en propiedades `pulse_*` del contacto, que disparan sus workflows. Guía en `docs/HubSpot.md`. |
 | ¿Qué datos salen de 30X? | A JEV solo le llegan categorías anónimas (rol, objetivo, dolor, intereses, etapa) y conteos. Nunca nombres, correos ni el ID de HubSpot. |
 | ¿Cuál es el ID de cada persona? | El ID del contacto en HubSpot. Es estable aunque cambie el correo, y se queda dentro de Pulse. |
-| ¿Y si JEV se equivoca? | Si no está segura, no actúa: lo revisa un LLM o una persona. Y cada semana medimos cuánto acierta contra perfiles etiquetados. |
+| ¿Y si JEV se equivoca? | Si no está segura, no se arriesga: manda contenido gratuito y no avisa a ventas, o le pasa el caso a una persona. Y cada semana medimos cuánto acierta contra perfiles etiquetados. |
 | ¿Puede mandar spam? | No. Hay un freno en código: la misma acción no se repite si ya salió en las últimas 3 decisiones de la persona. Además, JEV revisa que la oferta sea apropiada antes de actuar. |
-| ¿Por qué no usar solo ChatGPT? | Para decisiones repetitivas es casi 7 veces más caro y 16 veces más lento, y no dice cuándo duda. El LLM lo usamos solo para los casos dudosos. |
+| ¿Por qué no usar ChatGPT u otro LLM? | Para decisiones repetitivas es más de 6 veces más caro y 16 veces más lento, y no dice cuándo duda. Además, 30X pidió evitar modelos externos. |
+| ¿Usan un LLM? | No. La única llamada externa es JEV, con categorías anónimas. Si 30X lo aprueba, más adelante un LLM podría revisar los casos dudosos. |
 | ¿Cómo se compara con la afinidad que ya calculan? | Mide lo mismo, si la persona encaja con el perfil de cada programa, pero se recalcula con cada señal. Comparamos contra su «Programa sugerido» para medir el acierto. |
 | ¿Cuánto cuesta operarlo? | Unos 4 centavos de dólar por cada 1.000 decisiones con JEV. Corre en un contenedor, en cualquier nube. |
 

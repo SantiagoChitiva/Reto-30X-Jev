@@ -35,8 +35,8 @@ def test_signup_devuelve_decision(client):
         assert d.action is None if not d.guardrail.passed else d.action is not None
     else:
         assert d.guardrail is None
-    if d.route == "llm":
-        assert d.explanation
+    if d.route == "safe":
+        assert d.explanation and d.action in ("send:nutricion", None)
     if d.route == "human":
         assert d.action is None
 
@@ -119,10 +119,10 @@ def test_simulate_y_metrics(client):
     m = client.get("/metrics").json()
     assert m["running"] is False
     assert m["total_decisions"] == 200
-    assert abs(m["auto_pct"] + m["llm_pct"] + m["human_pct"] - 100) < 0.5
+    assert abs(m["auto_pct"] + m["safe_pct"] + m["human_pct"] - 100) < 0.5
     assert m["total_cost_usd"] > 0 and m["cost_per_1k_usd"] > 0
     assert m["latency_p95_ms"] >= m["latency_p50_ms"]
-    assert set(m) == {"total_decisions", "auto_pct", "llm_pct", "human_pct", "guardrail_blocked", "spam_suppressed",
+    assert set(m) == {"total_decisions", "auto_pct", "safe_pct", "human_pct", "guardrail_blocked", "spam_suppressed",
                       "total_cost_usd", "cost_per_1k_usd", "latency_p50_ms", "latency_p95_ms", "running"}
 
 
@@ -161,7 +161,7 @@ def test_ficha_crm_tras_decision(client):
     ficha = CrmRecord.model_validate(client.get("/crm/p_0001").json())
     assert ficha.segment == d["segment"]["value"] and ficha.suggested_program == d["content"]["value"]
     assert ficha.sales_ready == d["sales_ready"]["value"] and ficha.decision_id == d["decision_id"]
-    assert ficha.decided_by == ("jev" if d["route"] == "auto" else "llm")
+    assert ficha.decided_by == ("jev" if d["route"] == "auto" else "jev_por_confirmar")
     assert ficha.confidence == round(min(d["segment"]["p"], d["sales_ready"]["p"]), 4)
     assert client.get("/crm/p_9999").status_code == 404
 
@@ -176,3 +176,14 @@ def test_ficha_crm_la_escribe_la_persona_en_la_ruta_humana(client):
     assert ficha["sales_ready"] is True and ficha["confidence"] == 1.0
     assert [f["person_id"] for f in client.get("/crm", params={"sales_ready": "true"}).json()] == ["p_0001"]
     assert client.get("/crm", params={"sales_ready": "false"}).json() == []
+
+
+def test_ruta_prudente_nunca_avisa_a_ventas(client, monkeypatch):
+    from app.decision import policy
+
+    monkeypatch.setattr(policy, "route", lambda segment, sales_ready: "safe")
+    d = signup(client).json()  # el fundador está listo para ventas, pero con confianza media
+    assert d["route"] == "safe" and d["sales_ready"]["value"] is True
+    assert d["action"] == "send:nutricion" and "por confirmar" in d["explanation"]
+    ficha = client.get("/crm/p_0001").json()
+    assert ficha["decided_by"] == "jev_por_confirmar" and ficha["sales_ready"] is False

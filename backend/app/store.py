@@ -135,7 +135,7 @@ class MemoryStore:
         latencies = sorted(d.latency_ms for d in ds)
         return {
             "total": len(ds),
-            "auto": routes["auto"], "llm": routes["llm"], "human": routes["human"],
+            "auto": routes["auto"], "safe": routes["safe"], "human": routes["human"],
             "blocked": sum(1 for d in ds if d.guardrail is not None and not d.guardrail.passed
                            and not (d.guardrail.reason or "").startswith(SPAM_REASON)),
             "spam": sum(1 for d in ds if SPAM_REASON in ((d.guardrail and d.guardrail.reason) or "")
@@ -332,7 +332,7 @@ class PgStore:
             f"""
             SELECT count(*) AS total,
                    count(*) FILTER (WHERE route = 'auto') AS auto,
-                   count(*) FILTER (WHERE route = 'llm') AS llm,
+                   count(*) FILTER (WHERE route = 'safe') AS safe,
                    count(*) FILTER (WHERE route = 'human') AS human,
                    count(*) FILTER (WHERE (guardrail->>'passed')::boolean IS FALSE
                                     AND COALESCE(guardrail->>'reason', '') NOT LIKE '{SPAM_REASON}%') AS blocked,

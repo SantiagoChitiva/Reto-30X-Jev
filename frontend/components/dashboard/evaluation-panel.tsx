@@ -41,7 +41,7 @@ export function EvaluationPanel() {
         </CardTitle>
         <CardDescription>
           Precisión contra el set etiquetado con perfiles de 30X y costo frente
-          a un LLM normal.
+          a un LLM de referencia.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">

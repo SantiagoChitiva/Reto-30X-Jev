@@ -4,7 +4,7 @@ import type { Route } from "@/lib/types";
 
 export const ROUTE_COLORS: Record<Route, string> = {
   auto: "var(--route-auto)",
-  llm: "var(--route-llm)",
+  safe: "var(--route-safe)",
   human: "var(--route-human)",
 };
 

@@ -1,6 +1,6 @@
 // Tipos del contrato de la API. Fuente de verdad: ../CONTRACTS.md
 
-export const ROUTES = ["auto", "llm", "human"] as const;
+export const ROUTES = ["auto", "safe", "human"] as const;
 export type Route = (typeof ROUTES)[number];
 
 export const SEGMENTS = [
@@ -53,7 +53,7 @@ export interface Decision {
   guardrail: Guardrail | null;
   /** `send:<content>` | `notify_sales` | `null` */
   action: string | null;
-  /** Texto del LLM cuando `route = llm`. */
+  /** Por qué se tomó la acción prudente cuando `route = safe`. */
   explanation: string | null;
   latency_ms: number;
   cost_usd: number;
@@ -83,7 +83,7 @@ export interface CrmRecord {
   sales_ready: boolean;
   suggested_program: Content;
   confidence: number;
-  decided_by: "jev" | "llm" | "humano";
+  decided_by: "jev" | "jev_por_confirmar" | "humano";
   last_action: string | null;
   decision_id: string;
   updated_at: string;
@@ -92,7 +92,7 @@ export interface CrmRecord {
 export interface Metrics {
   total_decisions: number;
   auto_pct: number;
-  llm_pct: number;
+  safe_pct: number;
   human_pct: number;
   guardrail_blocked: number;
   /** Acciones repetidas que frenó el antispam (en código, sin llamar a JEV). */

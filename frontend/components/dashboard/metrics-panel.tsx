@@ -109,7 +109,7 @@ function Stat({
 
 const ROUTE_PCT_KEY = {
   auto: "auto_pct",
-  llm: "llm_pct",
+  safe: "safe_pct",
   human: "human_pct",
 } as const;
 

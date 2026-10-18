@@ -61,7 +61,7 @@ export function Dashboard() {
           </h1>
           <p className="max-w-2xl text-base text-pretty text-muted-foreground sm:text-lg">
             Cada señal reubica a la persona de la audiencia de 30X y decide qué
-            programa ofrecerle, por la ruta automática, la del LLM o la cola
+            programa ofrecerle, por la ruta automática, la prudente o la cola
             humana.
           </p>
           <SimulateButton

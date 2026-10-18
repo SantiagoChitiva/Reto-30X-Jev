@@ -59,7 +59,7 @@
 
   /* Datos: rutas y segmentos (orden fijo, legibles sobre negro). */
   --route-auto: #ebff6f;
-  --route-llm: #0099ff;
+  --route-safe: #0099ff;
   --route-human: #ff8a3d;
   --series-1: #ebff6f;
   --series-2: #0099ff;

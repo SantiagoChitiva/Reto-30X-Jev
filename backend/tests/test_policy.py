@@ -15,8 +15,8 @@ def sales(value=True, p=0.9):
 @pytest.mark.parametrize("p, expected", [
     (0.99, "auto"),
     (0.85, "auto"),
-    (0.8499, "llm"),
-    (0.60, "llm"),
+    (0.8499, "safe"),
+    (0.60, "safe"),
     (0.5999, "human"),
     (0.10, "human"),
 ])
@@ -25,7 +25,7 @@ def test_umbrales(p, expected):
 
 
 def test_usa_la_probabilidad_minima():
-    assert policy.route(seg(p=0.99), sales(p=0.70)) == "llm"
+    assert policy.route(seg(p=0.99), sales(p=0.70)) == "safe"
     assert policy.route(seg(p=0.99), sales(p=0.50)) == "human"
 
 

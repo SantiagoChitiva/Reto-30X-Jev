@@ -13,8 +13,8 @@ CONTENT = ["ai_sales", "inmersion_ejecutiva", "sales_machine", "hardcore_ai", "a
 
 InfoLevel = Literal["Baja", "Media", "Alta"]
 EventType = Literal["signup", "attendance", "email_open", "profile_update"]
-Route = Literal["auto", "llm", "human"]
-DecidedBy = Literal["jev", "llm", "humano"]
+Route = Literal["auto", "safe", "human"]
+DecidedBy = Literal["jev", "jev_por_confirmar", "humano"]
 
 # Campos de Person que puede cambiar un `profile_update`
 UPDATABLE_FIELDS = ("relation", "crm_status", "crm_stage", "program", "role", "country", "pain", "objective",
@@ -166,7 +166,7 @@ class SimulateIn(BaseModel):
 class Metrics(BaseModel):
     total_decisions: int
     auto_pct: float
-    llm_pct: float
+    safe_pct: float
     human_pct: float
     guardrail_blocked: int
     spam_suppressed: int
