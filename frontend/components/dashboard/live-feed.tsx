@@ -36,6 +36,7 @@ import {
   labelOf,
 } from "@/lib/format";
 import { ROUTES, type Decision, type Route } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 type RouteFilter = Route | "all";
 
@@ -50,6 +51,25 @@ export function LiveFeed() {
     1000,
     filter,
   );
+
+  // Ids nuevos respecto a la consulta anterior del mismo filtro. La primera
+  // carga y los cambios de filtro no destellan: no son llegadas.
+  const [prev, setPrev] = useState({ data, filter });
+  const [fresh, setFresh] = useState<ReadonlySet<string>>(new Set());
+  if (prev.data !== data || prev.filter !== filter) {
+    const before =
+      prev.filter === filter && prev.data
+        ? new Set(prev.data.map((d) => d.decision_id))
+        : undefined;
+    setPrev({ data, filter });
+    setFresh(
+      new Set(
+        before && data
+          ? data.filter((d) => !before.has(d.decision_id)).map((d) => d.decision_id)
+          : [],
+      ),
+    );
+  }
 
   return (
     <Card>
@@ -70,6 +90,7 @@ export function LiveFeed() {
                 key={value}
                 size="sm"
                 variant={filter === value ? "default" : "outline"}
+                className="rounded-full"
                 aria-pressed={filter === value}
                 onClick={() => setFilter(value)}
               >
@@ -96,7 +117,7 @@ export function LiveFeed() {
               : `No hay decisiones con ruta ${ROUTE_LABELS[filter]}.`}
           </EmptyState>
         ) : (
-          <div className="max-h-[420px] overflow-auto rounded-lg border">
+          <div className="max-h-[420px] overflow-auto rounded-xl border">
             <Table className="text-xs">
               <TableHeader className="sticky top-0 z-10 bg-card">
                 <TableRow>
@@ -113,7 +134,11 @@ export function LiveFeed() {
               </TableHeader>
               <TableBody className="tabular-nums">
                 {data.map((d) => (
-                  <DecisionRow key={d.decision_id} decision={d} />
+                  <DecisionRow
+                    key={d.decision_id}
+                    decision={d}
+                    fresh={fresh.has(d.decision_id)}
+                  />
                 ))}
               </TableBody>
             </Table>
@@ -124,9 +149,18 @@ export function LiveFeed() {
   );
 }
 
-function DecisionRow({ decision: d }: { decision: Decision }) {
+function DecisionRow({
+  decision: d,
+  fresh,
+}: {
+  decision: Decision;
+  fresh: boolean;
+}) {
   return (
-    <TableRow title={d.explanation ?? undefined}>
+    <TableRow
+      title={d.explanation ?? undefined}
+      className={cn(fresh && "row-arrive")}
+    >
       <TableCell className="text-muted-foreground">
         {formatTime(d.created_at)}
       </TableCell>

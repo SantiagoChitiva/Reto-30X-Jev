@@ -104,7 +104,7 @@ export function TransitionsSankey() {
           </EmptyState>
         ) : (
           <div className="h-[420px] w-full overflow-x-auto">
-            <div className="h-full min-w-[640px]">
+            <div className="h-full min-w-[700px]">
               <Sankey
                 width="100%"
                 height="100%"
@@ -117,15 +117,18 @@ export function TransitionsSankey() {
                 )}
                 nodePadding={18}
                 nodeWidth={12}
-                margin={{ top: 8, right: 190, bottom: 8, left: 190 }}
+                margin={{ top: 8, right: 230, bottom: 8, left: 210 }}
               >
                 <Tooltip
                   formatter={(value) => formatInt(Number(value))}
                   contentStyle={{
-                    borderRadius: 8,
+                    borderRadius: 12,
                     fontSize: 12,
                     border: "1px solid var(--border)",
+                    background: "var(--popover)",
+                    color: "var(--popover-foreground)",
                   }}
+                  itemStyle={{ color: "var(--popover-foreground)" }}
                 />
               </Sankey>
             </div>
@@ -155,7 +158,7 @@ function FlowLinkShape({
       d={`M${sourceX},${sourceY} C${sourceControlX},${sourceY} ${targetControlX},${targetY} ${targetX},${targetY}`}
       fill="none"
       stroke={SEGMENT_COLORS[source?.segment ?? ""] ?? "var(--series-other)"}
-      strokeOpacity={0.3}
+      strokeOpacity={0.35}
       strokeWidth={Math.max(linkWidth, 1)}
       className="transition-[stroke-opacity] hover:[stroke-opacity:0.6]"
     />
