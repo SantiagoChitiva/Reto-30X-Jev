@@ -233,3 +233,23 @@ def test_la_revision_sale_de_la_cola_cuando_ya_se_sabe_quien_es(client):
     d = client.post("/events", json={"person_id": "p_0001", "type": "profile_update", "data": FUNDADOR}).json()
     assert d["route"] != "human"
     assert client.get("/review-queue").json() == []
+
+
+def test_el_programa_de_la_ficha_no_cambia_si_jev_duda(client, monkeypatch):
+    from app.decision import jev
+    from app.models import Answer
+
+    signup(client)
+    antes = client.get("/crm/p_0001").json()["suggested_program"]
+    real_ask = jev.ask
+
+    async def ask_dudosa(state):
+        r = await real_ask(state)
+        otro = "achievers" if antes != "achievers" else "hardcore_ai"
+        r.answers["content"] = Answer(value=otro, p=0.40)
+        return r
+
+    monkeypatch.setattr(jev, "ask", ask_dudosa)
+    d = client.post("/events", json={"person_id": "p_0001", "type": "attendance", "data": {}}).json()
+    if d["route"] != "human":
+        assert client.get("/crm/p_0001").json()["suggested_program"] == antes

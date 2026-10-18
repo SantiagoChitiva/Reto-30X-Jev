@@ -7,6 +7,7 @@ Es el único punto de salida del sistema.
 from typing import Optional
 
 from . import hubspot
+from .decision.policy import SAFE_MIN
 from .models import CrmRecord, Decision, Review
 from .store import get_store, now
 
@@ -58,11 +59,15 @@ def _same(a: Optional[CrmRecord], b: CrmRecord) -> bool:
     return a is not None and all(getattr(a, k) == getattr(b, k) for k in keys)
 
 
-async def write(record: Optional[CrmRecord]) -> None:
+async def write(record: Optional[CrmRecord], program_p: float = 1.0) -> None:
+    """Guarda la ficha. `program_p` es la confianza de JEV en el programa: si duda (p < SAFE_MIN),
+    la ficha conserva el programa que ya tenía, para que ventas no vea saltos sin motivo."""
     if record is None:
         return
     store = get_store()
     previous = await store.crm_record(record.person_id)
+    if previous and program_p < SAFE_MIN and record.suggested_program != previous.suggested_program:
+        record = record.model_copy(update={"suggested_program": previous.suggested_program})
     await store.upsert_crm(record)
     cid = hubspot.contact_id(record.person_id)
     if cid and hubspot.sync_enabled() and not _same(previous, record):

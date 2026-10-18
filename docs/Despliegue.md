@@ -18,7 +18,7 @@ Los dos servicios toman el código de GitHub. Elijan la rama `feat/perfiles-30x-
    | `USE_MOCK_JEV` | `false` |
    | `AI_GATEWAY_API_KEY` | la clave de Vercel AI Gateway |
    | `ALLOWED_ORIGINS` | la URL del tablero en Vercel, por ejemplo `https://reto-30x-jev.vercel.app` (se completa en el paso 3) |
-   | `MAX_CONCURRENCY` | `20` |
+   | `MAX_CONCURRENCY` | `10` |
 
 4. **Settings → Networking → Generate Domain**. Esa es la URL de la API, por ejemplo `https://reto-30x-jev-production.up.railway.app`.
 5. Probar: abrir `<URL de la API>/health`; debe responder `{"ok":true,"mock_jev":false}`.
@@ -38,6 +38,18 @@ Los dos servicios toman el código de GitHub. Elijan la rama `feat/perfiles-30x-
 Si el tablero dice «Sin conexión con la API», casi siempre es `ALLOWED_ORIGINS` (debe ser la URL exacta, con `https://` y sin `/` final) o `NEXT_PUBLIC_API_URL`. Si se cambia `NEXT_PUBLIC_API_URL`, hay que volver a desplegar en Vercel: el valor queda fijo al construir.
 
 ## 4. Antes de la demo
+
+### Limpiar la base
+
+Las métricas del tablero suman todo desde el principio. Para que la demo arranque de cero: Railway → servicio **Postgres** → pestaña **Data** (o **Query**) y ejecutar:
+
+```sql
+TRUNCATE crm_profiles, reviews, decisions, events, people CASCADE;
+```
+
+Borra las personas y decisiones simuladas; las tablas quedan vacías. No hace falta hacerlo siempre, solo antes de presentar.
+
+### Lo demás
 
 - Con JEV real, 10.000 decisiones cuestan centavos, pero cada clic en «Simular 10.000» gasta crédito. Pónganle un presupuesto a la clave de AI Gateway.
 - Correr la evaluación con JEV real: en Railway, en el servicio de la API, abrir una consola y ejecutar `python -m app.evaluate`. Actualiza el panel «¿Acierta JEV?» y da las cifras para el deck.
