@@ -106,7 +106,11 @@ async def process_event(ev_in: EventIn) -> Decision:
     )
     await store.save_decision(decision)
     await crm.write(crm.from_decision(decision, ready))
-    # Una sola revisión pendiente por persona: los eventos siguientes no la duplican
-    if route == "human" and not await store.has_pending_review(person.person_id):
-        await store.add_review(decision.decision_id)
+    # Una sola revisión pendiente por persona: los eventos siguientes no la duplican.
+    # Si una señal nueva ya deja claro quién es, la revisión pendiente sobra y sale de la cola.
+    if route == "human":
+        if not await store.has_pending_review(person.person_id):
+            await store.add_review(decision.decision_id)
+    else:
+        await store.drop_pending_reviews(person.person_id)
     return decision

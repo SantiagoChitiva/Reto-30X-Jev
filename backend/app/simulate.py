@@ -21,6 +21,8 @@ from .store import get_store
 log = logging.getLogger(__name__)
 
 running = False  # lo lee GET /metrics
+failed = 0  # eventos de la última simulación que no se pudieron procesar
+last_error: str | None = None
 
 
 def data_dir() -> Path:
@@ -119,20 +121,26 @@ def build_chains(n: int, rng: random.Random) -> list[list[EventIn]]:
 
 async def run(n: int) -> None:
     """Procesa n eventos simulados. Hay varias personas en paralelo y los eventos de cada una van en orden."""
-    global running
+    global running, failed, last_error
     running = True
+    failed, last_error = 0, None
     try:
         chains = build_chains(n, random.Random())
         sem = asyncio.Semaphore(int(os.getenv("MAX_CONCURRENCY", "50")))
 
         async def play(chain: list[EventIn]) -> None:
-            for ev in chain:
+            global failed, last_error
+            for i, ev in enumerate(chain):
                 async with sem:
                     try:
                         await pipeline.process_event(ev)
-                    except Exception:
+                    except Exception as e:
                         log.exception("Falló el evento %s de %s", ev.type, ev.person_id)
-                        return
+                        last_error = f"{type(e).__name__}: {e}"[:300]
+                        if ev.type == "signup":  # sin alta, el resto de la cadena no tiene a quién aplicarse
+                            failed += len(chain) - i
+                            return
+                        failed += 1
 
         await asyncio.gather(*(play(c) for c in chains))
     finally:

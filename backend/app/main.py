@@ -133,6 +133,8 @@ async def get_metrics():
         latency_p50_ms=round(float(m["p50"]), 1),
         latency_p95_ms=round(float(m["p95"]), 1),
         running=simulate.running,
+        failed_events=simulate.failed,
+        last_error=simulate.last_error,
     )
 
 

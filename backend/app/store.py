@@ -118,6 +118,13 @@ class MemoryStore:
         mine = {d.decision_id for d in self.decisions_by_person[person_id]}
         return any(r.status == "pending" and r.decision_id in mine for r in self.reviews.values())
 
+    async def drop_pending_reviews(self, person_id: str) -> int:
+        mine = {d.decision_id for d in self.decisions_by_person[person_id]}
+        stale = [k for k, r in self.reviews.items() if r.status == "pending" and r.decision_id in mine]
+        for k in stale:
+            del self.reviews[k]
+        return len(stale)
+
     async def recent_actions(self, person_id: str, n: int) -> list[Optional[str]]:
         """Acciones de las últimas n decisiones de la persona (para el antispam)."""
         return [d.action for d in self.decisions_by_person[person_id][-n:]]
@@ -311,6 +318,14 @@ class PgStore:
             "WHERE d.person_id = $1 AND r.status = 'pending' LIMIT 1",
             person_id,
         ))
+
+    async def drop_pending_reviews(self, person_id: str) -> int:
+        status = await self.pool.execute(
+            "DELETE FROM reviews r USING decisions d "
+            "WHERE r.decision_id = d.decision_id AND d.person_id = $1 AND r.status = 'pending'",
+            person_id,
+        )
+        return int(status.split()[-1])
 
     async def recent_actions(self, person_id: str, n: int) -> list[Optional[str]]:
         rows = await self.pool.fetch(

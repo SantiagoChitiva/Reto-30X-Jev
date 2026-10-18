@@ -125,7 +125,9 @@ def test_simulate_y_metrics(client):
     assert m["total_cost_usd"] > 0 and m["cost_per_1k_usd"] > 0
     assert m["latency_p95_ms"] >= m["latency_p50_ms"]
     assert set(m) == {"total_decisions", "auto_pct", "safe_pct", "human_pct", "guardrail_blocked", "spam_suppressed",
-                      "total_cost_usd", "cost_per_1k_usd", "latency_p50_ms", "latency_p95_ms", "running"}
+                      "total_cost_usd", "cost_per_1k_usd", "latency_p50_ms", "latency_p95_ms", "running",
+                      "failed_events", "last_error"}
+    assert m["failed_events"] == 0
 
 
 def test_antispam_frena_la_misma_accion(client, monkeypatch):
@@ -162,7 +164,8 @@ def test_ficha_crm_tras_decision(client):
     assert d["route"] != "human"
     ficha = CrmRecord.model_validate(client.get("/crm/p_0001").json())
     assert ficha.segment == d["segment"]["value"] and ficha.suggested_program == d["content"]["value"]
-    assert ficha.sales_ready == d["sales_ready"]["value"] and ficha.decision_id == d["decision_id"]
+    # Lista para ventas solo si se avisó a ventas (primera decisión: el antispam no interviene)
+    assert ficha.sales_ready == (d["action"] == "notify_sales") and ficha.decision_id == d["decision_id"]
     assert ficha.decided_by == ("jev" if d["route"] == "auto" else "jev_por_confirmar")
     assert ficha.confidence == round(min(d["segment"]["p"], d["sales_ready"]["p"]), 4)
     assert client.get("/crm/p_9999").status_code == 404
@@ -222,3 +225,11 @@ def test_aviso_a_ventas_pasa_por_el_guardrail(client, monkeypatch):
     d = signup(client, pid="p_0002").json()
     assert d["action"] is None and d["guardrail"]["passed"] is False
     assert client.get("/crm/p_0002").json()["sales_ready"] is False
+
+
+def test_la_revision_sale_de_la_cola_cuando_ya_se_sabe_quien_es(client):
+    signup(client, profile=SIN_INFO)
+    assert len(client.get("/review-queue").json()) == 1
+    d = client.post("/events", json={"person_id": "p_0001", "type": "profile_update", "data": FUNDADOR}).json()
+    assert d["route"] != "human"
+    assert client.get("/review-queue").json() == []

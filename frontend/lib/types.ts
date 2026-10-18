@@ -97,6 +97,9 @@ export interface Metrics {
   guardrail_blocked: number;
   /** Acciones repetidas que frenó el antispam (en código, sin llamar a JEV). */
   spam_suppressed: number;
+  /** Eventos de la última simulación que no se pudieron procesar. */
+  failed_events?: number;
+  last_error?: string | null;
   total_cost_usd: number;
   cost_per_1k_usd: number;
   latency_p50_ms: number;

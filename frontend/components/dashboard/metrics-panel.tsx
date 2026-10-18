@@ -74,12 +74,19 @@ export function MetricsPanel({
                 format={formatInt}
               />
               <Stat
-                label="Frenadas por antispam"
+                label="Mensajes repetidos evitados"
                 value={metrics.spam_suppressed}
                 format={formatInt}
               />
             </dl>
             <RouteMix metrics={metrics} />
+            {(metrics.failed_events ?? 0) > 0 && (
+              <Notice>
+                {formatInt(metrics.failed_events ?? 0)} eventos de la última
+                simulación no se pudieron procesar
+                {metrics.last_error ? `: ${metrics.last_error}` : "."}
+              </Notice>
+            )}
           </>
         )}
       </CardContent>

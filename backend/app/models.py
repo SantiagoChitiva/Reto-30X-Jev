@@ -175,6 +175,8 @@ class Metrics(BaseModel):
     latency_p50_ms: float
     latency_p95_ms: float
     running: bool
+    failed_events: int = 0              # de la última simulación
+    last_error: Optional[str] = None
 
 
 class HistoryItem(BaseModel):
