@@ -1,6 +1,6 @@
 # Guion del pitch — 30X Pulse
 
-**3 minutos, una sola persona, con la demo adentro.** Son unas 430 palabras: a ritmo ágil dan unos 2:55, contando la demo. Se cuenta como una historia y en palabras de todos los días; lo técnico queda para las preguntas.
+**3 minutos, una sola persona, con la demo adentro.** Son unas 420 palabras: a ritmo ágil dan unos 2:50, contando la demo. Se cuenta como una historia y en palabras de todos los días; lo técnico queda para las preguntas.
 
 - Deck (playbook, 7 slides): https://claude.ai/artifact/QXTucVVub9vPUwPrzzXHwE. Las notas de cada slide traen este texto.
 - Tablero en vivo: https://reto-30-x-jev.vercel.app
@@ -21,7 +21,7 @@ Las slides 4, 5 y 6 son el playbook que pide el reto: las decisiones de JEV, las
 
 ## Antes de subir al escenario
 
-1. Unos 10 minutos antes, en Railway, limpiar la base (consulta en `docs/Despliegue.md`) y pulsar **Simular 10.000** en el tablero, para que tenga datos cuando lo muestres.
+1. Unos 10 minutos antes, en el tablero, pulsar **Empezar de cero** y luego **Simular 10.000**, para que tenga datos cuando lo muestres.
 2. Dejar abiertas dos pestañas: el deck en pantalla completa y el tablero. Se cambia entre ellas con **Alt + Tab**.
 3. Plan B, por si falla internet: un video de 40 segundos del tablero, grabado antes.
 
@@ -39,13 +39,13 @@ Las slides 4, 5 y 6 son el playbook que pide el reto: las decisiones de JEV, las
 
 ## 3. La solución (0:20)
 
-> Por eso creamos 30X Pulse. Cada vez que pasa algo, Pulse vuelve a mirar a la persona y actualiza su ficha. La pasamos por JEV real, señal por señal: los primeros días recibe contenido gratis, y el día 15, apenas cuenta su problema, ventas recibe el aviso con Sales Machine.
+> Por eso creamos 30X Pulse. Cada vez que pasa algo, Pulse vuelve a mirar a la persona y actualiza su ficha. Con la misma fundadora: los primeros días recibe contenido gratis, y el día 15, apenas cuenta su problema, ventas recibe el aviso con Sales Machine.
 
 ## Demo en vivo (0:40)
 
 *Cambiar al tablero con Alt + Tab y pulsar **Simular 10.000**.*
 
-> Y esto no es una maqueta: está funcionando, con JEV real. Pulso simular y empiezan a llegar señales. Cada fila es una decisión: quién es la persona, qué programa le sirve y qué camino tomó.
+> Y esto no es una maqueta: ya está funcionando. Pulso simular y empiezan a llegar señales. Cada fila es una decisión: quién es la persona, qué programa le sirve y qué camino tomó.
 
 *Señalar el reparto por ruta.*
 
@@ -57,33 +57,32 @@ Las slides 4, 5 y 6 son el playbook que pide el reto: las decisiones de JEV, las
 
 *Bajar a «Listas para ventas en el CRM».*
 
-> Y esto es lo que ve ventas: las personas listas, con su programa. Los casos dudosos quedan aquí abajo, para que el equipo los resuelva.
+> Y esto es lo que ve ventas: las personas listas, con su programa. Abajo quedan los dudosos, para el equipo.
 
 ## 4. Cómo decide (0:25)
 
 *Volver al deck con Alt + Tab.*
 
-> ¿Y cómo decide? JEV, el motor del reto, responde cuatro preguntas cerradas: quién es, qué tan avanzada está en IA, si está lista para ventas y qué programa le sirve. Luego nuestro código pone las reglas, como un semáforo: si está segura de quién es, actúa sola; si duda, manda contenido gratis; si no sabe, decide una persona. Y para avisar a ventas exige todavía más certeza.
+> ¿Y cómo decide? En cada señal hace cuatro preguntas: quién es, qué tan avanzada está en IA, si está lista para ventas y qué programa le sirve. Las responde JEV, y nuestras reglas deciden qué hacer: si está segura de quién es, actúa sola; si duda, manda contenido gratis; si no sabe, decide una persona. Y avisar a ventas exige más certeza.
 
 ## 5. HubSpot (0:20)
 
-> Además, se conecta al HubSpot que ya usan. Cuando algo cambia en HubSpot, Pulse se entera al instante y escribe en la misma ficha del contacto. Sus automatizaciones hacen el resto, y a JEV nunca le llegan nombres ni correos. El plan son tres semanas: conectar, probar en paralelo y encender.
+> Además, se conecta a HubSpot, el CRM donde 30X ya guarda a todos sus contactos. Cuando algo cambia ahí, Pulse se entera al instante y escribe en la misma ficha: quién es, qué programa le sirve y si está lista para ventas. Y nunca salen nombres ni correos. En tres semanas: conectar, probar en paralelo y encender.
 
 ## 6. Resultados y quién lo opera (0:15)
 
-> ¿Y cuánto cuesta? Con JEV real, unos siete centavos de dólar por cada mil decisiones, cuatro veces menos que una IA como ChatGPT. Ventas recibe la lista y el equipo solo revisa los casos dudosos.
+> ¿Y qué gana 30X? Que ventas se entera el mismo día en que alguien está lista. Que seis de cada diez decisiones salen solas. Y que el equipo solo revisa uno de cada diez casos: los dudosos.
 
 ## 7. Por qué nosotros (0:15)
 
-> En resumen: las reglas fijas no cambian con la persona, y una IA para todo es cara y no avisa cuando duda. Pulse cambia con cada persona, cuesta centavos y ya funciona con los datos de 30X. Los LLM piensan, JEV decide. Gracias.
-
----
+> En resumen: hoy 30X le habla igual a quien acaba de llegar y a quien ya está lista para comprar. Pulse cambia con cada persona, avisa a ventas en el momento justo y ya funciona con los datos de 30X y su HubSpot. Que ninguna oportunidad se enfríe. Gracias.
 
 ## Para ensayar
 
 - Cronometrar dos veces seguidas, con la demo incluida. Si pasa de 2:55, recortar primero la demo: basta con el feed y la lista de ventas.
-- Los conectores marcan el paso de slide: «Por eso…», «Y esto no es una maqueta…», «¿Y cómo decide?», «Además…», «¿Y cuánto cuesta?», «En resumen…». Al terminar cada uno, pasar de slide.
-- Las cifras salen de JEV real: el costo y el «6 de cada 10» se midieron en el tablero y en la evaluación. El «4 veces más barato» compara con una estimación de gpt-4o-mini, no con una llamada real.
+- Los conectores marcan el paso de slide: «Por eso…», «Y esto no es una maqueta…», «¿Y cómo decide?», «Además…», «¿Y qué gana 30X?», «En resumen…». Al terminar cada uno, pasar de slide.
+- Se vende la idea, no la tecnología: el foco es que ninguna persona se enfríe y que ventas llegue a tiempo. JEV se nombra una vez, en «Cómo decide»; costos y comparaciones con otras IA quedan para las preguntas.
+- Las cifras salen del sistema real: el «6 de cada 10» y el «1 de cada 10» se midieron en el tablero y en la evaluación; el «mismo día» es la historia de la fundadora pasada por el sistema.
 
 ## Preguntas probables
 

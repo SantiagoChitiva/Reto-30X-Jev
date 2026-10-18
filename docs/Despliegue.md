@@ -41,7 +41,7 @@ Si el tablero dice «Sin conexión con la API», casi siempre es `ALLOWED_ORIGIN
 
 ### Limpiar la base
 
-Las métricas del tablero suman todo desde el principio. Para que la demo arranque de cero: Railway → servicio **Postgres** → pestaña **Data** (o **Query**) y ejecutar:
+Las métricas del tablero suman todo desde el principio. Para que la demo arranque de cero, el tablero tiene el botón **Empezar de cero**: borra solo los datos simulados; las personas que vienen de HubSpot (`hs_…`) no se tocan. También se puede desde Railway → servicio **Postgres** → pestaña **Data** (o **Query**), aunque esto borra todo:
 
 ```sql
 TRUNCATE crm_profiles, reviews, decisions, events, people CASCADE;

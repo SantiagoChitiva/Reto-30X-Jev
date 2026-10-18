@@ -253,3 +253,13 @@ def test_el_programa_de_la_ficha_no_cambia_si_jev_duda(client, monkeypatch):
     d = client.post("/events", json={"person_id": "p_0001", "type": "attendance", "data": {}}).json()
     if d["route"] != "human":
         assert client.get("/crm/p_0001").json()["suggested_program"] == antes
+
+
+def test_empezar_de_cero_borra_solo_lo_simulado(client):
+    signup(client)
+    client.post("/webhooks/hubspot", json=[{"eventId": 777001, "subscriptionType": "contact.propertyChange",
+                                            "objectId": 42, "propertyName": "objetivo_30x", "propertyValue": "Vender más"}])
+    assert client.post("/reset").json() == {"deleted_people": 1}
+    assert client.get("/people/p_0001").status_code == 404
+    assert client.get("/people/hs_42").status_code == 200  # lo de HubSpot no se toca
+    assert client.get("/metrics").json()["total_decisions"] == 1

@@ -30,6 +30,7 @@ from .models import (
 # Ancho de los IDs, como en CONTRACTS.md: p_0001, e_000123, d_000123, r_0007
 _ID_WIDTH = {"p": 4, "e": 6, "d": 6, "r": 4}
 RECENT_EVENTS = 5  # eventos anteriores que se le pasan a JEV como contexto
+REAL_PREFIX = "hs_"  # personas que vienen de HubSpot: nunca se borran desde el tablero
 SCHEMA = Path(__file__).resolve().parents[1] / "db" / "schema.sql"
 
 
@@ -176,6 +177,20 @@ class MemoryStore:
 
     async def get_person(self, person_id: str) -> Optional[Person]:
         return self.people.get(person_id)
+
+    async def reset_simulated(self) -> int:
+        """Borra a las personas simuladas y todo lo suyo. Las que vienen de HubSpot se quedan."""
+        gone = [pid for pid in self.people if not pid.startswith(REAL_PREFIX)]
+        gone_set = set(gone)
+        gone_decisions = {d.decision_id for d in self.decisions if d.person_id in gone_set}
+        self.reviews = {k: r for k, r in self.reviews.items() if r.decision_id not in gone_decisions}
+        self.decisions = [d for d in self.decisions if d.person_id not in gone_set]
+        for pid in gone:
+            self.people.pop(pid, None)
+            self.events.pop(pid, None)
+            self.decisions_by_person.pop(pid, None)
+            self.crm.pop(pid, None)
+        return len(gone)
 
     async def get_decision(self, decision_id: str) -> Optional[Decision]:
         return next((d for d in self.decisions if d.decision_id == decision_id), None)
@@ -399,6 +414,20 @@ class PgStore:
     async def get_person(self, person_id: str) -> Optional[Person]:
         row = await self.pool.fetchrow("SELECT * FROM people WHERE person_id = $1", person_id)
         return _person(row) if row else None
+
+    async def reset_simulated(self) -> int:
+        """Borra a las personas simuladas y todo lo suyo. Las que vienen de HubSpot se quedan."""
+        # left() y no LIKE: en LIKE el "_" de "hs_" es un comodín
+        def sim(col: str) -> str:
+            return f"left({col}, {len(REAL_PREFIX)}) <> '{REAL_PREFIX}'"
+
+        async with self.pool.acquire() as c, c.transaction():
+            await c.execute("DELETE FROM reviews r USING decisions d "
+                            f"WHERE r.decision_id = d.decision_id AND {sim('d.person_id')}")
+            for table in ("crm_profiles", "decisions", "events"):
+                await c.execute(f"DELETE FROM {table} WHERE {sim('person_id')}")
+            status = await c.execute(f"DELETE FROM people WHERE {sim('person_id')}")
+        return int(status.split()[-1])
 
     async def get_decision(self, decision_id: str) -> Optional[Decision]:
         row = await self.pool.fetchrow("SELECT * FROM decisions WHERE decision_id = $1", decision_id)

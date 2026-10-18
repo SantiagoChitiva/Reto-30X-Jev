@@ -8,6 +8,7 @@ import { MetricsPanel } from "@/components/dashboard/metrics-panel";
 import { Notice } from "@/components/dashboard/notice";
 import { PulseField } from "@/components/dashboard/pulse-field";
 import { ReviewQueue } from "@/components/dashboard/review-queue";
+import { ResetButton } from "@/components/dashboard/reset-button";
 import { SimulateButton } from "@/components/dashboard/simulate-button";
 import { TransitionsSankey } from "@/components/dashboard/transitions-sankey";
 import { buttonVariants } from "@/components/ui/button";
@@ -77,6 +78,10 @@ export function Dashboard() {
             >
               Revisar cola humana
             </a>
+            <ResetButton
+              running={metrics.data?.running ?? false}
+              onReset={metrics.refresh}
+            />
           </SimulateButton>
         </header>
 

@@ -90,6 +90,11 @@ export function resolveReview(reviewId: string, body: ReviewResolution) {
   });
 }
 
+/** Borra los datos simulados para empezar la demo de cero. */
+export function resetDemo() {
+  return request<{ deleted_people: number }>("/reset", { method: "POST" });
+}
+
 export function simulate(n: number) {
   return request<SimulateResponse>("/simulate", {
     method: "POST",

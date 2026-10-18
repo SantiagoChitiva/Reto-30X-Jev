@@ -196,6 +196,16 @@ async def post_simulate(body: SimulateIn):
     return {"accepted": body.n}
 
 
+@app.post("/reset")
+async def post_reset():
+    """Empieza la demo de cero: borra los datos simulados. Las personas de HubSpot no se tocan."""
+    if simulate.running:
+        raise HTTPException(409, "Hay una simulación corriendo; espera a que termine")
+    deleted = await store.get_store().reset_simulated()
+    simulate.failed, simulate.last_error = 0, None
+    return {"deleted_people": deleted}
+
+
 @app.get("/evaluation")
 async def get_evaluation():
     """Último resultado de `python -m app.evaluate` (precisión vs set etiquetado y JEV vs un LLM)."""
