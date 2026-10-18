@@ -39,7 +39,7 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 
 ## 5. Cómo decide (0:25)
 
-> En cada señal hace cuatro preguntas: quién es, qué tan avanzada está en IA, si está lista para ventas y qué programa le sirve, solo entre los que 30X vende. Si está segura, actúa sola. Si duda, es prudente: manda contenido gratis y no molesta a ventas. Si no sabe, decide una persona. El motor es JEV: responde en milisegundos. Los LLM piensan, JEV decide.
+> JEV responde cuatro preguntas: quién es, qué tan avanzada está en IA, si está lista para ventas y qué programa le sirve. Las reglas las pone nuestro código: si sabe quién es, actúa sola; si duda, manda contenido gratis; si no sabe, decide una persona. Avisar a ventas exige más certeza. Los LLM piensan, JEV decide.
 
 ## 6. Integración (0:30)
 
@@ -47,7 +47,7 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 
 ## 7. Resultados (0:20)
 
-> Lo probamos con JEV real sobre 200 perfiles de 30X. Nueve de cada diez decisiones se resuelven sin una persona, y las automáticas aciertan el segmento el 98 % de las veces. Es 4 veces más barato y 7 veces más rápido que un LLM.
+> Lo probamos con JEV real sobre 200 perfiles de 30X. Seis de cada diez decisiones salen solas y aciertan el segmento el 99 % de las veces; solo 1 de cada 10 necesita a una persona. Es 4 veces más barato y 7 veces más rápido que un LLM.
 
 ## 8. Por qué nosotros (0:20)
 
@@ -76,10 +76,11 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 | ¿Cómo se conecta con HubSpot? | Entrada por webhooks de HubSpot (contacto creado, propiedad cambiada, deal con etapa nueva). Salida en propiedades `pulse_*` del contacto, que disparan sus workflows. Guía en `docs/HubSpot.md`. |
 | ¿Qué datos salen de 30X? | A JEV solo le llegan categorías anónimas (rol, objetivo, dolor, intereses, etapa) y conteos. Nunca nombres, correos ni el ID de HubSpot. |
 | ¿Cuál es el ID de cada persona? | El ID del contacto en HubSpot. Es estable aunque cambie el correo, y se queda dentro de Pulse. |
-| ¿Y si JEV se equivoca? | Si no está segura, no se arriesga: manda contenido gratuito y no avisa a ventas, o le pasa el caso a una persona. Y cada semana medimos cuánto acierta contra perfiles etiquetados. |
+| ¿Y si JEV se equivoca? | Si no está segura de quién es, no se arriesga: manda contenido gratuito o le pasa el caso a una persona. Avisar a ventas exige además 85 % de certeza y el visto bueno de JEV. Y cada semana medimos cuánto acierta contra perfiles etiquetados. |
 | ¿Puede mandar spam? | No. Hay un freno en código: la misma acción no se repite si ya salió en las últimas 3 decisiones de la persona. Además, JEV revisa que la oferta sea apropiada antes de actuar. |
 | ¿Por qué no usar ChatGPT u otro LLM? | Para decisiones repetitivas es más de 4 veces más caro y unas 7 veces más lento, y no dice cuándo duda. Además, 30X pidió evitar modelos externos. |
-| ¿Por qué tantas van a la ruta prudente? | Lo automático solo sale con 85 % de confianza o más, y así acierta el segmento el 98 %. Lo prudente solo manda contenido gratuito, así que equivocarse ahí no cuesta. Con más etiquetas revisadas se puede bajar el umbral: a 0,80 saldría solo cerca de la mitad. |
+| ¿Cuándo entra una persona? | Solo cuando JEV no sabe quién es (cerca de 1 de cada 10) o al resolver la cola. Para enviar contenido no hace falta y se gana velocidad. Para avisar a ventas, el código exige 85 % de certeza, contexto en el perfil y el visto bueno de JEV. |
+| ¿Qué hace el modelo y qué el código? | JEV solo responde preguntas cerradas con una probabilidad. El código (el harness) cuenta las señales, aplica los umbrales, frena el spam, exige contexto para avisar a ventas y decide cuándo entra una persona. |
 | ¿Usan un LLM? | No. La única llamada externa es JEV, con categorías anónimas. Si 30X lo aprueba, más adelante un LLM podría revisar los casos dudosos. |
 | ¿Cómo se compara con la afinidad que ya calculan? | Mide lo mismo, si la persona encaja con el perfil de cada programa, pero se recalcula con cada señal. Comparamos contra su «Programa sugerido» para medir el acierto. |
 | ¿Cuánto cuesta operarlo? | Unos 6 centavos de dólar por cada 1.000 decisiones con JEV (medido con JEV real). Corre en un contenedor, en cualquier nube. |

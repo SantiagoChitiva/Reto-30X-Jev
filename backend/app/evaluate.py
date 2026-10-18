@@ -100,7 +100,7 @@ def score(items: list[dict[str, Any]], answers: list[dict[str, Any]]) -> dict[st
     hits: defaultdict[str, Counter] = defaultdict(Counter)
     totals: Counter = Counter()
     for item, a in zip(items, answers):
-        route = policy.route(a["segment"], a["sales_ready"])
+        route = policy.route(a["segment"])
         totals[route] += 1
         for q in QUESTIONS:
             ok = a[q].value == item[f"{q}_ref"]

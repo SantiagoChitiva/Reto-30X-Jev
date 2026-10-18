@@ -31,8 +31,10 @@ def test_signup_devuelve_decision(client):
     assert d.person_id == "p_0001" and d.decision_id.startswith("d_") and d.event_id.startswith("e_")
     assert d.segment.value == "fundador_ventas"
     if d.route == "auto":
-        assert d.guardrail is not None
-        assert d.action is None if not d.guardrail.passed else d.action is not None
+        if d.guardrail is not None and not d.guardrail.passed:
+            assert d.action is None
+        if d.action == "notify_sales":  # solo el aviso a ventas pasa por el guardrail de JEV
+            assert d.guardrail is not None and d.guardrail.passed
     else:
         assert d.guardrail is None
     if d.route == "safe":
@@ -129,7 +131,7 @@ def test_simulate_y_metrics(client):
 def test_antispam_frena_la_misma_accion(client, monkeypatch):
     from app.decision import jev, policy
 
-    monkeypatch.setattr(policy, "route", lambda segment, sales_ready: "auto")
+    monkeypatch.setattr(policy, "route", lambda segment: "auto")
     monkeypatch.setattr(jev, "_mock_guardrail_answer", lambda state: {"type": "boolean", "probability": 0.95})
     first = signup(client).json()
     assert first["action"] is not None
@@ -181,9 +183,42 @@ def test_ficha_crm_la_escribe_la_persona_en_la_ruta_humana(client):
 def test_ruta_prudente_nunca_avisa_a_ventas(client, monkeypatch):
     from app.decision import policy
 
-    monkeypatch.setattr(policy, "route", lambda segment, sales_ready: "safe")
+    monkeypatch.setattr(policy, "route", lambda segment: "safe")
     d = signup(client).json()  # el fundador está listo para ventas, pero con confianza media
     assert d["route"] == "safe" and d["sales_ready"]["value"] is True
     assert d["action"] == "send:nutricion" and "por confirmar" in d["explanation"]
     ficha = client.get("/crm/p_0001").json()
     assert ficha["decided_by"] == "jev_por_confirmar" and ficha["sales_ready"] is False
+
+
+def test_enviar_contenido_no_pasa_por_el_guardrail(client, monkeypatch):
+    from app.decision import policy
+
+    monkeypatch.setattr(policy, "route", lambda segment: "auto")
+    d = signup(client, profile=LEAD).json()  # sin rol ni dolor: nunca se avisa a ventas
+    assert d["action"].startswith("send:") and d["guardrail"] is None
+    assert client.get("/crm/p_0001").json()["sales_ready"] is False
+
+
+def test_aviso_a_ventas_pasa_por_el_guardrail(client, monkeypatch):
+    from app.decision import jev, policy
+    from app.models import Answer
+
+    monkeypatch.setattr(policy, "route", lambda segment: "auto")
+    real_ask = jev.ask
+
+    async def ask_listo(state):
+        r = await real_ask(state)
+        r.answers["sales_ready"] = Answer(value=True, p=0.95)
+        return r
+
+    monkeypatch.setattr(jev, "ask", ask_listo)
+    monkeypatch.setattr(jev, "_mock_guardrail_answer", lambda state: {"type": "boolean", "probability": 0.7})
+    d = signup(client).json()
+    assert d["action"] == "notify_sales" and d["guardrail"]["passed"] is True
+    assert client.get("/crm/p_0001").json()["sales_ready"] is True
+
+    monkeypatch.setattr(jev, "_mock_guardrail_answer", lambda state: {"type": "boolean", "probability": 0.3})
+    d = signup(client, pid="p_0002").json()
+    assert d["action"] is None and d["guardrail"]["passed"] is False
+    assert client.get("/crm/p_0002").json()["sales_ready"] is False

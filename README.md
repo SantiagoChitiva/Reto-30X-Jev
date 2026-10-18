@@ -9,10 +9,11 @@ Proyecto para el reto **JEV** del Hackathon 30X.
 ## Cómo funciona
 
 ```
-Señal → JEV decide (segmento, madurez, ¿lista para ventas?, oferta)
-          ├─ p ≥ 0.85      → antispam → Guardrail JEV → acción (enviar oferta / avisar a ventas)
-          ├─ 0.60 – 0.85   → acción prudente: contenido gratuito, sin avisar a ventas, por confirmar
-          └─ < 0.60 / otro → cola de revisión humana
+Señal → JEV responde (segmento, madurez, ¿lista para ventas?, oferta) → el harness decide
+          ├─ segmento p ≥ 0.85 → antispam → envía el programa sugerido
+          │                      (avisa a ventas solo con p ≥ 0.85, contexto y el visto bueno del guardrail)
+          ├─ 0.60 – 0.85       → acción prudente: contenido gratuito, sin avisar a ventas, por confirmar
+          └─ < 0.60 / otro     → cola de revisión humana
                                    ↓
                      Ficha de la persona en el CRM (segmento, programa sugerido, ¿lista para ventas?)
 ```

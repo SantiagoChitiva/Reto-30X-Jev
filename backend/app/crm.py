@@ -11,19 +11,20 @@ from .models import CrmRecord, Decision, Review
 from .store import get_store, now
 
 
-def from_decision(d: Decision) -> Optional[CrmRecord]:
+def from_decision(d: Decision, ready: bool = False) -> Optional[CrmRecord]:
     """La ficha que deja una decisión automática o prudente. La ruta humana no escribe nada:
     la ficha queda como estaba hasta que una persona resuelva el caso.
 
-    En la ruta prudente (`safe`) el programa sugerido es la propuesta de JEV, pero la ficha nunca
-    queda «lista para ventas»: así ningún workflow avisa a ventas con un caso dudoso."""
+    `ready` lo calcula el pipeline con las reglas de policy.py: solo la ruta automática, con certeza
+    y contexto, deja la ficha «lista para ventas». En la ruta prudente nunca, así ningún workflow
+    avisa a ventas con un caso dudoso."""
     if d.route == "human":
         return None
     return CrmRecord(
         person_id=d.person_id,
         segment=d.segment.value,
         maturity=d.maturity.value,
-        sales_ready=d.sales_ready.value if d.route == "auto" else False,
+        sales_ready=ready,
         suggested_program=d.content.value,
         confidence=round(min(d.segment.p, d.sales_ready.p), 4),
         decided_by="jev" if d.route == "auto" else "jev_por_confirmar",

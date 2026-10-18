@@ -98,13 +98,13 @@ QUESTIONS: dict[str, dict[str, Any]] = {
 GUARDRAIL_QUESTIONS: dict[str, dict[str, Any]] = {
     "apropiada": {
         "type": "boolean",
-        "instructions": "Un agente de 30X va a ejecutar `action` con `person`. ¿Es seguro y apropiado hacerlo? "
-                        "Revisa que sea coherente con `decision` y con el perfil, que respete la línea "
-                        "editorial de 30X (útil, no invasiva) y que no prometa algo que 30X no ofrece.",
+        "instructions": "El equipo comercial de 30X va a contactar a `person` porque `decision` dice que está "
+                        "lista para ventas. ¿Es apropiado contactarla ahora?",
         "criteria": {
-            "true": "La oferta corresponde al perfil y al momento de la persona, y el tono sería bienvenido.",
-            "false": "La oferta no corresponde al perfil, es prematura (por ejemplo, avisar a ventas sin "
-                     "contexto) o podría sentirse como spam.",
+            "true": "El perfil y las señales muestran interés real y un programa de 30X que le encaja: una "
+                    "llamada de ventas sería bienvenida.",
+            "false": "Es prematuro o invasivo: el interés es solo exploratorio, ya es cliente del programa, "
+                     "perdió la oportunidad hace poco o el perfil no encaja con lo que 30X vende.",
         },
     },
 }
@@ -174,16 +174,27 @@ async def aclose() -> None:
         _client = None
 
 
+RETRIES = 3
+_RETRY_STATUS = {429, 500, 502, 503, 504}
+
+
 async def _call_jev_real(state: dict[str, Any], questions: dict[str, dict[str, Any]]) -> dict[str, Any]:
     """POST /v1/evaluate de Vercel AI Gateway con el modelo typesafe-ai/jev."""
     key = os.getenv("AI_GATEWAY_API_KEY")
     if not key:
         raise RuntimeError("USE_MOCK_JEV=false requiere AI_GATEWAY_API_KEY en .env")
-    resp = await _http().post(
-        GATEWAY_URL,
-        headers={"Authorization": f"Bearer {key}"},
-        json={"model": MODEL, "state": state, "questions": questions},
-    )
+    body = {"model": MODEL, "state": state, "questions": questions}
+    for attempt in range(RETRIES + 1):
+        try:
+            resp = await _http().post(GATEWAY_URL, headers={"Authorization": f"Bearer {key}"}, json=body)
+        except httpx.TransportError:  # timeout o conexión cortada
+            if attempt == RETRIES:
+                raise
+        else:
+            if resp.status_code not in _RETRY_STATUS or attempt == RETRIES:
+                break
+        # Límite de uso o falla temporal: espera y reintenta (0,5 s, 1 s, 2 s)
+        await asyncio.sleep(0.5 * 2 ** attempt)
     if resp.status_code >= 400:
         try:
             reason = resp.json()["error"]["message"]
@@ -208,7 +219,11 @@ async def ask(state: dict[str, Any]) -> JevResult:
 
 
 async def guardrail(state: dict[str, Any], answers: dict[str, Answer], action: str) -> tuple[Guardrail, float]:
-    """Segunda revisión de JEV antes de actuar en la ruta `auto`."""
+    """Segunda revisión de JEV antes de avisar a ventas en la ruta `auto`.
+
+    Frena si JEV se inclina por «no apropiado» (p < GUARDRAIL_MIN). Las acciones de bajo riesgo
+    (enviar contenido) no pasan por aquí: las cubren las reglas del harness.
+    """
     g_state = {**state, "decision": {k: a.value for k, a in answers.items()}, "action": action}
     raw = await _evaluate(g_state, GUARDRAIL_QUESTIONS)
     p = round(float(raw["answers"]["apropiada"]["probability"]), 4)
@@ -352,13 +367,11 @@ def _mock_main_answers(state: dict[str, Any]) -> dict[str, Any]:
 
 
 def _mock_guardrail_answer(state: dict[str, Any]) -> dict[str, Any]:
-    p = _rng.uniform(0.88, 0.99)
-    person = state["person"]
-    if state.get("action") == "notify_sales" and person.get("info_level") == "Baja" and not person.get("role"):
-        p = _rng.uniform(0.3, 0.7)  # avisar a ventas sin contexto es prematuro
-    elif _rng.random() < 0.004:
-        p = _rng.uniform(0.5, 0.84)
-    return {"type": "boolean", "probability": round(p, 2)}
+    # Como JEV real: el guardrail rara vez pasa de 0.75 y a veces se inclina por «no»
+    p = _rng.uniform(0.35, 0.8)
+    if state["signals"].get("events_attended", 0) == 0 and state["signals"].get("emails_opened", 0) == 0:
+        p -= 0.1  # sin señales de interés, contactar es más prematuro
+    return {"type": "boolean", "probability": round(max(0.05, p), 2)}
 
 
 def _mock_latency_s() -> float:

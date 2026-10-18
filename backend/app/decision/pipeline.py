@@ -47,18 +47,17 @@ async def process_event(ev_in: EventIn) -> Decision:
 
     result = await jev.ask(state)
     answers = result.answers
-    route = policy.route(answers["segment"], answers["sales_ready"])
-    action = policy.choose_action(answers["sales_ready"], answers["content"])
+    route = policy.route(answers["segment"])
+    action = policy.choose_action(answers["sales_ready"], answers["content"], person)
     cost = result.cost_usd
     guard = None
     explanation = None
 
     if route == "safe":
-        # Confianza media: acción prudente decidida en código, sin modelos externos adicionales.
-        # Nunca avisa a ventas; la propuesta de JEV queda en la ficha como «por confirmar».
-        p = min(answers["segment"].p, answers["sales_ready"].p)
-        explanation = (f"Confianza media (p={p:.2f}): se envía contenido gratuito y no se avisa a ventas. "
-                       f"JEV proponía `{action or 'no actuar'}`; queda por confirmar.")
+        # Confianza media en quién es: acción prudente decidida en código. Nunca avisa a ventas;
+        # la propuesta de JEV queda en la ficha como «por confirmar».
+        explanation = (f"Confianza media en el segmento (p={answers['segment'].p:.2f}): se envía contenido "
+                       f"gratuito y no se avisa a ventas. JEV proponía `{action or 'no actuar'}`; queda por confirmar.")
         action = policy.SAFE_ACTION
 
     if route != "human" and policy.repeated_action(
@@ -72,9 +71,8 @@ async def process_event(ev_in: EventIn) -> Decision:
     if route == "auto":
         if spam:
             guard = Guardrail(passed=False, p=0.0, reason=spam)  # el antispam frena sin llamar a JEV
-        elif action is None:
-            guard = Guardrail(passed=True, p=1.0)  # no hay acción que revisar
-        else:
+        elif action == "notify_sales":
+            # Solo la acción de alto riesgo pasa por el guardrail de JEV
             guard, guard_cost = await jev.guardrail(state, answers, action)
             cost += guard_cost
             if not guard.passed:
@@ -84,6 +82,11 @@ async def process_event(ev_in: EventIn) -> Decision:
             explanation = f"{explanation} {spam}"
     else:
         action = None  # lo decide una persona en la cola de revisión
+
+    # Lista para ventas en el CRM: solo en la ruta automática, con certeza, contexto y sin freno del guardrail
+    # (el antispam no cuenta: frena un aviso repetido, no cambia que esté lista)
+    ready = (route == "auto" and policy.ready_for_sales(answers["sales_ready"], person)
+             and (guard is None or guard.passed or bool(spam)))
 
     decision = Decision(
         decision_id=store.next_id("d"),
@@ -102,7 +105,7 @@ async def process_event(ev_in: EventIn) -> Decision:
         created_at=now(),
     )
     await store.save_decision(decision)
-    await crm.write(crm.from_decision(decision))
+    await crm.write(crm.from_decision(decision, ready))
     # Una sola revisión pendiente por persona: los eventos siguientes no la duplican
     if route == "human" and not await store.has_pending_review(person.person_id):
         await store.add_review(decision.decision_id)

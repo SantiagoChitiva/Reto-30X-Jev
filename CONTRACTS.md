@@ -140,15 +140,27 @@ Una sola llamada por evento. JEV recibe `{ person, signals, event, recent_events
 
 Contar, sumar o comparar fechas se hace en código, nunca en JEV.
 
-Guardrail (segunda llamada, solo en `auto` y con acción): Noul `apropiada`. ¿La acción respeta el perfil y la línea editorial de 30X?
+Guardrail (segunda llamada, solo antes de `notify_sales` en `auto`): Noul `apropiada`. ¿Es apropiado que ventas la contacte ahora?
 
-## Umbrales (v1)
+## Umbrales (v2): según el riesgo de la acción
 
-| Probabilidad mínima de `segment` y `sales_ready` | Ruta |
+JEV responde; las reglas las pone el harness (`backend/app/decision/policy.py`). La ruta depende de qué tan segura está JEV de **quién es** la persona:
+
+| `segment.p` | Ruta |
 |---|---|
-| ≥ 0.85 | `auto` → antispam → guardrail JEV (≥ 0.85) → acción |
+| ≥ 0.85 | `auto` → antispam → acción |
 | 0.60 – 0.85 | `safe` → acción prudente: `send:nutricion` (contenido gratuito), nunca `notify_sales`; queda «por confirmar» |
 | < 0.60, o segmento `otro` | `human` → cola de revisión (una sola pendiente por persona) |
+
+**Avisar a ventas es la acción de alto riesgo**, así que exige más. Solo en `auto` y solo si:
+
+1. JEV dice que está lista con `sales_ready.p ≥ 0.85`;
+2. el perfil tiene contexto: se sabe su rol o su dolor (regla del harness);
+3. el guardrail de JEV no la frena (`apropiada` con p ≥ 0.50).
+
+Si falla 1 o 2, en vez de avisar se envía el programa sugerido. Enviar contenido es de bajo riesgo: no pasa por el guardrail, lo cubren el antispam y que la oferta solo puede ser un programa que 30X vende.
+
+**Una persona entra solo cuando JEV no sabe quién es** (`human`), o cuando resuelve la cola. En el resto se gana velocidad.
 
 **Sin LLM externo:** 30X pidió evitar modelos externos. La única llamada externa es JEV, con categorías anónimas; la ruta `safe` se resuelve en código. Un LLM que revise esos casos queda como mejora futura, si 30X lo aprueba.
 

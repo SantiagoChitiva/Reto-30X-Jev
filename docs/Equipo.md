@@ -9,7 +9,7 @@ El recorrido de cada evento:
 1. Llega un **evento**, por ejemplo "María se inscribió" o "María cambió de cargo".
 2. Se le pregunta a **JEV** (por ahora el simulado) qué tipo de persona es, qué tan madura está en IA, si está lista para ventas y qué contenido le sirve. Cada respuesta trae un porcentaje de seguridad.
 3. Según ese porcentaje, el sistema decide el camino:
-   - **Seguro (85% o más):** actúa solo, pero antes pasa por el **guardrail**, una segunda revisión de JEV.
+   - **Seguro de quién es (85% o más):** actúa solo y envía el programa sugerido. Para **avisar a ventas** exige además 85% de certeza de que está lista, contexto en el perfil y el visto bueno del **guardrail**, una segunda revisión de JEV.
    - **Más o menos seguro (60% a 85%):** acción **prudente**: contenido gratuito, sin avisar a ventas, y queda «por confirmar».
    - **Inseguro (menos de 60%):** va a la **cola de revisión** de una persona.
 4. Se guarda la decisión y queda disponible para el tablero.
