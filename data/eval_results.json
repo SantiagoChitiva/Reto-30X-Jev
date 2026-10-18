@@ -1,43 +1,43 @@
 {
-  "created_at": "2026-10-18T01:36:34.577942+00:00",
-  "mock_jev": true,
+  "created_at": "2026-10-18T03:02:16.843025+00:00",
+  "mock_jev": false,
   "n": 200,
   "labels": "content_ref = programa sugerido por 30X; sales_ready_ref = afinidad >= 7; segment_ref = borrador por reglas pendiente de revisión manual",
   "reviewed_labels": 0,
   "accuracy": {
-    "segment": 90.5,
-    "content": 37.5,
-    "sales_ready": 43.0
+    "segment": 92.0,
+    "content": 42.5,
+    "sales_ready": 40.0
   },
   "by_route": {
     "auto": {
-      "n": 122,
-      "pct": 61.0,
-      "segment": 95.1,
-      "content": 43.4,
-      "sales_ready": 41.8
+      "n": 45,
+      "pct": 22.5,
+      "segment": 97.8,
+      "content": 40.0,
+      "sales_ready": 68.9
     },
     "safe": {
-      "n": 58,
-      "pct": 29.0,
-      "segment": 86.2,
-      "content": 27.6,
-      "sales_ready": 41.4
+      "n": 134,
+      "pct": 67.0,
+      "segment": 94.8,
+      "content": 40.3,
+      "sales_ready": 31.3
     },
     "human": {
-      "n": 20,
-      "pct": 10.0,
-      "segment": 75.0,
-      "content": 30.0,
-      "sales_ready": 55.0
+      "n": 21,
+      "pct": 10.5,
+      "segment": 61.9,
+      "content": 61.9,
+      "sales_ready": 33.3
     }
   },
   "jev": {
-    "cost_usd": 0.008433,
-    "cost_per_1k_usd": 0.042164,
-    "latency_p50_ms": 92.2,
-    "latency_p95_ms": 172.1,
-    "wall_ms": 526.5
+    "cost_usd": 0.012413,
+    "cost_per_1k_usd": 0.062067,
+    "latency_p50_ms": 206.3,
+    "latency_p95_ms": 287.7,
+    "wall_ms": 10016.8
   },
   "llm": {
     "model": "gpt-4o-mini",

@@ -47,7 +47,7 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 
 ## 7. Resultados (0:20)
 
-> Con 10.000 señales sobre perfiles de 30X, el 68 % de las decisiones sale solo y acierta el 95 %. Es más de 6 veces más barato y 16 veces más rápido que un LLM. Una persona solo ve cerca del 5 % de los casos.
+> Lo probamos con JEV real sobre 200 perfiles de 30X. Nueve de cada diez decisiones se resuelven sin una persona, y las automáticas aciertan el segmento el 98 % de las veces. Es 4 veces más barato y 7 veces más rápido que un LLM.
 
 ## 8. Por qué nosotros (0:20)
 
@@ -59,7 +59,7 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 
 - Cronometrar dos veces seguidas. Si pasa de 2:55, recortar primero la slide 3: las cifras ya se ven en pantalla.
 - Pasar de slide al terminar la frase, sin pausas largas.
-- Las cifras son con JEV simulado. Si preguntan: «con la llave de JEV real se corre el mismo comando y se actualizan».
+- Las cifras son con JEV real sobre 200 perfiles etiquetados del Excel. Si preguntan por las etiquetas: el programa sugerido es el de 30X; el segmento es un borrador por reglas que falta revisar a mano.
 
 ## Demo (en preguntas o en la mesa, 1 minuto)
 
@@ -78,9 +78,10 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 | ¿Cuál es el ID de cada persona? | El ID del contacto en HubSpot. Es estable aunque cambie el correo, y se queda dentro de Pulse. |
 | ¿Y si JEV se equivoca? | Si no está segura, no se arriesga: manda contenido gratuito y no avisa a ventas, o le pasa el caso a una persona. Y cada semana medimos cuánto acierta contra perfiles etiquetados. |
 | ¿Puede mandar spam? | No. Hay un freno en código: la misma acción no se repite si ya salió en las últimas 3 decisiones de la persona. Además, JEV revisa que la oferta sea apropiada antes de actuar. |
-| ¿Por qué no usar ChatGPT u otro LLM? | Para decisiones repetitivas es más de 6 veces más caro y 16 veces más lento, y no dice cuándo duda. Además, 30X pidió evitar modelos externos. |
+| ¿Por qué no usar ChatGPT u otro LLM? | Para decisiones repetitivas es más de 4 veces más caro y unas 7 veces más lento, y no dice cuándo duda. Además, 30X pidió evitar modelos externos. |
+| ¿Por qué tantas van a la ruta prudente? | Lo automático solo sale con 85 % de confianza o más, y así acierta el segmento el 98 %. Lo prudente solo manda contenido gratuito, así que equivocarse ahí no cuesta. Con más etiquetas revisadas se puede bajar el umbral: a 0,80 saldría solo cerca de la mitad. |
 | ¿Usan un LLM? | No. La única llamada externa es JEV, con categorías anónimas. Si 30X lo aprueba, más adelante un LLM podría revisar los casos dudosos. |
 | ¿Cómo se compara con la afinidad que ya calculan? | Mide lo mismo, si la persona encaja con el perfil de cada programa, pero se recalcula con cada señal. Comparamos contra su «Programa sugerido» para medir el acierto. |
-| ¿Cuánto cuesta operarlo? | Unos 4 centavos de dólar por cada 1.000 decisiones con JEV. Corre en un contenedor, en cualquier nube. |
+| ¿Cuánto cuesta operarlo? | Unos 6 centavos de dólar por cada 1.000 decisiones con JEV (medido con JEV real). Corre en un contenedor, en cualquier nube. |
 
 Antes del pitch, completar quién dice cada parte. Repositorio: https://github.com/SantiagoChitiva/Reto-30X-Jev. Cuando esté desplegado, agregar la URL del tablero a la última slide.

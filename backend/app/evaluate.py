@@ -63,7 +63,9 @@ def state_for(item: dict[str, Any], i: int) -> dict[str, Any]:
 
 
 async def _ask_all(states: list[dict[str, Any]]) -> list[tuple[jev.JevResult, float]]:
-    sem = asyncio.Semaphore(int(os.getenv("MAX_CONCURRENCY", "50")))
+    # Pocas llamadas a la vez: así la latencia es la de una decisión y no la de la cola de un lote
+    sem = asyncio.Semaphore(int(os.getenv("EVAL_CONCURRENCY", "5")))
+    await jev.ask(states[0])  # calienta la conexión: la primera llamada abre TLS y no cuenta
 
     async def one(state: dict[str, Any]) -> tuple[jev.JevResult, float]:
         async with sem:
