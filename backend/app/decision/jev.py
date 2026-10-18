@@ -184,7 +184,12 @@ async def _call_jev_real(state: dict[str, Any], questions: dict[str, dict[str, A
         headers={"Authorization": f"Bearer {key}"},
         json={"model": MODEL, "state": state, "questions": questions},
     )
-    resp.raise_for_status()
+    if resp.status_code >= 400:
+        try:
+            reason = resp.json()["error"]["message"]
+        except Exception:
+            reason = resp.text[:300]
+        raise RuntimeError(f"JEV respondió {resp.status_code}: {reason}")
     return resp.json()
 
 
