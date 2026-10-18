@@ -8,11 +8,11 @@ import json  # noqa: E402
 from contextlib import asynccontextmanager  # noqa: E402
 from typing import Optional  # noqa: E402
 
-from fastapi import FastAPI, HTTPException, Query  # noqa: E402
+from fastapi import FastAPI, HTTPException, Query, Request  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 from pydantic import ValidationError  # noqa: E402
 
-from . import crm, simulate, store  # noqa: E402
+from . import crm, hubspot, simulate, store  # noqa: E402
 from .decision import jev, pipeline  # noqa: E402
 from .models import (  # noqa: E402
     CrmRecord,
@@ -37,6 +37,7 @@ async def lifespan(app: FastAPI):
     for task in _background:
         task.cancel()
     await jev.aclose()
+    await hubspot.aclose()
     await store.close_store()
 
 
@@ -57,6 +58,50 @@ async def post_event(ev: EventIn):
         raise HTTPException(404, str(e))
     except ValidationError as e:  # profile_update con un valor inválido
         raise HTTPException(422, e.errors(include_url=False, include_context=False))
+
+
+@app.post("/webhooks/hubspot")
+async def hubspot_webhook(request: Request):
+    """Webhooks de HubSpot (contactos y deals) → eventos de Pulse. Ver app/hubspot.py."""
+    body = await request.body()
+    if not hubspot.verify_signature(request.method, str(request.url), body,
+                                    request.headers.get("X-HubSpot-Signature-v3"),
+                                    request.headers.get("X-HubSpot-Request-Timestamp")):
+        raise HTTPException(401, "Firma de HubSpot inválida")
+    try:
+        events = json.loads(body or b"[]")
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        raise HTTPException(400, "El cuerpo debe ser JSON en UTF-8")
+    if isinstance(events, dict):
+        events = [events]
+
+    st = store.get_store()
+
+    async def exists(pid: str) -> bool:
+        return await st.get_person(pid) is not None
+
+    # Cada persona en orden; personas distintas en paralelo
+    by_person: dict[str, list[dict]] = {}
+    ignored = 0
+    for ev in events:
+        if hubspot.already_seen(ev):
+            ignored += 1
+            continue
+        by_person.setdefault(str(ev.get("objectId")), []).append(ev)
+
+    async def run(group: list[dict]) -> list[str]:
+        ids = []
+        for ev in group:
+            for pulse_event in await hubspot.to_events(ev, exists):
+                try:
+                    ids.append((await pipeline.process_event(pulse_event)).decision_id)
+                except (store.NotFound, ValidationError):
+                    pass
+        return ids
+
+    results = await asyncio.gather(*(run(g) for g in by_person.values()))
+    decisions = [d for r in results for d in r]
+    return {"received": len(events), "ignored": ignored, "decisions": decisions}
 
 
 @app.get("/decisions", response_model=list[Decision])

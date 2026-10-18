@@ -43,7 +43,7 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 
 ## 6. Integración (0:30)
 
-> Y no hay que cambiar nada de lo que 30X ya tiene. Pulse recibe las señales que ya existen por una sola entrada, y escribe en la ficha del CRM: segmento, programa sugerido y si está lista para ventas. Hoy es una base de datos, como pidió el CTO; para el CRM real cambia un solo módulo. En tres semanas: conectar, probar en paralelo y encender.
+> Y no hay que cambiar nada de lo que 30X ya tiene. Cuando algo cambia en HubSpot, nos llega por webhook, y Pulse escribe en la misma ficha del contacto: segmento, programa sugerido y si está lista para ventas. Sus workflows de HubSpot deciden qué enviar y a quién avisar. JEV solo ve categorías anónimas, nunca nombres ni correos. En tres semanas: conectar, probar en modo sombra y encender.
 
 ## 7. Resultados (0:20)
 
@@ -73,8 +73,9 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 
 | Pregunta | Respuesta corta |
 |---|---|
-| ¿Cómo se conecta con nuestro CRM? | Por un solo módulo de salida (`backend/app/crm.py`). Hoy escribe en una tabla con los mismos campos; para el CRM real se cambia ese módulo y nada más. |
-| ¿Qué datos necesita? | Las categorías que ya tienen: rol, objetivo, dolor, intereses, etapa del CRM y las señales (inscripciones, asistencias, correos). Sin nombres ni datos personales. |
+| ¿Cómo se conecta con HubSpot? | Entrada por webhooks de HubSpot (contacto creado, propiedad cambiada, deal con etapa nueva). Salida en propiedades `pulse_*` del contacto, que disparan sus workflows. Guía en `docs/HubSpot.md`. |
+| ¿Qué datos salen de 30X? | A JEV solo le llegan categorías anónimas (rol, objetivo, dolor, intereses, etapa) y conteos. Nunca nombres, correos ni el ID de HubSpot. |
+| ¿Cuál es el ID de cada persona? | El ID del contacto en HubSpot. Es estable aunque cambie el correo, y se queda dentro de Pulse. |
 | ¿Y si JEV se equivoca? | Si no está segura, no actúa: lo revisa un LLM o una persona. Y cada semana medimos cuánto acierta contra perfiles etiquetados. |
 | ¿Puede mandar spam? | No. Hay un freno en código: la misma acción no se repite si ya salió en las últimas 3 decisiones de la persona. Además, JEV revisa que la oferta sea apropiada antes de actuar. |
 | ¿Por qué no usar solo ChatGPT? | Para decisiones repetitivas es casi 7 veces más caro y 16 veces más lento, y no dice cuándo duda. El LLM lo usamos solo para los casos dudosos. |

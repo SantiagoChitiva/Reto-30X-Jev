@@ -19,11 +19,13 @@ Señal → JEV decide (segmento, madurez, ¿lista para ventas?, oferta)
 
 ## Cómo se integra con 30X
 
-- **Entrada:** un solo endpoint, `POST /events`, recibe las señales que 30X ya produce (inscripciones, asistencias, correos abiertos, cambios de etapa en el CRM).
-- **Salida:** cada decisión queda como propiedades en la ficha de la persona en el CRM. Por ahora es la tabla `crm_profiles` (30X pidió trabajarlo como una base de datos) y se consulta con `GET /crm?sales_ready=true`. Para conectar el CRM real solo cambia `backend/app/crm.py`.
-- **Despliegue:** es un contenedor Docker con Postgres, y corre en cualquier nube.
+30X usa HubSpot como CRM. Detalle y puesta en marcha: [`docs/HubSpot.md`](docs/HubSpot.md).
 
-Detalle de datos, preguntas tipadas, umbrales y API: [`CONTRACTS.md`](CONTRACTS.md).
+- **Entrada:** los webhooks de HubSpot (contacto creado, propiedad cambiada, deal con etapa nueva) llegan a `POST /webhooks/hubspot` y se convierten en eventos. Cualquier otra fuente puede usar `POST /events`.
+- **Salida:** cada decisión se escribe en propiedades `pulse_*` del contacto (segmento, programa sugerido, ¿lista para ventas?). Los workflows de HubSpot que 30X ya usa deciden qué enviar y a quién avisar. Además, todo queda en la tabla `crm_profiles` (`GET /crm?sales_ready=true`).
+- **ID único:** el ID del contacto en HubSpot (`hs_<id>`). Nunca se le envía a JEV, que solo recibe categorías anónimas.
+- **Modo sombra:** con `HUBSPOT_SYNC=false`, Pulse decide sin escribir en HubSpot, para comparar antes de encenderlo.
+- **Despliegue:** es un contenedor Docker con Postgres, y corre en cualquier nube.
 
 ## Correr en local
 
@@ -77,7 +79,7 @@ npm run dev
 
 | Carpeta | Qué hay | Dueño |
 |---|---|---|
-| `backend/app/main.py`, `store.py`, `crm.py` | API, almacenamiento, ficha en el CRM | Tech lead |
+| `backend/app/main.py`, `store.py`, `crm.py`, `hubspot.py` | API, almacenamiento, ficha en el CRM, HubSpot | Tech lead |
 | `backend/app/decision/` | Llamadas a JEV, umbrales, guardrail, LLM | JEV e IA |
 | `data/`, `backend/app/simulate.py`, `evaluate.py` | Perfiles de 30X, set etiquetado, evaluación | Datos |
 | `frontend/` | Tablero en Next.js | Frontend |

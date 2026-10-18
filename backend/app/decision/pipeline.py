@@ -23,12 +23,16 @@ def signals(person: Person, recent: list[Event]) -> dict[str, Any]:
 
 
 def build_state(person: Person, event: Event, recent: list[Event]) -> dict[str, Any]:
-    """Lo que JEV ve: el perfil, las señales calculadas, el evento actual y los anteriores."""
+    """Lo que JEV ve: el perfil, las señales calculadas, el evento actual y los anteriores.
+
+    Solo categorías anónimas: ni el ID de la persona (en producción, su ID de HubSpot) ni
+    datos personales salen hacia JEV.
+    """
     def summary(e: Event) -> dict[str, Any]:
         return {"type": e.type, "timestamp": e.timestamp.isoformat(), "data": e.data}
 
     return {
-        "person": person.model_dump(mode="json", exclude={"events_attended", "emails_opened"}),
+        "person": person.model_dump(mode="json", exclude={"person_id", "events_attended", "emails_opened"}),
         "signals": signals(person, recent),
         "event": summary(event),
         "recent_events": [summary(e) for e in recent],

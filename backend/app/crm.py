@@ -1,11 +1,12 @@
 """Lo que 30X Pulse escribe de vuelta en el CRM de 30X: la ficha de cada persona.
 
-30X pidió trabajarlo por ahora como una base de datos, así que la ficha vive en la tabla
-`crm_profiles`. Es el único punto de salida del sistema: conectar el CRM real es cambiar
-`write` para que mande estas mismas propiedades a su API, sin tocar el resto.
+La ficha siempre queda en la tabla `crm_profiles`. Si la persona viene de HubSpot (`hs_<id>`) y
+hay `HUBSPOT_TOKEN`, también se escribe en las propiedades `pulse_*` del contacto (ver hubspot.py).
+Es el único punto de salida del sistema.
 """
 from typing import Optional
 
+from . import hubspot
 from .models import CrmRecord, Decision, Review
 from .store import get_store, now
 
@@ -47,6 +48,21 @@ def from_review(r: Review, d: Decision) -> CrmRecord:
     )
 
 
+def _same(a: Optional[CrmRecord], b: CrmRecord) -> bool:
+    """¿Cambió algo que ventas vea? Si no, no se gasta una llamada a HubSpot."""
+    keys = ("segment", "maturity", "sales_ready", "suggested_program", "decided_by", "last_action")
+    return a is not None and all(getattr(a, k) == getattr(b, k) for k in keys)
+
+
 async def write(record: Optional[CrmRecord]) -> None:
-    if record is not None:
-        await get_store().upsert_crm(record)
+    if record is None:
+        return
+    store = get_store()
+    previous = await store.crm_record(record.person_id)
+    await store.upsert_crm(record)
+    cid = hubspot.contact_id(record.person_id)
+    if cid and hubspot.sync_enabled() and not _same(previous, record):
+        try:
+            await hubspot.update_contact(cid, hubspot.contact_properties(record))
+        except Exception as e:  # HubSpot caído no frena las decisiones: la ficha local ya quedó
+            print(f"No se pudo escribir en HubSpot ({type(e).__name__}): {e}")

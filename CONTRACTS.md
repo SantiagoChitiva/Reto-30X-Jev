@@ -102,7 +102,7 @@ Solo datos anónimos o simulados. Nada de personas reales.
 
 ## CrmRecord (ficha en el CRM)
 
-Lo que el sistema escribe de vuelta: la última decisión sobre cada persona, como propiedades de su ficha. 30X pidió trabajarlo por ahora como una base de datos, así que vive en la tabla `crm_profiles`. Con el CRM real son las mismas propiedades, y solo cambia `backend/app/crm.py`.
+Lo que el sistema escribe de vuelta: la última decisión sobre cada persona, como propiedades de su ficha. Siempre queda en la tabla `crm_profiles`; si la persona viene de HubSpot (`person_id` = `hs_<id del contacto>`) y hay `HUBSPOT_TOKEN`, también se escribe en las propiedades `pulse_*` del contacto (`docs/HubSpot.md`).
 
 ```json
 {
@@ -127,7 +127,7 @@ Lo que el sistema escribe de vuelta: la última decisión sobre cada persona, co
 
 ## Preguntas tipadas a JEV (v1)
 
-Una sola llamada por evento. JEV recibe `{ person, signals, event, recent_events }`; `signals` trae los conteos ya calculados en código.
+Una sola llamada por evento. JEV recibe `{ person, signals, event, recent_events }`; `signals` trae los conteos ya calculados en código. `person` va sin `person_id`: JEV solo ve categorías anónimas.
 
 | Clave | Tipo JEV | Opciones |
 |---|---|---|
@@ -169,6 +169,7 @@ Base: `http://localhost:8000` · Docs interactivas: `/docs`
 | POST | `/review/{review_id}` | `{ segment, action }` | `Review` resuelto (y actualiza la ficha del CRM) |
 | GET | `/crm` | `?limit=50&sales_ready=true` | `CrmRecord[]` (más reciente primero) |
 | GET | `/crm/{id}` | — | `CrmRecord` (404 si aún no tiene ficha) |
+| POST | `/webhooks/hubspot` | eventos de webhook de HubSpot | `{ received, ignored, decisions }` (ver `docs/HubSpot.md`) |
 | POST | `/simulate` | `{ n: 1000 }` | `{ accepted: n }` (corre en segundo plano) |
 | GET | `/evaluation` | — | último resultado de `python -m app.evaluate` (404 si no se ha corrido) |
 | GET | `/health` | — | `{ ok, mock_jev }` |

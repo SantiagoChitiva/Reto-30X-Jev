@@ -165,6 +165,9 @@ class MemoryStore:
                     counts[(prev.segment.value, cur.segment.value)] += 1
         return [Transition(from_=a, to=b, count=n) for (a, b), n in counts.most_common()]
 
+    async def get_person(self, person_id: str) -> Optional[Person]:
+        return self.people.get(person_id)
+
     async def get_decision(self, decision_id: str) -> Optional[Decision]:
         return next((d for d in self.decisions if d.decision_id == decision_id), None)
 
@@ -373,6 +376,10 @@ class PgStore:
             """
         )
         return [Transition(**dict(r)) for r in rows]
+
+    async def get_person(self, person_id: str) -> Optional[Person]:
+        row = await self.pool.fetchrow("SELECT * FROM people WHERE person_id = $1", person_id)
+        return _person(row) if row else None
 
     async def get_decision(self, decision_id: str) -> Optional[Decision]:
         row = await self.pool.fetchrow("SELECT * FROM decisions WHERE decision_id = $1", decision_id)
