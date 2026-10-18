@@ -47,7 +47,7 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 
 ## 7. Resultados (0:20)
 
-> Con 10.000 señales sobre perfiles de 30X, el 68 % de las decisiones sale solo y acierta el 95 %. Es más de 4 veces más barato y 16 veces más rápido que un LLM. Una persona solo ve cerca del 5 % de los casos.
+> Con 10.000 señales sobre perfiles de 30X, el 68 % de las decisiones sale solo y acierta el 95 %. Es casi 7 veces más barato y 16 veces más rápido que un LLM. Una persona solo ve cerca del 5 % de los casos.
 
 ## 8. Por qué nosotros (0:20)
 
@@ -77,7 +77,7 @@ La demo en vivo no cabe en 3 minutos: se muestra en las preguntas o cuando los j
 | ¿Qué datos necesita? | Las categorías que ya tienen: rol, objetivo, dolor, intereses, etapa del CRM y las señales (inscripciones, asistencias, correos). Sin nombres ni datos personales. |
 | ¿Y si JEV se equivoca? | Si no está segura, no actúa: lo revisa un LLM o una persona. Y cada semana medimos cuánto acierta contra perfiles etiquetados. |
 | ¿Puede mandar spam? | No. Hay un freno en código: la misma acción no se repite si ya salió en las últimas 3 decisiones de la persona. Además, JEV revisa que la oferta sea apropiada antes de actuar. |
-| ¿Por qué no usar solo Gemini o ChatGPT? | Para decisiones repetitivas es más de 4 veces más caro y 16 veces más lento, y no dice cuándo duda. El LLM lo usamos solo para los casos dudosos. |
+| ¿Por qué no usar solo ChatGPT? | Para decisiones repetitivas es casi 7 veces más caro y 16 veces más lento, y no dice cuándo duda. El LLM lo usamos solo para los casos dudosos. |
 | ¿Cómo se compara con la afinidad que ya calculan? | Mide lo mismo, si la persona encaja con el perfil de cada programa, pero se recalcula con cada señal. Comparamos contra su «Programa sugerido» para medir el acierto. |
 | ¿Cuánto cuesta operarlo? | Unos 4 centavos de dólar por cada 1.000 decisiones con JEV. Corre en un contenedor, en cualquier nube. |
 

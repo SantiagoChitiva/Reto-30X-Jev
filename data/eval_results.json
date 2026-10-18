@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-18T00:12:35.053146+00:00",
+  "created_at": "2026-10-17T20:03:54.211515+00:00",
   "mock_jev": true,
   "n": 200,
   "labels": "content_ref = programa sugerido por 30X; sales_ready_ref = afinidad >= 7; segment_ref = borrador por reglas pendiente de revisión manual",
@@ -33,16 +33,16 @@
     }
   },
   "jev": {
-    "cost_usd": 0.008487,
-    "cost_per_1k_usd": 0.042436,
-    "latency_p50_ms": 91.5,
-    "latency_p95_ms": 188.1,
-    "wall_ms": 492.8
+    "cost_usd": 0.00758,
+    "cost_per_1k_usd": 0.0379,
+    "latency_p50_ms": 93.5,
+    "latency_p95_ms": 181.7,
+    "wall_ms": 596.1
   },
   "llm": {
-    "model": "gemini-2.5-flash-lite",
-    "cost_usd": 0.036368,
-    "cost_per_1k_usd": 0.181838,
+    "model": "gpt-4o-mini",
+    "cost_usd": 0.051311,
+    "cost_per_1k_usd": 0.256557,
     "latency_ms_typical": 1500.0,
     "estimated": true
   }

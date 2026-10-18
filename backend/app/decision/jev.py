@@ -213,18 +213,9 @@ async def guardrail(state: dict[str, Any], answers: dict[str, Answer], action: s
 
 
 
-# --- LLM para los casos dudosos (OpenAI, Gemini o cualquier API compatible con OpenAI) ---
+# --- LLM para los casos dudosos (OpenAI) ---
 
-OPENAI_BASE_URL = "https://api.openai.com/v1"
-_LLM_DEFAULTS = {"BASE_URL": OPENAI_BASE_URL, "MODEL": "gpt-4o-mini",
-                 "USD_PER_M_INPUT": "0.15", "USD_PER_M_OUTPUT": "0.60"}
-
-
-def llm_setting(name: str) -> Optional[str]:
-    """`LLM_<name>` del .env; si no está, el nombre viejo `OPENAI_<name>`; si no, el valor por defecto."""
-    return os.getenv(f"LLM_{name}") or os.getenv(f"OPENAI_{name}") or _LLM_DEFAULTS.get(name)
-
-
+OPENAI_URL = "https://api.openai.com/v1/chat/completions"
 LLM_SYSTEM_PROMPT = (
     "Eres el revisor de 30X Pulse. 30X es una escuela de negocios para dueños y líderes de empresa en "
     "Latinoamérica. Un modelo de clasificación (JEV) propuso un segmento y una acción para una persona, "
@@ -253,22 +244,22 @@ def use_mock_llm() -> bool:
     flag = os.getenv("USE_MOCK_LLM", "").strip().lower()
     if flag:
         return flag != "false"
-    return not llm_setting("API_KEY")
+    return not os.getenv("OPENAI_API_KEY")
 
 
 def _llm_cost(raw: dict[str, Any]) -> float:
     usage = raw.get("usage") or {}
-    price_in = float(llm_setting("USD_PER_M_INPUT"))
-    price_out = float(llm_setting("USD_PER_M_OUTPUT"))
+    price_in = float(os.getenv("OPENAI_USD_PER_M_INPUT", "0.15"))
+    price_out = float(os.getenv("OPENAI_USD_PER_M_OUTPUT", "0.60"))
     return (usage.get("prompt_tokens", 0) * price_in + usage.get("completion_tokens", 0) * price_out) / 1_000_000
 
 
 async def _call_llm_real(state: dict[str, Any], answers: dict[str, Answer], action: Optional[str]) -> dict[str, Any]:
-    """POST {LLM_BASE_URL}/chat/completions (formato OpenAI); devuelve la respuesta cruda."""
+    """POST /v1/chat/completions de OpenAI; devuelve la respuesta cruda."""
     global _llm_slots
-    key = llm_setting("API_KEY")
+    key = os.getenv("OPENAI_API_KEY")
     if not key:
-        raise RuntimeError("USE_MOCK_LLM=false requiere LLM_API_KEY en .env")
+        raise RuntimeError("USE_MOCK_LLM=false requiere OPENAI_API_KEY en .env")
     if _llm_slots is None:
         _llm_slots = asyncio.Semaphore(int(os.getenv("MAX_CONCURRENCY", "50")))
     case = {
@@ -277,7 +268,7 @@ async def _call_llm_real(state: dict[str, Any], answers: dict[str, Answer], acti
         "action_propuesta": action,
     }
     body = {
-        "model": llm_setting("MODEL"),
+        "model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
         "temperature": 0,
         "response_format": {"type": "json_object"},
         "messages": [
@@ -287,18 +278,17 @@ async def _call_llm_real(state: dict[str, Any], answers: dict[str, Answer], acti
     }
     async with _llm_slots:
         for attempt in range(2):
-            url = f"{llm_setting('BASE_URL').rstrip('/')}/chat/completions"
-            resp = await _http().post(url, headers={"Authorization": f"Bearer {key}"}, json=body)
+            resp = await _http().post(OPENAI_URL, headers={"Authorization": f"Bearer {key}"}, json=body)
             if resp.status_code == 429 and attempt == 0:
                 await asyncio.sleep(1.0)  # un solo reintento ante el límite de uso
                 continue
             resp.raise_for_status()
             return resp.json()
-    raise RuntimeError("El LLM respondió 429 dos veces")
+    raise RuntimeError("OpenAI respondió 429 dos veces")
 
 
 async def _call_llm_mock(state: dict[str, Any], answers: dict[str, Answer], action: Optional[str]) -> dict[str, Any]:
-    """Misma forma que una respuesta de chat/completions: confirma la propuesta de JEV."""
+    """Misma forma que la respuesta de OpenAI: confirma la propuesta de JEV."""
     await asyncio.sleep(_mock_latency_s())
     seg = answers["segment"]
     text = f"JEV propone {seg.value} (p={seg.p:.2f}); el perfil es coherente y se mantiene la propuesta."
