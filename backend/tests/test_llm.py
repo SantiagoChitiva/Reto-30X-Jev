@@ -21,6 +21,8 @@ def fake_llm(monkeypatch, content, usage=None):
 
     monkeypatch.setattr(jev, "_call_llm_real", call)
     monkeypatch.setenv("USE_MOCK_LLM", "false")
+    monkeypatch.setenv("LLM_USD_PER_M_INPUT", "0.15")  # precios fijos: no dependen del .env
+    monkeypatch.setenv("LLM_USD_PER_M_OUTPUT", "0.60")
 
 
 def review(action="send:nutricion"):
@@ -82,10 +84,28 @@ def test_mock_confirma_y_tiene_costo():
 
 def test_mock_por_defecto_sin_clave(monkeypatch):
     monkeypatch.delenv("USE_MOCK_LLM")
+    monkeypatch.delenv("LLM_API_KEY", raising=False)
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     assert jev.use_mock_llm()
+    monkeypatch.setenv("LLM_API_KEY", "clave-test")
+    assert not jev.use_mock_llm()
+
+
+def test_clave_vieja_de_openai_sigue_sirviendo(monkeypatch):
+    monkeypatch.delenv("USE_MOCK_LLM")
+    monkeypatch.delenv("LLM_API_KEY", raising=False)
     monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
     assert not jev.use_mock_llm()
+
+
+def test_llm_configurable_para_gemini(monkeypatch):
+    monkeypatch.setenv("LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai")
+    monkeypatch.setenv("LLM_MODEL", "gemini-2.5-flash-lite")
+    monkeypatch.delenv("OPENAI_MODEL", raising=False)
+    assert jev.llm_setting("MODEL") == "gemini-2.5-flash-lite"
+    assert jev.llm_setting("BASE_URL").endswith("/openai")
+    monkeypatch.delenv("LLM_MODEL")
+    assert jev.llm_setting("MODEL") == "gpt-4o-mini"
 
 
 def test_pipeline_aplica_la_correccion_del_llm(client, monkeypatch):

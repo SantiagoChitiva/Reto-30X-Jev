@@ -59,14 +59,14 @@ def _pct(hits: int, total: int) -> float:
 
 
 def _llm_estimate(states: list[dict[str, Any]]) -> dict[str, Any]:
-    """Lo mismo con un LLM normal: tokens del caso × precio de OPENAI_USD_PER_M_*."""
-    price_in = float(os.getenv("OPENAI_USD_PER_M_INPUT", "0.15"))
-    price_out = float(os.getenv("OPENAI_USD_PER_M_OUTPUT", "0.60"))
+    """Lo mismo con un LLM normal: tokens del caso × precio de LLM_USD_PER_M_*."""
+    price_in = float(jev.llm_setting("USD_PER_M_INPUT"))
+    price_out = float(jev.llm_setting("USD_PER_M_OUTPUT"))
     prompt = len(jev.LLM_SYSTEM_PROMPT) + len(json.dumps(jev.QUESTIONS, ensure_ascii=False))
     tokens_in = sum((prompt + len(json.dumps(s, ensure_ascii=False))) // 4 for s in states)
     cost = (tokens_in * price_in + len(states) * LLM_OUTPUT_TOKENS * price_out) / 1_000_000
     return {
-        "model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        "model": jev.llm_setting("MODEL"),
         "cost_usd": round(cost, 6),
         "cost_per_1k_usd": round(cost / len(states) * 1000, 6),
         "latency_ms_typical": float(os.getenv("LLM_TYPICAL_LATENCY_MS", "1500")),

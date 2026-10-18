@@ -68,7 +68,7 @@ Deck: el playbook en Artifacts (8 slides). Las notas de cada slide traen este mi
 
 ## 7. Resultados y quién lo opera (0:40)
 
-> Lo probamos con 10.000 señales sobre los perfiles de 30X. El 68 % de las decisiones sale solo, y esas aciertan el 95 % de las veces. Las dudosas son justo las que van a un LLM o a una persona. Comparado con un LLM para todo, es casi 7 veces más barato y 16 veces más rápido.
+> Lo probamos con 10.000 señales sobre los perfiles de 30X. El 68 % de las decisiones sale solo, y esas aciertan el 95 % de las veces. Las dudosas son justo las que van a un LLM o a una persona. Comparado con un LLM para todo, es más de 4 veces más barato y 16 veces más rápido.
 >
 > Ventas recibe la lista, contenido es dueño del tono, una persona resuelve cerca del 5 % de casos dudosos y tech revisa cada semana cuánto acierta.
 
@@ -102,7 +102,7 @@ Deck: el playbook en Artifacts (8 slides). Las notas de cada slide traen este mi
 | ¿Qué datos necesita? | Las categorías que ya tienen: rol, objetivo, dolor, intereses, etapa del CRM y las señales (inscripciones, asistencias, correos). Sin nombres ni datos personales. |
 | ¿Y si JEV se equivoca? | Si no está segura, no actúa: lo revisa un LLM o una persona. Y cada semana medimos cuánto acierta contra perfiles etiquetados. |
 | ¿Puede mandar spam? | No. Hay un freno en código: la misma acción no se repite si ya salió en las últimas 3 decisiones de la persona. Además, JEV revisa que la oferta sea apropiada antes de actuar. |
-| ¿Por qué no usar solo ChatGPT? | Para decisiones repetitivas es casi 7 veces más caro y 16 veces más lento, y no dice cuándo duda. El LLM lo usamos solo para los casos dudosos. |
+| ¿Por qué no usar solo Gemini o ChatGPT? | Para decisiones repetitivas es más de 4 veces más caro y 16 veces más lento, y no dice cuándo duda. El LLM lo usamos solo para los casos dudosos. |
 | ¿Cómo se compara con la afinidad que ya calculan? | Mide lo mismo, si la persona encaja con el perfil de cada programa, pero se recalcula con cada señal. Comparamos contra su «Programa sugerido» para medir el acierto. |
 | ¿Cuánto cuesta operarlo? | Unos 4 centavos de dólar por cada 1.000 decisiones con JEV. Corre en un contenedor, en cualquier nube. |
 
